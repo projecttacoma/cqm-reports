@@ -1,0 +1,28 @@
+<recordTarget>
+  <patientRole>
+    <id extension="{{mrn}}" root="1.3.6.1.4.1.115" />
+    <addr use="HP">
+      <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+      <city>Bedford</city>
+      <state>MA</state>
+      <postalCode>01730</postalCode>
+      <country>US</country>
+    </addr>
+    <telecom use="WP" value="tel:+1-781-271-3000"/>
+    <patient>
+      <name>
+        <given>{{{given_name}}}</given>
+        <family>{{family_name}}</family>
+      </name>
+      <administrativeGenderCode code="{{{gender}}}" codeSystem="2.16.840.1.113883.5.1" codeSystemName="HL7 AdministrativeGender"/>
+      <birthTime value="{{{birthdate}}}"/>
+      <raceCode code="{{{race}}}" codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
+      <ethnicGroupCode code="{{{ethnic_group}}}" codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
+      <languageCommunication>
+        <templateId root="2.16.840.1.113883.3.88.11.83.2" assigningAuthorityName="HITSP/C83"/>
+        <templateId root="1.3.6.1.4.1.19376.1.5.3.1.2.1" assigningAuthorityName="IHE/PCC"/>
+        <languageCode code="eng"/>
+      </languageCommunication>
+    </patient>
+  </patientRole>
+</recordTarget>

@@ -1,0 +1,19 @@
+<entryRelationship typeCode="REFR">
+  <act classCode="ACT" moodCode="EVN">
+    <templateId extension="2015-08-01" root="2.16.840.1.113883.10.20.22.4.80"/>
+    <code code="29308-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Diagnosis"/>
+    <entryRelationship typeCode="SUBJ">
+      <observation classCode="OBS" moodCode="EVN">
+        <!--  Problem observation template -->
+        <templateId extension="2015-08-01" root="2.16.840.1.113883.10.20.22.4.4"/>
+        <id root="{{random_id}}"/>
+        <code code="29308-4" codeSystem="2.16.840.1.113883.6.1">
+          <translation code="282291009" codeSystem="2.16.840.1.113883.6.96"/>
+        </code>
+        <statusCode code="completed"/>
+        {{{relevant_period}}}
+        <value {{> _code}} xsi:type="CD"/>
+      </observation>
+    </entryRelationship>
+  </act>
+</entryRelationship>

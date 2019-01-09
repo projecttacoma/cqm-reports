@@ -1,0 +1,11 @@
+{{#route}}
+<routeCode {{> _code}}/>
+{{/route}}
+{{#negated}}
+	<doseQuantity nullFlavor="NA"/>
+{{/negated}}
+{{^negated}}
+{{#dosage}}
+	<doseQuantity value="{{value}}" unit="{{unit}}"/>
+{{/dosage}}
+{{/negated}}

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:hl7-org:v3" xmlns:voc="urn:hl7-org:v3/voc" xmlns:sdtc="urn:hl7-org:sdtc">
+
+{{> _header}}
+
+<component>
+  <structuredBody>
+    {{> _measure_section}}
+    {{> _reporting_period}}
+    <component>
+        <section>
+          <!-- This is the templateId for Patient Data section -->
+          <templateId root="2.16.840.1.113883.10.20.17.2.4"/>
+          <!-- This is the templateId for Patient Data QDM section -->
+          <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.2.1"/>
+          <templateId extension="2018-02-01" root="2.16.840.1.113883.10.20.24.2.1.1"/>
+          <code code="55188-7" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Patient Data</title>
+          <text/>
+
+          {{#adverse_event}}
+            {{> qrda_templates/adverse_event}}
+          {{/adverse_event}}
+
+          {{#allergy_intolerance}}
+            {{> qrda_templates/allergy_intolerance}}
+          {{/allergy_intolerance}}
+
+          {{#assessment_performed}}
+            {{> qrda_templates/assessment_performed}}
+          {{/assessment_performed}}
+
+          {{#communication_from_patient_to_provider}}
+            {{> qrda_templates/communication_from_patient_to_provider}}
+          {{/communication_from_patient_to_provider}}
+
+          {{#communication_from_provider_to_provider}}
+            {{> qrda_templates/communication_from_provider_to_provider}}
+          {{/communication_from_provider_to_provider}}
+
+          {{#communication_from_provider_to_patient}}
+            {{> qrda_templates/communication_from_provider_to_patient}}
+          {{/communication_from_provider_to_patient}}
+
+          {{#diagnosis}}
+            {{> qrda_templates/diagnosis}}
+          {{/diagnosis}}
+
+          {{#device_ordered}}
+            {{> qrda_templates/device_ordered}}
+          {{/device_ordered}}
+
+          {{#device_applied}}
+            {{> qrda_templates/device_applied}}
+          {{/device_applied}}
+
+          {{#diagnostic_study_ordered}}
+            {{> qrda_templates/diagnostic_study_ordered}}
+          {{/diagnostic_study_ordered}}
+
+          {{#diagnostic_study_performed}}
+            {{> qrda_templates/diagnostic_study_performed}}
+          {{/diagnostic_study_performed}}
+
+          {{#encounter_ordered}}
+            {{> qrda_templates/encounter_ordered}}
+          {{/encounter_ordered}}
+
+          {{#encounter_performed}}
+            {{> qrda_templates/encounter_performed}}
+          {{/encounter_performed}}
+
+          {{#immunization_administered}}
+            {{> qrda_templates/immunization_administered}}
+          {{/immunization_administered}}
+
+          {{#intervention_ordered}}
+            {{> qrda_templates/intervention_ordered}}
+          {{/intervention_ordered}}
+
+          {{#intervention_performed}}
+            {{> qrda_templates/intervention_performed}}
+          {{/intervention_performed}}
+
+          {{#lab_test_performed}}
+            {{> qrda_templates/lab_test_performed}}
+          {{/lab_test_performed}}
+
+          {{#lab_test_ordered}}
+            {{> qrda_templates/lab_test_ordered}}
+          {{/lab_test_ordered}}
+
+          {{#medication_active}}
+            {{> qrda_templates/medication_active}}
+          {{/medication_active}}
+
+          {{#medication_administered}}
+            {{> qrda_templates/medication_administered}}
+          {{/medication_administered}}
+
+          {{#medication_discharge}}
+            {{> qrda_templates/medication_discharge}}
+          {{/medication_discharge}}
+
+          {{#medication_dispensed}}
+            {{> qrda_templates/medication_dispensed}}
+          {{/medication_dispensed}}
+
+          {{#medication_ordered}}
+            {{> qrda_templates/medication_ordered}}
+          {{/medication_ordered}}
+
+          {{#patient_characteristic_expired}}
+            {{> qrda_templates/patient_characteristic_expired}}
+          {{/patient_characteristic_expired}}
+
+          {{#physical_exam_performed}}
+            {{> qrda_templates/physical_exam_performed}}
+          {{/physical_exam_performed}}
+
+          {{#procedure_ordered}}
+            {{> qrda_templates/procedure_ordered}}
+          {{/procedure_ordered}}
+
+          {{#procedure_performed}}
+            {{> qrda_templates/procedure_performed}}
+          {{/procedure_performed}}
+
+          {{#insurance_provider}}
+            {{> qrda_templates/insurance_provider}}
+          {{/insurance_provider}}
+
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>

@@ -1,0 +1,11 @@
+<entry>
+  <!-- Patient Characteristic Payer -->
+  <observation classCode="OBS" moodCode="EVN">
+    <templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+    <id root="{{random_id}}"/> 
+    <code code="48768-6" codeSystemName="LOINC" codeSystem="2.16.840.1.113883.6.1" displayName="Payment source"/> 
+    <statusCode code="completed"/>
+    {{{insurance_provider_period}}}
+    <value xsi:type="CD" {{{insurance_provider_code_and_code_system}}} sdtc:valueSet="2.16.840.1.114222.4.11.3591"/>
+  </observation>            
+</entry>

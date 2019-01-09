@@ -1,0 +1,16 @@
+<participant typeCode="LOC">
+  <!-- Facility Location template -->
+  <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.100"/>
+  <time>
+    {{{facility_period}}}
+  </time>
+  <participantRole classCode="SDLOC">
+    {{#code}}
+    <code {{> _code}}/>
+    {{/code}}
+    <telecom nullFlavor="UNK"/>
+    <playingEntity classCode="PLC">
+      <name/>
+    </playingEntity>
+  </participantRole>
+</participant>
