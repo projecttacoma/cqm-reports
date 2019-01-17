@@ -2,7 +2,9 @@ source 'https://rubygems.org'
 
 gemspec :development_group => :test
 
-gem 'mongoid', '~> 5.0.0'
+gem 'mongoid', '~> 6.4.2'
+gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'remove_hds'
+gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'remove_qrda'
 
 group :development, :test do
   gem 'bundler-audit'
@@ -24,5 +26,4 @@ group :test do
   gem 'minitest', '~> 5.3'
   gem 'minitest-reporters'
   gem 'awesome_print', :require => 'ap'
-  gem 'vcr'
 end
