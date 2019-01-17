@@ -1,0 +1,44 @@
+<div class="div-table">
+<div class="div-table-body">
+{{#relevantPeriod}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Relevant Period Start:</span>  {{{low}}}</div>
+	</div>
+	{{#end_time?}}
+		<div class="div-head-row">
+			<div class="div-table-head--no-border"><span class="criteria-heading">Relevant Period End:</span>  {{{high}}}</div>
+		</div>
+	{{/end_time?}}
+{{/relevantPeriod}}
+{{#prevalencePeriod}}
+	<div class="div-head-row">
+	    <div class="div-table-head--no-border"><span class="criteria-heading">Prevalence Period Start:</span>  {{{low}}}</div>
+	</div>
+	{{#end_time?}}
+		<div class="div-head-row">
+		    <div class="div-table-head--no-border"><span class="criteria-heading">Prevalence Period End:</span>  {{{high}}}</div>
+		</div>
+	{{/end_time?}}
+{{/prevalencePeriod}}
+{{#authorDatetime}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Author Date/Time:</span>  {{{authorDatetime}}}</div>
+	</div>
+{{/authorDatetime}}
+{{#resultDatetime}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Result Date/Time:</span>  {{{resultDatetime}}}</div>
+	</div>
+{{/resultDatetime}}
+{{#activeDatetime}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Active Date/Time:</span>  {{{activeDatetime}}}</div>
+	</div>
+{{/activeDatetime}}
+{{#incisionDatetime}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Incision Date/Time:</span>  {{{incisionDatetime}}}</div>
+	</div>
+{{/incisionDatetime}}
+</div>
+</div>
