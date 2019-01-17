@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     cqm-reports (0.0.1)
-      cqm-models (~> 0.8.4)
+      cqm-models (~> 1.0.2)
       cqm-parsers (~> 0.2.1)
       mustache
 
@@ -35,7 +35,7 @@ GEM
       simplecov
       url
     concurrent-ruby (1.1.4)
-    cqm-models (0.8.4)
+    cqm-models (1.0.2)
     cqm-parsers (0.2.1)
       activesupport (~> 4.2.0)
       builder (~> 3.1)
