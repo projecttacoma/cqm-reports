@@ -28,9 +28,8 @@ module QRDA
         patient.dataElements << pce
 
         provider_element = doc.xpath("//cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.55']")
-
-        # If a provider element isn't in the record, return wiihout adding one.
         return if provider_element.blank?
+
         provider_code = provider_element.first.at_xpath('cda:value')['code']
         ip = {}
         ip['financial_responsibility_type'] = { 'code' => 'SELF', 'codeSystem' => 'HL7 Relationship Code' }

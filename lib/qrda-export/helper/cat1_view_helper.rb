@@ -2,88 +2,8 @@ module Qrda
   module Export
     module Helper
       module Cat1ViewHelper
-        def random_id
-          UUID.generate
-        end
-
-        def as_id
-          self[:value]
-        end
-
-        def object_id
-          self[:_id]
-        end
-
-        def submission_program
-          @submission_program
-        end
-
-        def provider
-          JSON.parse(@provider.to_json) if @provider
-        end
-
-        def provider_addresses
-          @provider['addresses']
-        end
-
-        def provider_street
-          self['street'].join('')
-        end
-
-        def provider_npi
-          @provider['cda_identifiers'].map { |cda| cda['extension'] if cda['root'] == '2.16.840.1.113883.4.6' }.compact.first
-        end
-
-        def provider_tin
-          @provider['cda_identifiers'].map { |cda| cda['extension'] if cda['root'] == '2.16.840.1.113883.4.2' }.compact.first
-        end
-
-        def provider_ccn
-          @provider['cda_identifiers'].map { |cda| cda['extension'] if cda['root'] == '2.16.840.1.113883.4.336' }.compact.first
-        end
-
-        def provider_type_code
-          @provider['specialty']
-        end
-
-        def mrn
-          @patient.extendedData['medical_record_number']
-        end
-
-        def given_name
-          @patient.givenNames.join(' ')
-        end
-
-        def family_name
-          @patient.familyName
-        end
-
-        def birthdate
-          @patient.birthDatetime.to_formatted_s(:number)
-        end
-
-        def gender
-          @patient.dataElements.where(hqmfOid: '2.16.840.1.113883.10.20.28.3.55').first.dataElementCodes.first['code']
-        end
-
-        def race
-          @patient.dataElements.where(hqmfOid: '2.16.840.1.113883.10.20.28.3.59').first.dataElementCodes.first['code']
-        end
-
-        def ethnic_group
-          @patient.dataElements.where(hqmfOid: '2.16.840.1.113883.10.20.28.3.56').first.dataElementCodes.first['code']
-        end
-
-        def insurance_provider
-          @insurance_provider
-        end
-
         def insurance_provider_code_and_code_system
           "code=\"#{self['codes'].values.first[0]}\" codeSystem=\"#{code_system_oid(self['codes'].keys.first)}\" codeSystemName=\"#{self['codes'].keys.first}\""
-        end
-
-        def measures
-          @measures.only(:hqmf_id, :hqmf_set_id, :description).as_json
         end
 
         def negation_ind
@@ -114,6 +34,7 @@ module Qrda
           translation_list = ""
           self[:dataElementCodes].each_with_index do |_dec, index|
             next if index.zero?
+
             translation_list += "<translation code=\"#{self[:dataElementCodes][index]['code']}\" codeSystem=\"#{code_system_oid(self[:dataElementCodes][index]['codeSystem'])}\" codeSystemName=\"#{self[:dataElementCodes][index]['codeSystem']}\"/>"
           end
           translation_list
@@ -121,6 +42,7 @@ module Qrda
 
         def result_value
           return "<value xsi:type=\"CD\" nullFlavor=\"UNK\"/>" unless self['result']
+
           result_string = if self['result'].is_a? Array
                             result_value_as_string(self['result'][0])
                           elsif self['result'].is_a? Hash

@@ -1,8 +1,9 @@
 require 'mustache'
-
 class Qrda1R5 < Mustache
   include Qrda::Export::Helper::DateHelper
+  include Qrda::Export::Helper::ViewHelper
   include Qrda::Export::Helper::Cat1ViewHelper
+  include Qrda::Export::Helper::PatientViewHelper
 
   self.template_path = __dir__
 

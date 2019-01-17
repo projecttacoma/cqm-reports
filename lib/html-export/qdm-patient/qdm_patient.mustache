@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:n1="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Cypress Certification Patient Test Record: {{{given_name}}} {{{family_name}}}</title>
+    {{#include_style?}}
+      {{> _header_css}}
+    {{/include_style?}}
+  </head>
+  <body>
+    <h1 class="h1center">Cypress Certification Patient Test Record: {{{given_name}}} {{{family_name}}}</h1>
+    <div class="div-table">
+      <div class="div-table-body">
+        <div class="div-head-row patient_narr_tr panel panel-default patient-details">
+          <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Patient</span></div>
+          <div class="div-table-head">{{{given_name}}} {{{family_name}}}</div>
+          <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Sex</span></div>
+          <div class="div-table-head">{{{gender}}}</div>
+        </div>
+        <div class="div-head-row patient_narr_tr panel panel-default patient-details">
+          <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Date of birth</span></div>
+          <div class="div-table-head">{{{birthdate}}}</div>
+          <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Date of expiration</span></div>
+          <div class="div-table-head"></div>
+        </div>
+        <div class="div-head-row patient_narr_tr panel panel-default patient-details">
+          <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Race</span></div>
+          <div class="div-table-head">{{{race}}}</div>
+          <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Ethnicity</span></div>
+          <div class="div-table-head">{{{ethnic_group}}}</div>
+        </div>  
+        <div class="div-head-row patient_narr_tr panel panel-default patient-details">
+          <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Insurance Providers</span></div>
+          <div class="div-table-head">{{#insurance_provider}}{{insurance_provider_code}}{{/insurance_provider}}</div>
+          <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Patient IDs</span></div>
+          <div class="div-table-head">{{{mrn}}} Cypress</div>
+        </div>
+        <div class="div-head-row patient_narr_tr panel panel-default patient-details">
+          <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Contact info</span></div>
+          <div class="div-table-head"></div>
+        </div>
+      </div>
+    </div>
+    {{> _javascript}}
+    {{#data_elements}}
+    <div class="panel panel-default patient-details">
+      <div class="panel-heading"><h3 class='panel-title'>{{title}}</h3></div>
+      <!--table class="narr_table" border="1" width="100%"-->
+      <div class="div-table">
+        <div class="div-table-heading">
+          <div class="div-table-row narr_tr">
+            <div class="div-table-head narr_th-wide">Description</div>
+            <div class="div-table-head narr_th-narrow">Codes</div>
+            <div class="div-table-head narr_th-wide">Time</div>
+            <div class="div-table-head narr_th-wide">Fields/Results</div>
+          </div>
+        </div>
+        <div class="div-table-body">
+          {{#element_list}}
+            <div class="div-table-row narr_tr">
+              {{> data_element/_data_element}}
+            </div>
+          {{/element_list}}
+        </div>
+      </div>
+    </div>
+    {{/data_elements}}
+  </body>
+</html>

@@ -54,8 +54,9 @@ module QRDA
       def extract_id(parent_element, id_xpath)
         id_element = parent_element.at_xpath(id_xpath)
         return unless id_element
+
         # If an extension is not included, use the root as the value.  Other wise use the extension
-        value = id_element['extension'] ? id_element['extension'] : id_element['root']
+        value = id_element['extension'] || id_element['root']
         identifier = QDM::Id.new(value: value, namingSystem: id_element['root'])
         identifier
       end
@@ -75,6 +76,7 @@ module QRDA
 
       def code_if_present(code_element)
         return unless code_element && code_element['codeSystem'] && code_element['code']
+
         QDM::Code.new(code_element['code'], HQMF::Util::CodeSystemHelper.code_system_for(code_element['codeSystem']))
       end
 
@@ -120,9 +122,11 @@ module QRDA
 
       def extract_result_value(value_element)
         return unless value_element && !value_element['nullFlavor']
+
         value = value_element['value']
         if value.present?
           return value.strip.to_i if (value_element['unit'] == "1" || value_element['unit'].nil?)
+
           return QDM::Quantity.new(value.strip.to_i, value_element['unit'])
         elsif value_element['code'].present?
           return code_if_present(value_element)
@@ -157,6 +161,7 @@ module QRDA
       def extract_scalar(parent_element, scalar_xpath)
         scalar_element = parent_element.at_xpath(scalar_xpath)
         return unless scalar_element
+
         QDM::Quantity.new(scalar_element['value'].to_i, scalar_element['unit'])
       end
 
@@ -175,6 +180,7 @@ module QRDA
       def extract_facility(parent_element, entry)
         facility_element = parent_element.at_xpath(@facility_xpath)
         return unless facility_element
+
         facility = QDM::FacilityLocation.new
         participant_element = facility_element.at_xpath("./cda:participantRole[@classCode='SDLOC']/cda:code")
         facility.code = code_if_present(participant_element)
