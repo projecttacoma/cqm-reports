@@ -6,7 +6,7 @@ module QRDA
         @id_xpath = './cda:id'
         @code_xpath = './cda:code'
         @author_datetime_xpath = "./cda:author/cda:time"
-        @entry_class = QDM::CommunicationFromPatientToProvider
+        @entry_class = QDM::CommunicationPerformed
       end
 
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)

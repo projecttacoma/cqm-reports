@@ -1,0 +1,52 @@
+<script language="javascript">
+  var cur_view = "section";
+  function toggle(id) {
+    var e = document.getElementById(id);
+    if (cur_view=="section"){
+     document.getElementById("patient_information_by_section").style.display = 'none';
+     document.getElementById("table_by_encounter").style.display = 'block';
+     document.getElementById('toggle_button').innerHTML="View By Section";
+     cur_view = "encounter";
+    }else{
+     document.getElementById("patient_information_by_section").style.display = 'block';
+     document.getElementById("table_by_encounter").style.display = 'none';
+     document.getElementById('toggle_button').innerHTML="View By Encounter";
+     cur_view = "section";
+    }      
+  }
+  
+  function showConcepts(ev, id) {
+    var left = ev.clientX + document.documentElement.scrollLeft;
+    var top = ev.clientY + document.documentElement.scrollTop;
+
+    var concepts = document.getElementById(id);
+    concepts.style.display = 'block';
+    concepts.style.left = left + 'px';
+    concepts.style.top = top + 'px';
+  }
+  function hideConcepts(ev, id) {
+    var concepts = document.getElementById(id);
+    concepts.style.display = 'none';
+  }
+  function showCodes(event, id) {
+    //var left = ev.clientX + document.documentElement.scrollLeft;
+    //var top = ev.clientY + document.documentElement.scrollTop;
+
+    // Calculate pageX/Y if missing and clientX/Y available
+    if ( event.pageX == null && event.clientX != null ) {
+      var doc = document.documentElement, body = document.body;
+      event.pageX = event.clientX + (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft || body && body.clientLeft || 0);
+      event.pageY = event.clientY + (doc && doc.scrollTop  || body && body.scrollTop  || 0) - (doc   && doc.clientTop  || body && body.clientTop  || 0);
+    }
+    var left = event.pageX;
+    var top = event.pageY;
+    var codes = document.getElementById(id);
+    codes.style.display = 'block';
+    codes.style.left = left + 'px';
+    codes.style.top = top + 'px';
+  }
+  function hideCodes(ev, id) {
+    var codes = document.getElementById(id);
+    codes.style.display = 'none';
+  }
+</script>

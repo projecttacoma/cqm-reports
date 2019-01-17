@@ -46,7 +46,7 @@ module QRDA
       end 
 
       def parse_cat1(doc)
-        patient = QDM::Patient.new
+        patient = CQM::Patient.new
         entry_id_map = {}
         import_data_elements(patient, doc, entry_id_map)
         normalize_references(patient, entry_id_map)
@@ -75,7 +75,7 @@ module QRDA
             new_data_elements << data_element
           end
 
-          patient.dataElements << new_data_elements
+          patient.qdmPatient.dataElements << new_data_elements
           entry_id_map.merge!(id_map)
         end
       end
@@ -83,13 +83,15 @@ module QRDA
       def get_patient_expired(record, doc)
         entry_elements = doc.xpath("/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.24.2.1']/cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.54']")
         return unless entry_elements.empty?
+
         record.expired = true
-        record.deathdate = HealthDataStandards::Util::HL7Helper.timestamp_to_integer(entry_elements.at_xpath("./cda:effectiveTime/cda:low")['value'])
+        record.deathdate = DateTime.parse(entry_elements.at_xpath("./cda:effectiveTime/cda:low")['value']).to_i
       end
 
       def normalize_references(patient, entry_id_map)
-        patient.dataElements.each do |data_element|
+        patient.qdmPatient.dataElements.each do |data_element|
           next unless data_element.respond_to?(:relatedTo) && data_element.relatedTo
+
           relations_to_add = []
           data_element.relatedTo.each do |related_to|
             relations_to_add << entry_id_map[related_to.value]

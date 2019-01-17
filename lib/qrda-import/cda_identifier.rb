@@ -10,6 +10,7 @@ class CDAIdentifier
 
   def ==(other)
     return unless other.respond_to?(:root) && other.respond_to?(:extension)
+
     root == other.root && extension == other.extension
   end
 
