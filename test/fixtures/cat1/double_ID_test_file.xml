@@ -1,0 +1,286 @@
+<?xml version='1.0' encoding='utf-8'?>
+<?xml-stylesheet type="text/xsl" href="cda.xsl"?>
+<ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:voc="urn:hl7-org:v3/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <realmCode code="US"/>
+  <typeId extension="POCD_HD000040" root="2.16.840.1.113883.1.3"/>
+  <!-- US Realm Header Template Id -->
+  <templateId extension="2015-08-01" root="2.16.840.1.113883.10.20.22.1.1"/>
+  <!-- QRDA Category I Framework (V3) templateId -->
+  <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.1.1"/>
+  <!-- QDM-based QRDA (V5) templateId -->
+  <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.1.2"/>
+  <!-- QRDA Category I Report - CMS (V5) templateId -->
+  <templateId extension="2018-02-01" root="2.16.840.1.113883.10.20.24.1.3"/>
+  <!-- Globally unique identifier for this QRDA document -->
+  <id root="bf676dca-fba1-4789-865c-51be40982eeb"/>
+  <!-- QRDA document type code -->
+  <code code="55182-0" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Quality Measure Report"/>
+  <title>QRDA Incidence Report</title>
+  <effectiveTime value="20181116000000+0000"/>
+  <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
+  <languageCode code="en"/>
+  <recordTarget>
+    <patientRole>
+      <!-- patient's PID (MRN) number -->
+      <id extension="CERN161557" root="2.16.840.1.113883.123.123.1"/>
+      <addr>
+        <streetAddressLine nullFlavor="NI"/>
+        <city nullFlavor="NI"/>
+        <state nullFlavor="NI"/>
+        <postalCode nullFlavor="NI"/>
+        <country nullFlavor="NI"/>
+      </addr>
+      <telecom nullFlavor="NI" use="HP"/>
+      <patient>
+        <name>
+          <given>p1</given>
+          <family>ECQM-4543</family>
+        </name>
+        <administrativeGenderCode nullFlavor="UNK"/>
+        <birthTime value="19821122000000"/>
+        <raceCode nullFlavor="UNK"/>
+        <ethnicGroupCode nullFlavor="UNK"/>
+      </patient>
+    </patientRole>
+  </recordTarget>
+  <author>
+    <time value="20181116000000+0000"/>
+    <assignedAuthor>
+      <id root="3d0a32f3-5164-4a6f-8922-de3badf83ddd"/>
+      <addr>
+        <streetAddressLine>2800 Rockcreek Pkwy</streetAddressLine>
+        <city>Kansas City</city>
+        <state>Missouri</state>
+        <postalCode>64117</postalCode>
+        <country>US</country>
+      </addr>
+      <telecom nullFlavor="NI" use="WP"/>
+      <assignedAuthoringDevice>
+        <manufacturerModelName>Cerner Corporation</manufacturerModelName>
+        <softwareName>Cerner Millennium</softwareName>
+      </assignedAuthoringDevice>
+    </assignedAuthor>
+  </author>
+  <custodian>
+    <assignedCustodian>
+      <representedCustodianOrganization>
+        <id extension="980989" root="2.16.840.1.113883.4.336"/>
+        <name>Cerner Corporation</name>
+        <telecom nullFlavor="NI" use="WP"/>
+        <addr>
+          <streetAddressLine>2800 Rockcreek Pkwy</streetAddressLine>
+          <city>Kansas City</city>
+          <state>Missouri</state>
+          <postalCode>64117</postalCode>
+          <country>US</country>
+        </addr>
+      </representedCustodianOrganization>
+    </assignedCustodian>
+  </custodian>
+  <informationRecipient>
+    <intendedRecipient>
+      <id extension="HQR_IQR" root="2.16.840.1.113883.3.249.7"/>
+    </intendedRecipient>
+  </informationRecipient>
+  <legalAuthenticator>
+    <time value="20181116000000+0000"/>
+    <signatureCode code="S"/>
+    <assignedEntity>
+      <id extension="431196944" root="2.16.840.1.113883.19.5"/>
+      <addr>
+        <streetAddressLine>2800 Rockcreek Pkwy</streetAddressLine>
+        <city>Kansas City</city>
+        <state>Missouri</state>
+        <postalCode>64117</postalCode>
+        <country>US</country>
+      </addr>
+      <telecom nullFlavor="NI" use="WP"/>
+      <assignedPerson>
+        <name>
+          <given/>
+          <family/>
+        </name>
+      </assignedPerson>
+      <representedOrganization>
+        <id root="2.16.840.1.113883.19.5"/>
+        <name>Cerner Corporation</name>
+      </representedOrganization>
+    </assignedEntity>
+  </legalAuthenticator>
+  <participant typeCode="DEV">
+    <associatedEntity classCode="RGPR">
+      <id extension="980989" root="2.16.840.1.113883.3.2074.1"/>
+    </associatedEntity>
+  </participant>
+  <documentationOf typeCode="DOC">
+    <serviceEvent classCode="PCPR">
+      <effectiveTime>
+        <low value="20150401000000+0000"/>
+        <high value="20150630000000+0000"/>
+      </effectiveTime>
+      <performer typeCode="PRF">
+        <assignedEntity>
+          <!-- Provider NPI-->
+          <id nullFlavor="NA" root="2.16.840.1.113883.4.6"/>
+          <representedOrganization>
+            <!-- Organization TIN -->
+            <id extension="431196944" root="2.16.840.1.113883.4.2"/>
+          </representedOrganization>
+        </assignedEntity>
+      </performer>
+    </serviceEvent>
+  </documentationOf>
+  <component>
+    <structuredBody>
+      <component>
+        <!-- This is Measure section -->
+        <section>
+          <!-- This is the templateId for Measure Section -->
+          <templateId root="2.16.840.1.113883.10.20.24.2.2"/>
+          <!-- This is the templateId for Measure Section QDM -->
+          <templateId root="2.16.840.1.113883.10.20.24.2.3"/>
+          <!-- This is the LOINC code for "Measure document" -->
+          <code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Measure Section</title>
+          <text/>
+          <!-- Organizers, each containing a reference to an eMeasure -->
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- This is the templateId for Measure Reference -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- This is the templateId for eMeasure Reference QDM -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.97"/>
+              <id root="7d1aec63-73e0-4ea6-863c-731011779441"/>
+              <statusCode code="completed"/>
+              <!-- Containing isBranch external references -->
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- This is the version specific identifier for eMeasure -->
+                  <id extension="40280382-6258-7581-0162-693c3d8a07c9" root="2.16.840.1.113883.4.738"/>
+                  <id extension="0371" root="2.16.840.1.113883.5.14"/>
+                  <code code="57024-2"/>
+                  <!-- This is the title of the eMeasure -->
+                  <text>Venous Thromboembolism Prophylaxis</text>
+                </externalDocument>
+              </reference>
+            </organizer>
+          </entry>
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- This is the templateId for Measure Reference -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- This is the templateId for eMeasure Reference QDM -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.97"/>
+              <id root="e691a423-ff8a-4f2f-9ab7-3799bfbf187c"/>
+              <statusCode code="completed"/>
+              <!-- Containing isBranch external references -->
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- This is the version specific identifier for eMeasure -->
+                  <id extension="40280382-6258-7581-0162-6931c4e6077d" root="2.16.840.1.113883.4.738"/>
+                  <id extension="0372" root="2.16.840.1.113883.5.14"/>
+                  <code code="57024-2"/>
+                  <!-- This is the title of the eMeasure -->
+                  <text>Intensive Care Unit Venous Thromboembolism Prophylaxis</text>
+                </externalDocument>
+              </reference>
+            </organizer>
+          </entry>
+        </section>
+      </component>
+      <component>
+        <!-- This is Reporting Parameters section -->
+        <section>
+          <!-- This is the templateId for Reporting Parameters section -->
+          <templateId root="2.16.840.1.113883.10.20.17.2.1"/>
+          <templateId extension="2016-03-01" root="2.16.840.1.113883.10.20.17.2.1.1"/>
+          <code code="55187-9" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Reporting Parameters</title>
+          <text>
+            <list>
+              <item>Reporting period: 01 Jul 2018 - 30 Sep 2018</item>
+            </list>
+          </text>
+          <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN">
+              <!-- Reporting Parameters Act template ID -->
+              <templateId root="2.16.840.1.113883.10.20.17.3.8"/>
+              <templateId extension="2016-03-01" root="2.16.840.1.113883.10.20.17.3.8.1"/>
+              <id root="39f6bb02-e6e8-4627-8d06-04b3e37854a6"/>
+              <code code="252116004" codeSystem="2.16.840.1.113883.6.96" displayName="Observation Parameters"/>
+              <effectiveTime>
+                <low value="20180701"/>
+                <high value="20180930"/>
+              </effectiveTime>
+            </act>
+          </entry>
+        </section>
+      </component>
+      <component>
+        <!-- This is Patient Data section -->
+        <section>
+          <!-- This is the templateId for Patient Data section -->
+          <templateId root="2.16.840.1.113883.10.20.17.2.4"/>
+          <!-- This is the templateId for Patient Data QDM section -->
+          <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.2.1"/>
+          <!-- Patient Data Section QDM V3 CMS-->
+          <templateId extension="2018-02-01" root="2.16.840.1.113883.10.20.24.2.1.1"/>
+          <code code="55188-7" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Patient Data</title>
+          <text/>
+          <entry>
+            <!-- Encounter performed Act -->
+            <act classCode="ACT" moodCode="EVN">
+              <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.133"/>
+              <id extension="5583128" root="9f3923ac-49a8-452c-b35f-00083c4e4e8c"/>
+              <code code="ENC" codeSystem="2.16.840.1.113883.5.6" codeSystemName="ActClass" displayName="Encounter"/>
+              <entryRelationship typeCode="SUBJ">
+                <encounter classCode="ENC" moodCode="EVN">
+                  <!-- Encounter activities template -->
+                  <templateId extension="2015-08-01" root="2.16.840.1.113883.10.20.22.4.49"/>
+                  <!-- Encounter performed template -->
+                  <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.23"/>
+                  <id extension="5583128" root="9f3923ac-49a8-452c-b35f-00083c4e4e8c"/>
+                  <code code="8715000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNMCT" displayName="Hospital admission, elective (procedure)" sdtc:valueSet="2.16.840.1.113883.3.666.5.307"/>
+                  <text>Encounter, Performed: Hospital admission, elective (procedure)</text>
+                  <statusCode code="completed"/>
+                  <effectiveTime>
+                    <low value="20180627135600-0500"/>
+                    <high value="20180704000000-0500"/>
+                  </effectiveTime>
+                  <!-- Facility location -->
+                  <participant typeCode="LOC">
+                    <!-- Facility Location template -->
+                    <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.100"/>
+                    <time>
+                      <low value="20180627144100-0500"/>
+                      <high value="20180627151000-0500"/>
+                    </time>
+                    <participantRole classCode="SDLOC">
+                      <code code="8715000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNMCT" displayName="Hospital admission, elective (procedure)" sdtc:valueSet="2.16.840.1.113883.3.666.5.307"/>
+                    </participantRole>
+                  </participant>
+                </encounter>
+              </entryRelationship>
+            </act>
+          </entry>
+          <entry typeCode="DRIV">
+            <!-- Payer Information -->
+            <observation classCode="OBS" moodCode="EVN">
+              <!-- Payer Information template -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+              <id root="35201a42-cc87-4142-807a-2d16ff62e920"/>
+              <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Payment source"/>
+              <statusCode code="completed"/>
+              <effectiveTime>
+                <low value="20180701000000+0000"/>
+                <high value="20180930000000+0000"/>
+              </effectiveTime>
+              <value code="9999" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="Source of Payment Typology" displayName="Unavailable / No Payer Specified / Blank" sdtc:valueSet="2.16.840.1.114222.4.11.3591" xsi:type="CD"/>
+            </observation>
+          </entry>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>
