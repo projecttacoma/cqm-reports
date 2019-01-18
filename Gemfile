@@ -4,8 +4,8 @@ gemspec :development_group => :test
 
 gem 'mongoid', '~> 6.4.2'
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'patient_generation'
-gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'remove_qrda'
 gem 'protected_attributes_continued'
+
 group :development, :test do
   gem 'bundler-audit'
   gem 'rubocop', '~> 0.52.1', require: false
