@@ -14,7 +14,7 @@ require 'memoist'
 require 'protected_attributes'
 
 PROJECT_ROOT = File.expand_path("../../", __FILE__)
-require_relative File.join(PROJECT_ROOT, 'lib', 'cqm-report')
+require_relative File.join(PROJECT_ROOT, 'lib', 'cqm_report')
 
 require 'minitest/autorun'
 require "minitest/reporters"

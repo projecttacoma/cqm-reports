@@ -2,7 +2,9 @@
 require 'nokogiri'
 require 'json'
 require 'ostruct'
-require 'hqmf-parser'
+
+require_relative 'util/code_system_helper'
+require_relative 'util/hqmf_template_helper'
 
 require_relative 'qrda-export/helper/code_system_helper.rb'
 require_relative 'qrda-export/helper/date_helper.rb'
