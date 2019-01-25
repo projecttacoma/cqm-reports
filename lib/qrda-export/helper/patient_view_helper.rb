@@ -31,7 +31,7 @@ module Qrda
         end
 
         def mrn
-          @patient.extendedData['medical_record_number']
+          @patient.qdmPatient.extendedData['medical_record_number']
         end
 
         def given_name
@@ -43,19 +43,19 @@ module Qrda
         end
 
         def birthdate
-          @patient.birthDatetime.to_formatted_s(:number)
+          @patient.qdmPatient.birthDatetime.to_formatted_s(:number)
         end
 
         def gender
-          @patient.dataElements.where(hqmfOid: '2.16.840.1.113883.10.20.28.3.55').first.dataElementCodes.first['code']
+          @patient.qdmPatient.dataElements.where(hqmfOid: '2.16.840.1.113883.10.20.28.3.55').first.dataElementCodes.first['code']
         end
 
         def race
-          @patient.dataElements.where(hqmfOid: '2.16.840.1.113883.10.20.28.3.59').first.dataElementCodes.first['code']
+          @patient.qdmPatient.dataElements.where(hqmfOid: '2.16.840.1.113883.10.20.28.3.59').first.dataElementCodes.first['code']
         end
 
         def ethnic_group
-          @patient.dataElements.where(hqmfOid: '2.16.840.1.113883.10.20.28.3.56').first.dataElementCodes.first['code']
+          @patient.qdmPatient.dataElements.where(hqmfOid: '2.16.840.1.113883.10.20.28.3.56').first.dataElementCodes.first['code']
         end
 
         def insurance_provider

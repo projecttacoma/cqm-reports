@@ -46,7 +46,7 @@ module QRDA
       end 
 
       def parse_cat1(doc)
-        patient = QDM::Patient.new
+        patient = CQM::Patient.new
         entry_id_map = {}
         import_data_elements(patient, doc, entry_id_map)
         normalize_references(patient, entry_id_map)
@@ -75,7 +75,7 @@ module QRDA
             new_data_elements << data_element
           end
 
-          patient.dataElements << new_data_elements
+          patient.qdmPatient.dataElements << new_data_elements
           entry_id_map.merge!(id_map)
         end
       end
@@ -89,7 +89,7 @@ module QRDA
       end
 
       def normalize_references(patient, entry_id_map)
-        patient.dataElements.each do |data_element|
+        patient.qdmPatient.dataElements.each do |data_element|
           next unless data_element.respond_to?(:relatedTo) && data_element.relatedTo
 
           relations_to_add = []
