@@ -7,7 +7,8 @@ class QdmPatient < Mustache
   def initialize(patient, include_style)
     @include_style = include_style
     @patient = patient
-    @insurance_provider = JSON.parse(@patient.extendedData.insurance_providers) if @patient.extendedData && @patient.extendedData['insurance_providers']
+    @qdmPatient = patient.qdmPatient
+    @insurance_provider = @patient.insurance_providers if @patientinsurance_providers
   end
 
   def include_style?
@@ -16,7 +17,7 @@ class QdmPatient < Mustache
 
   def data_elements
     de_hash = {}
-    @patient.dataElements.each do |data_element|
+    @qdmPatient.dataElements.each do |data_element|
       de_hash[data_element._type] ? de_hash[data_element._type].element_list << data_element : de_hash[data_element._type] = { title: data_element._type, element_list: [data_element] }
     end
     JSON.parse(de_hash.values.to_json)
