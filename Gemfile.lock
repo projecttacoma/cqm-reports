@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/projecttacoma/cqm-models.git
-  revision: 49a02a98fa262513d0669fdc3be18161f8260fbd
+  revision: 2447f0b0d62aead5f144bc6482b6e73f2546628b
   branch: patient_generation
   specs:
     cqm-models (1.0.2)
