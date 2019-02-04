@@ -17,7 +17,6 @@ module QRDA
         mes.hqmf_id = 'b794a9c2-8e83-11e8-9eb6-529269fb1459'
         mes.hqmf_set_id = 'bdfa0e38-8e83-11e8-9eb6-529269fb1459'
         mes.description = 'Test Measure'
-        #mes.populations = [{"IPP" => "IPP"}]
         mes.cql_libraries = []
         mes.save
       end
