@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/projecttacoma/cqm-models.git
-  revision: 2447f0b0d62aead5f144bc6482b6e73f2546628b
+  revision: 49a02a98fa262513d0669fdc3be18161f8260fbd
   branch: patient_generation
   specs:
     cqm-models (1.0.2)
@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    cqm-reports (5.4.0)
+    cqm-reports (1.0.0.0)
       erubis (~> 2.7.0)
       log4r (~> 1.1.10)
       memoist (~> 0.9.1)
@@ -16,6 +16,7 @@ PATH
       mustache
       nokogiri (~> 1.8.5)
       uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
 
 GEM
   remote: https://rubygems.org/
@@ -54,7 +55,7 @@ GEM
     factory_girl (4.1.0)
       activesupport (>= 3.0.0)
     hashdiff (0.3.8)
-    i18n (1.5.3)
+    i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     json (2.1.0)
     log4r (1.1.10)
@@ -99,6 +100,7 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.10.0)
+    rubyzip (1.2.2)
     safe_yaml (1.0.4)
     simplecov (0.16.1)
       docile (~> 1.1)
@@ -127,6 +129,8 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
+    zip-zip (0.3)
+      rubyzip (>= 1.0.0)
 
 PLATFORMS
   ruby
