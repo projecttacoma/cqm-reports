@@ -1,4 +1,3 @@
-# require
 require 'nokogiri'
 require 'json'
 require 'ostruct'

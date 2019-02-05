@@ -15,7 +15,7 @@ class Qrda1R5 < Mustache
     @performance_period_start = options[:start_time]
     @performance_period_end = options[:end_time]
     @submission_program = options[:submission_program]
-    @insurance_provider = @patient.insurance_providers if @patient.insurance_providers
+    @insurance_provider = JSON.parse(@qdmPatient.extendedData.insurance_providers) if @qdmPatient.extendedData && @qdmPatient.extendedData['insurance_providers']
   end
 
   def adverse_event

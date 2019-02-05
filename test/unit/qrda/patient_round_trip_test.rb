@@ -106,7 +106,6 @@ module QRDA
               puts "\e[#{31}mSchema Error In #{datatype_name}: #{error.message}\e[0m"
             end
           rescue Exception => e
-            byebug
             puts "\e[#{31}mException validating #{datatype_name}: #{e.message}\e[0m"
           end
         end
