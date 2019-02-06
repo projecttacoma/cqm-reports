@@ -14,8 +14,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'erubis', '~> 2.7.0'
   s.add_dependency 'mongoid-tree', '~> 2.1.0'
 
-  s.add_dependency 'uuid', '~> 2.3.7'
   s.add_dependency 'nokogiri', '~> 1.8.5'
+  s.add_dependency 'uuid', '~> 2.3.7'
 
   s.add_dependency 'zip-zip', '~> 0.3'
 
