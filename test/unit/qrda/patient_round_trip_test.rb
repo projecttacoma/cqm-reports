@@ -94,17 +94,15 @@ module QRDA
         cqm_patients.each do |cqm_patient|
           datatype_name = cqm_patient.givenNames[0]
           begin
-            exported_qrda = nil
-            exported_qrda = generate_doc(cqm_patient)
-            while(exported_qrda==nil)
-            
-            end
-            errors = validator.validate(exported_qrda)
-            if (errors.count.zero?)
-              successful_count += 1
-            end
-            errors.each do |error|
-              puts "\e[31mSchema Error In #{datatype_name}: #{error.message}\e[0m"
+            Timeout::timeout(5000) do
+              exported_qrda = generate_doc(cqm_patient)
+              errors = validator.validate(exported_qrda)
+              if (errors.count.zero?)
+                successful_count += 1
+              end
+              errors.each do |error|
+                puts "\e[31mSchema Error In #{datatype_name}: #{error.message}\e[0m"
+              end
             end
           rescue StandardError => e
             puts "\e[31mException validating #{datatype_name}: #{e.message}\e[0m"
