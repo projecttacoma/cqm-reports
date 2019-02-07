@@ -94,8 +94,11 @@ module QRDA
         cqm_patients.each do |cqm_patient|
           datatype_name = cqm_patient.givenNames[0]
           begin
+            exported_qrda = nil
             exported_qrda = generate_doc(cqm_patient)
-            puts(exported_qrda)
+            while(exported_qrda==nil)
+            
+            end
             errors = validator.validate(exported_qrda)
             if (errors.count.zero?)
               successful_count += 1
