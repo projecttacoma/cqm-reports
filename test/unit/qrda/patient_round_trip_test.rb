@@ -95,6 +95,7 @@ module QRDA
           datatype_name = cqm_patient.givenNames[0]
           begin
             exported_qrda = generate_doc(cqm_patient)
+            puts(exported_qrda)
             errors = validator.validate(exported_qrda)
             if (errors.count.zero?)
               successful_count += 1
