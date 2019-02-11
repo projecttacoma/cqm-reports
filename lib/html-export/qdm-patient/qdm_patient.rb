@@ -8,7 +8,7 @@ class QdmPatient < Mustache
     @include_style = include_style
     @patient = patient
     @qdmPatient = patient.qdmPatient
-    @insurance_provider = @patient.insurance_providers if @patientinsurance_providers
+    @insurance_provider = @patient.insurance_providers if @patient.insurance_providers
   end
 
   def include_style?

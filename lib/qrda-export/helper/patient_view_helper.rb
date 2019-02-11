@@ -31,7 +31,7 @@ module Qrda
         end
 
         def mrn
-          @qdmPatient.extendedData['medical_record_number']
+          @patient.medical_record_number
         end
 
         def given_name
