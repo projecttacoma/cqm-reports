@@ -6,7 +6,7 @@ module QRDA
     class PatientImporterTest < MiniTest::Test
       def setup
         @importer = Cat1::PatientImporter.instance
-        @patient = QDM::Patient.new
+        @patient = CQM::Patient.new
         @map = {}
       end
 
@@ -16,8 +16,8 @@ module QRDA
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
         @importer.import_data_elements(@patient, doc, @map)
         
-        assert_equal 2, @patient.dataElements.length
-        de = @patient.dataElements.first
+        assert_equal 2, @patient.qdmPatient.dataElements.length
+        de = @patient.qdmPatient.dataElements.first
         assert_equal 2, de.dataElementCodes.length
         assert_operator de.dataElementCodes[0], :!=, de.dataElementCodes[1]
       end

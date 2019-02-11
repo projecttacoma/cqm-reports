@@ -1,16 +1,22 @@
-# require
 require 'nokogiri'
 require 'json'
 require 'ostruct'
 
 require_relative 'util/code_system_helper'
 require_relative 'util/hqmf_template_helper'
+require_relative 'util/qrda_template_helper'
 
+require_relative 'qrda-export/helper/aggregate_object_helper.rb'
 require_relative 'qrda-export/helper/code_system_helper.rb'
 require_relative 'qrda-export/helper/date_helper.rb'
-require_relative 'qrda-export/helper/cat_1_view_helper.rb'
+require_relative 'qrda-export/helper/view_helper.rb'
+require_relative 'qrda-export/helper/patient_view_helper.rb'
+require_relative 'qrda-export/helper/cat1_view_helper.rb'
+
+require_relative 'html-export/qdm-patient/qdm_patient.rb'
 
 require_relative 'qrda-export/catI-r5/qrda1_r5.rb'
+require_relative 'qrda-export/catIII-r2-1/qrda3_r21.rb'
 
 require_relative 'qrda-import/entry_package.rb'
 require_relative 'qrda-import/cda_identifier.rb'
