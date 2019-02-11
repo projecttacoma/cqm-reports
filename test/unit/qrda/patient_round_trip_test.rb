@@ -9,6 +9,7 @@ module QRDA
       include QRDA::Cat1
 
       def setup
+        create_test_measure
         @importer = Cat1::PatientImporter.instance
       end
 
