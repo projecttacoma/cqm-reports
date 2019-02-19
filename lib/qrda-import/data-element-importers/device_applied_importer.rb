@@ -8,14 +8,12 @@ module QRDA
         @author_datetime_xpath = "./cda:author/cda:time"
         @relevant_period_xpath = "./cda:effectiveTime"
         @anatomical_location_site_xpath = "./cda:targetSiteCode"
-        @anatomical_approach_site_xpath = "./cda:approachSiteCode"
         @entry_class = QDM::DeviceApplied
       end
 
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         device_applied = super
         device_applied.anatomicalLocationSite = code_if_present(entry_element.at_xpath(@anatomical_location_site_xpath))
-        device_applied.anatomicalApproachSite = code_if_present(entry_element.at_xpath(@anatomical_approach_site_xpath))
         device_applied
       end
 

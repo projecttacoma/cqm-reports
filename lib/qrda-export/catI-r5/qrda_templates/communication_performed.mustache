@@ -1,0 +1,41 @@
+<act classCode="ACT" moodCode="EVN" {{{negation_ind}}}>
+    <templateId root="2.16.840.1.113883.10.20.24.3.156" extension="2018-10-01"/>
+    <id root="1.3.6.1.4.1.115" extension="{{object_id}}"/>
+    {{#category}}
+    {{{code_and_codesystem}}}
+    {{/category}}
+    <statusCode code="completed"/>
+    {{#relevantPeriod}}
+    {{{relevant_period}}}
+    {{/relevantPeriod}}
+    {{#authorDatetime}}
+    {{> qrda_templates/template_partials/_author}}
+    {{/authorDatetime}}
+    {{#sender}}
+    <participant typeCode="AUT">
+        <participantRole>
+            {{{code_and_codesystem}}}
+        </participantRole>
+    </participant>
+    {{/sender}}
+    {{#recipient}}
+    <participant typeCode="IRCP">
+        <participantRole>
+            {{{code_and_codesystem}}}
+        </participantRole>
+    </participant>
+    {{/recipient}}
+    {{#medium}}
+    <participant typeCode="VIA">
+        <participantRole>
+            {{{code_and_codesystem}}}
+        </participantRole>
+    </participant>
+    {{/medium}}
+    {{#negationRationale}}
+    {{> qrda_templates/template_partials/_reason}}
+    {{/negationRationale}}
+    {{#relatedTo}}
+    {{> qrda_templates/template_partials/_related_to}}
+    {{/relatedTo}}
+</act>

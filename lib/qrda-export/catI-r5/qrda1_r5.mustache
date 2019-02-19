@@ -30,17 +30,9 @@
             {{> qrda_templates/assessment_performed}}
           {{/assessment_performed}}
 
-          {{#communication_from_patient_to_provider}}
-            {{> qrda_templates/communication_from_patient_to_provider}}
-          {{/communication_from_patient_to_provider}}
-
-          {{#communication_from_provider_to_provider}}
-            {{> qrda_templates/communication_from_provider_to_provider}}
-          {{/communication_from_provider_to_provider}}
-
-          {{#communication_from_provider_to_patient}}
-            {{> qrda_templates/communication_from_provider_to_patient}}
-          {{/communication_from_provider_to_patient}}
+          {{#communication_performed}}
+            {{> qrda_templates/communication_performed}}
+          {{/communication_performed}}
 
           {{#diagnosis}}
             {{> qrda_templates/diagnosis}}
