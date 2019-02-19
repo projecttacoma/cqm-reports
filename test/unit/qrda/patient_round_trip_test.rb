@@ -2,6 +2,7 @@ require_relative '../../test_helper'
 require 'cqm/models'
 require 'cqm_validators'
 require 'nokogiri/diff'
+require 'byebug'
 
 module QRDA
   module Cat1
@@ -9,11 +10,13 @@ module QRDA
       include QRDA::Cat1
 
       def setup
-        create_test_measure
+        create_test_measures_collection
         @importer = Cat1::PatientImporter.instance
       end
 
-      def create_test_measure
+      def create_test_measures_collection
+        # Delete all existing for atomicity
+        CQM::Measure.delete_all()
         mes = CQM::Measure.new
         mes.hqmf_id = 'b794a9c2-8e83-11e8-9eb6-529269fb1459'
         mes.hqmf_set_id = 'bdfa0e38-8e83-11e8-9eb6-529269fb1459'
