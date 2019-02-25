@@ -31,6 +31,10 @@ module Qrda
           "<effectiveTime #{value_or_null_flavor(self['authorDatetime'])}/>"
         end
 
+        def result_date_time
+          "<effectiveTime #{value_or_null_flavor(self['resultDatetime'])}/>"
+        end
+
         def expired_date_time
           "<effectiveTime>"\
           "<low #{value_or_null_flavor(self['expiredDatetime'])}/>"\
