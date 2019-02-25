@@ -26,6 +26,7 @@ module QRDA
 
         @data_element_importers << generate_importer(AdverseEventImporter)
         @data_element_importers << generate_importer(AssessmentPerformedImporter)
+        @data_element_importers << generate_importer(AssessmentOrderImporter)
         @data_element_importers << generate_importer(CommunicationPerformedImporter)
         @data_element_importers << generate_importer(DeviceAppliedImporter)
         @data_element_importers << generate_importer(DeviceOrderImporter)

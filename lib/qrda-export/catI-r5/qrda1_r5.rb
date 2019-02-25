@@ -26,6 +26,10 @@ class Qrda1R5 < Mustache
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('allergy_intolerance', '') }).to_json)
   end
 
+  def assessment_order
+    JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('assessment', 'ordered') }).to_json)
+  end
+
   def assessment_performed
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('assessment', 'performed') }).to_json)
   end
