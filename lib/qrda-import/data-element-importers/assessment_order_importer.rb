@@ -6,14 +6,12 @@ module QRDA
           @id_xpath = './cda:id'
           @code_xpath = './cda:code'
           @author_datetime_xpath = "./cda:author/cda:time"
-          @method_xpath = './cda:methodCode'
-          @entry_class = QDM::DiagnosticStudyOrder
+          @entry_class = QDM::AssessmentOrder
         end
   
         def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
-          diagnostic_study_order = super
-          diagnostic_study_order.method = code_if_present(entry_element.at_xpath(@method_xpath))
-          diagnostic_study_order
+          assessment_order = super
+          assessment_order
         end
   
       end
