@@ -66,7 +66,6 @@ module Qrda
 
         def authorId_selector
           if self['qdmCategory'] == 'medication' && self['qdmStatus'] == 'dispensed'
-            byebug
             "<id root=\"#{self['dispenserId']['value']}\" extension=\"#{self['dispenserId']['namingSystem']}\"/>"
           elsif self['qdmCategory'] == 'medication' && self['qdmStatus'] == 'order'
             "<id root=\"#{self['prescriberId']['value']}\" extension=\"#{self['prescriberId']['namingSystem']}\"/>"
