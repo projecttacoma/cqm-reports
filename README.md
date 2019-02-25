@@ -9,7 +9,7 @@ Starting with version **1.0.0.0** released on !!date!!, cqm-reports versioning h
 * **W** maps to a version of QRDA Category 1 and QRDA Category 3. See the table below to see the existing mapping to QRDA versions.
 
   | W | QRDA Cat 1 | QRDA Cat 3 |
-  | --- | --- |
+  | --- | --- | --- |
   | 1 | R5.1 | R2.1 |
 
 * **X.Y.Z** uses [SemVer](http://semver.org/) for versioning. **X.Y.Z** starts at 0.0.0 when **W** is incremented.
