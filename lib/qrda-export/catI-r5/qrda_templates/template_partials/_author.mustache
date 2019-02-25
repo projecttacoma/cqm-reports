@@ -4,6 +4,11 @@
   {{{author_time}}}
   {{/authorDatetime}}
   <assignedAuthor>
+  	{{#dispenserId}}
     {{{authorId_selector}}}
+    {{/dispenserId}}
+    {{^dispenserId}}
+	<id nullFlavor="NA"/>
+    {{/dispenserId}}
   </assignedAuthor>
 </author>

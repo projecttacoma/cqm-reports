@@ -9,7 +9,9 @@
           displayName="Discharge medications"/> 
     <statusCode code="active"/>
     {{#daysSupplied}}
-    {{> qrda_templates/template_partials/_days_supplied}}
+    <entryRelationship typeCode="REFR">
+      {{> qrda_templates/template_partials/_days_supplied}}
+    </entryRelationship>
     {{/daysSupplied}}
     <entryRelationship typeCode="SUBJ">
       <substanceAdministration moodCode="EVN" classCode="SBADM">

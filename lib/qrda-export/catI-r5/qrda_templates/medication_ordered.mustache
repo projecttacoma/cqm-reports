@@ -32,7 +32,9 @@
     {{> qrda_templates/template_partials/_author}}
     {{/authorDatetime}}
     {{#daysSupplied}}
-    {{> qrda_templates/template_partials/_days_supplied}}
+    <entryRelationship typeCode="REFR">
+        {{> qrda_templates/template_partials/_days_supplied}}
+    </entryRelationship>
     {{/daysSupplied}}
     {{#negationRationale}}
     {{> qrda_templates/template_partials/_reason}}
