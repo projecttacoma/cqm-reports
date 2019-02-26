@@ -7,6 +7,7 @@ module QRDA
         @code_xpath = "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code"
         @author_datetime_xpath = "./cda:author/cda:time"
         @dosage_xpath = "./cda:doseQuantity"
+        @frequency_xpath = "./cda:effectiveTime[@operator='A']/cda:period"
         @refills_xpath = "./cda:repeatNumber"
         @route_xpath = "./cda:routeCode"
         @entry_class = QDM::SubstanceRecommended
@@ -15,6 +16,7 @@ module QRDA
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         substance_recommended = super
         substance_recommended.dosage = extract_scalar(entry_element, @dosage_xpath)
+        substance_recommended.frequency = frequency_as_coded_value(entry_element, @frequency_xpath)
         substance_recommended.refills = extract_scalar(entry_element, @refills_xpath)&.value
         substance_recommended.route = code_if_present(entry_element.at_xpath(@route_xpath))
         substance_recommended
