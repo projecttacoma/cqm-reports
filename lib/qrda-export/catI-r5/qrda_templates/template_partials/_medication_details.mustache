@@ -1,11 +1,24 @@
+{{#negated}}
+<!--  QDM Attribute: Refills -->
+<repeatNumber nullFlavor="NA"/>
+{{/negated}}
+{{^negated}}
+{{#refills}}
+<!--  QDM Attribute: Refills -->
+<repeatNumber value="{{.}}"/>
+{{/refills}}
+{{/negated}}
 {{#route}}
+<!--  QDM Attribute: Route -->
 <routeCode {{> _code}}/>
 {{/route}}
 {{#negated}}
-	<doseQuantity nullFlavor="NA"/>
+<!--  QDM Attribute: Dosage -->
+<doseQuantity nullFlavor="NA"/>
 {{/negated}}
 {{^negated}}
 {{#dosage}}
-	<doseQuantity value="{{value}}" unit="{{unit}}"/>
+<!--  QDM Attribute: Dosage -->
+<doseQuantity value="{{value}}" unit="{{unit}}"/>
 {{/dosage}}
 {{/negated}}
