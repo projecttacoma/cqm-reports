@@ -112,6 +112,34 @@ module QRDA
         DateTime.parse(parent_element.at_xpath(datetime_xpath)['value']) if parent_element.at_xpath("#{datetime_xpath}/@value")
       end
 
+      def frequency_as_coded_value(parent_element, frequency_xpath)
+        # Find the frequency interval in hours
+        frequency_in_hours = extract_frequency_in_hours(parent_element, frequency_xpath).to_i
+        # If a frequency interval is not found, return nil
+        return nil unless frequency_in_hours
+        # If a frequency interval is found, search for a corresponding Direct Reference Code
+        key, value = Qrda::Export::Helper::FrequencyHelper::FREQUENCY_CODE_MAP.select { |_k,v| v[:in_hours] == frequency_in_hours }.first
+        # If a Direct Reference Code isn't found, return nil
+        return nil unless key
+        # If a Direct Reference Code is found, return that code
+        QDM::Code.new(key, HQMF::Util::CodeSystemHelper.code_system_for(value[:codeSystem]))
+      end
+
+      def extract_frequency_in_hours(parent_element, frequency_xpath)
+        return nil unless parent_element.at_xpath("#{frequency_xpath}/@value")
+        frequency_unit = ''
+        frequency_unit = parent_element.at_xpath(frequency_xpath)['unit'] if parent_element.at_xpath("#{frequency_xpath}/@unit")
+        frequency_value = parent_element.at_xpath(frequency_xpath)['value']
+        # Expected units are H (hours) and D (days)
+        case frequency_unit.upcase
+        when 'H'
+          return frequency_value
+        when 'D'
+          return frequency_value.to_i * 24
+        end
+        nil
+      end
+
       def extract_result_values(parent_element)
         result = []
         parent_element.xpath(@result_xpath).each do |elem|
