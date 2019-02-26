@@ -1,4 +1,16 @@
 {{#negated}}
+<!--  QDM Attribute: Frequency -->
+<effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A">
+  <period nullFlavor="NA"/>
+</effectiveTime>
+{{/negated}}
+{{^negated}}
+{{#frequency}}
+<!--  QDM Attribute: Frequency -->
+{{{medication_frequency}}}
+{{/frequency}}
+{{/negated}}
+{{#negated}}
 <!--  QDM Attribute: Refills -->
 <repeatNumber nullFlavor="NA"/>
 {{/negated}}
