@@ -1,3 +1,4 @@
+require 'byebug'
 module Qrda
   module Export
     module Helper
@@ -58,6 +59,25 @@ module Qrda
           return "<value xsi:type=\"CD\" code=\"#{result['code']}\" codeSystem=\"#{code_system_oid(result['codeSystem'])}\" codeSystemName=\"#{result['codeSystem']}\"/>" if result['code']
           return "<value xsi:type=\"PQ\" value=\"#{result['value']}\" unit=\"#{result['unit']}\"/>" if result['unit']
         end
+
+        def medication_participants
+          return "<id root=\"#{self['prescriberId'].value}\" extension=\"#{self['prescriberId'].namingSystem}\"/>"
+        end
+
+        def authorId_selector
+          if self['qdmCategory'] == 'medication' && self['qdmStatus'] == 'dispensed'
+            "<id root=\"#{self['dispenserId']['value']}\" extension=\"#{self['dispenserId']['namingSystem']}\"/>"
+          elsif self['qdmCategory'] == 'medication' && self['qdmStatus'] == 'order'
+            "<id root=\"#{self['prescriberId']['value']}\" extension=\"#{self['prescriberId']['namingSystem']}\"/>"
+          else
+            '<id nullFlavor="NA"/>'
+          end
+        end
+
+        def authorDateTimeOrDispenserId
+          self['authorDatetime'] || self['dispenserId']
+        end
+
       end
     end
   end

@@ -6,13 +6,11 @@ module QRDA
         @id_xpath = './cda:id'
         @code_xpath = './cda:code'
         @author_datetime_xpath = "./cda:author/cda:time"
-        @method_xpath = './cda:methodCode'
         @entry_class = QDM::LaboratoryTestOrder
       end
 
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         laboratory_test_order = super
-        laboratory_test_order.method = code_if_present(entry_element.at_xpath(@method_xpath))
         laboratory_test_order
       end
 

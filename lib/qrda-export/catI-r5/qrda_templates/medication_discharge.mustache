@@ -1,13 +1,18 @@
 <entry>
   <act classCode="ACT" moodCode="RQO" {{{negation_ind}}}>
     <!-- Discharge Medication Entry -->
-    <templateId root="2.16.840.1.113883.10.20.24.3.105" extension="2016-02-01"/>
+    <templateId root="2.16.840.1.113883.10.20.24.3.105" extension="2018-10-01"/>
     <id root="1.3.6.1.4.1.115" extension="{{object_id}}"/>
     <code code="75311-1"
           codeSystem="2.16.840.1.113883.6.1" 
           codeSystemName="LOINC" 
           displayName="Discharge medications"/> 
     <statusCode code="active"/>
+    {{#daysSupplied}}
+    <entryRelationship typeCode="REFR">
+      {{> qrda_templates/template_partials/_days_supplied}}
+    </entryRelationship>
+    {{/daysSupplied}}
     <entryRelationship typeCode="SUBJ">
       <substanceAdministration moodCode="EVN" classCode="SBADM">
         <!-- Medication Activity (consolidation) template -->
@@ -26,7 +31,7 @@
           {{/authorDatetime}}
         {{/relevantPeriod}}
         {{#frequency}}
-        {> qrda_templates/template_partials/_medication_frequency}}
+        {{> qrda_templates/template_partials/_medication_frequency}}
         {{/frequency}}
         {{> qrda_templates/template_partials/_medication_details}}
 

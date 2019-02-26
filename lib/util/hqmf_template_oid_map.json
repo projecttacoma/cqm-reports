@@ -368,29 +368,9 @@
       "status":"",
       "negation":true},
   "2.16.840.1.113883.3.560.1.30":{
-      "definition":"communication_from_patient_to_provider",
-      "status":"",
+      "definition":"communication",
+      "status":"performed",
       "negation":false},
-  "2.16.840.1.113883.3.560.1.31":{
-      "definition":"communication_from_provider_to_patient",
-      "status":"",
-      "negation":false},
-  "2.16.840.1.113883.3.560.1.29":{
-      "definition":"communication_from_provider_to_provider",
-      "status":"",
-      "negation":false},
-  "2.16.840.1.113883.3.560.1.130":{
-      "definition":"communication_from_patient_to_provider",
-      "status":"",
-      "negation":true},
-  "2.16.840.1.113883.3.560.1.131":{
-      "definition":"communication_from_provider_to_patient",
-      "status":"",
-      "negation":true},
-  "2.16.840.1.113883.3.560.1.129":{
-      "definition":"communication_from_provider_to_provider",
-      "status":"",
-      "negation":true},
   "2.16.840.1.113883.3.560.1.10":{
       "definition":"device",
       "status":"applied",

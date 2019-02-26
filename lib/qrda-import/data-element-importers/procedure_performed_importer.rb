@@ -8,7 +8,7 @@ module QRDA
         @relevant_period_xpath = "./cda:effectiveTime"
         @author_datetime_xpath = "./cda:author/cda:time"
         @method_xpath = './cda:methodCode'
-        @result_xpath = "./cda:entryRelationship[@typeCode='REFR']/cda:observation/cda:value"
+        @result_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.87']/cda:value"
         @status_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.93']/cda:value"
         @anatomical_location_site_xpath = "./cda:targetSiteCode"
         @ordinality_xpath = "./cda:priorityCode"

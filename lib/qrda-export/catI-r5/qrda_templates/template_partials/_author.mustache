@@ -1,7 +1,14 @@
 <author>
   <templateId root="2.16.840.1.113883.10.20.24.3.155" extension="2017-08-01"/>
+  {{#authorDatetime}}
   {{{author_time}}}
+  {{/authorDatetime}}
   <assignedAuthor>
-      <id nullFlavor="NA"/>
+  	{{#dispenserId}}
+    {{{authorId_selector}}}
+    {{/dispenserId}}
+    {{^dispenserId}}
+	<id nullFlavor="NA"/>
+    {{/dispenserId}}
   </assignedAuthor>
 </author>
