@@ -121,4 +121,8 @@ class Qrda1R5 < Mustache
   def procedure_performed
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('procedure', 'performed') }).to_json)
   end
+
+  def symptom
+    JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('symptom', '') }).to_json)
+  end
 end
