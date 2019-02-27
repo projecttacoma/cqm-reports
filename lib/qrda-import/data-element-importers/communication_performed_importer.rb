@@ -3,6 +3,7 @@ module QRDA
       class CommunicationPerformedImporter < SectionImporter
         def initialize(entry_finder = QRDA::Cat1::EntryFinder.new("./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.156']"))
           super(entry_finder)
+          @entry_does_not_have_reason = true
           @id_xpath = './cda:id'
           @code_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
           @author_datetime_xpath = "./cda:author/cda:time"
@@ -28,18 +29,6 @@ module QRDA
           communication_performed.recipient = code_if_present(entry_element.at_xpath(@recipient_xpath))
           communication_performed
         end
-
-        # this is overriden because a communcation cannot have a 'reason'...however the reason element is used to convey the code
-        def extract_reason_or_negation(parent_element, entry, coded_parent_element = nil)
-          coded_parent_element ||= parent_element
-          reason_element = parent_element.xpath(".//cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value | .//cda:entryRelationship[@typeCode='RSON']/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:code")
-          negation_indicator = parent_element['negationInd']
-          unless reason_element.blank?
-            entry.negationRationale = code_if_present(reason_element.first) if negation_indicator.eql?('true')
-          end
-          extract_negated_code(coded_parent_element, entry)
-        end
-  
       end
     end
   end
