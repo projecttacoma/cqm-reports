@@ -8,36 +8,43 @@
     <text>{{description}}</text>
     <statusCode code="active"/>
     {{#relevantPeriod}}
-    {{{medication_duration_effective_time}}}
+      <!-- QDM Attribute: Relevant Period -->
+      {{{medication_duration_effective_time}}}
     {{/relevantPeriod}}
-    {{#negated}}
-    <effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A">
-      <period nullFlavor="NA"/>
-    </effectiveTime>
-    {{/negated}}
-    {{#frequency}}
-    {{> qrda_templates/template_partials/_medication_frequency}}
-    {{/frequency}}
+    {{> qrda_templates/template_partials/_medication_details}}
     <consumable>
       <manufacturedProduct classCode="MANU">
         <!-- Medication Information (consolidation) template -->
         <templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/>
         <id root="{{random_id}}"/>
         <manufacturedMaterial>
+          <!--  QDM Attribute: Code -->
           {{> _codes}}
         </manufacturedMaterial>
       </manufacturedProduct>
     </consumable>
     {{#authorDatetime}}
-    {{> qrda_templates/template_partials/_author}}
+      <!-- QDM Attribute: Author dateTime -->
+      {{> qrda_templates/template_partials/_author}}
     {{/authorDatetime}}
-    {{#daysSupplied}}
-    <entryRelationship typeCode="REFR">
-        {{> qrda_templates/template_partials/_days_supplied}}
-    </entryRelationship>
-    {{/daysSupplied}}
+    {{#reason}}
+      <!-- QDM Attribute: Reason -->
+      {{> qrda_templates/template_partials/_reason}}
+    {{/reason}}
     {{#negationRationale}}
-    {{> qrda_templates/template_partials/_reason}}
+      <!-- QDM Attribute: Negation Rationale -->
+      {{> qrda_templates/template_partials/_reason}}
     {{/negationRationale}}
+    {{#daysSupplied}}
+      <entryRelationship typeCode="REFR">
+          {{> qrda_templates/template_partials/_days_supplied}}
+      </entryRelationship>
+    {{/daysSupplied}}
+    {{#supply}}
+      <!-- QDM Attribute: Supply -->
+      <entryRelationship typeCode="REFR">
+          {{> qrda_templates/template_partials/_medication_supply_request}}
+      </entryRelationship>
+    {{/supply}}
   </substanceAdministration>
 </entry>
