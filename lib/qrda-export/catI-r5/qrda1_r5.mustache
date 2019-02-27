@@ -154,6 +154,10 @@
             {{> qrda_templates/provider_characteristic}}
           {{/provider_characteristic}}
 
+          {{#substance_administered}}
+            {{> qrda_templates/medication_administered}}
+          {{/substance_administered}}
+
           {{#substance_order}}
             {{> qrda_templates/medication_order}}
           {{/substance_order}}
