@@ -53,6 +53,7 @@ require_relative 'qrda-import/data-element-importers/medication_discharge_import
 require_relative 'qrda-import/data-element-importers/medication_dispensed_importer.rb'
 require_relative 'qrda-import/data-element-importers/patient_characteristic_expired.rb'
 require_relative 'qrda-import/data-element-importers/procedure_order_importer.rb'
+require_relative 'qrda-import/data-element-importers/provider_characteristic_importer.rb'
 require_relative 'qrda-import/data-element-importers/substance_administered_importer.rb'
 require_relative 'qrda-import/data-element-importers/symptom_importer.rb'
 require_relative 'qrda-import/patient_importer.rb'
