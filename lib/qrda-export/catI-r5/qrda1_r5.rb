@@ -122,7 +122,7 @@ class Qrda1R5 < Mustache
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('physical_exam', 'recommended') }).to_json)
   end
 
-  def procedure_ordered
+  def procedure_order
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('procedure', 'ordered') }).to_json)
   end
 
