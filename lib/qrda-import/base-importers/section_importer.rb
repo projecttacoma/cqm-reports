@@ -171,7 +171,7 @@ module QRDA
           if negation_indicator.eql?('true')
             entry.negationRationale = code_if_present(reason_element.first)
           else
-            entry.reason = code_if_present(reason_element.first)
+            entry.reason = code_if_present(reason_element.first) unless @entry_does_not_have_reason
           end
         end
         extract_negated_code(coded_parent_element, entry)
