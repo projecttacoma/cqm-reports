@@ -109,6 +109,10 @@ class Qrda1R5 < Mustache
   def patient_characteristic_expired
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('patient_characteristic_expired', '') }).to_json)
   end
+
+  def physical_exam_order
+    JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('physical_exam', 'ordered') }).to_json)
+  end
   
   def physical_exam_performed
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('physical_exam', 'performed') }).to_json)
