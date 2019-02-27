@@ -106,9 +106,9 @@
             {{> qrda_templates/medication_dispensed}}
           {{/medication_dispensed}}
 
-          {{#medication_ordered}}
-            {{> qrda_templates/medication_ordered}}
-          {{/medication_ordered}}
+          {{#medication_order}}
+            {{> qrda_templates/medication_order}}
+          {{/medication_order}}
 
           {{#patient_care_experience}}
             {{> qrda_templates/patient_care_experience}}
@@ -153,6 +153,10 @@
           {{#provider_characteristic}}
             {{> qrda_templates/provider_characteristic}}
           {{/provider_characteristic}}
+
+          {{#substance_order}}
+            {{> qrda_templates/medication_order}}
+          {{/substance_order}}
 
           {{#substance_recommended}}
             {{> qrda_templates/substance_recommended}}
