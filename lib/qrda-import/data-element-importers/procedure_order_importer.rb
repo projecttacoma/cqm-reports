@@ -6,7 +6,6 @@ module QRDA
         @id_xpath = './cda:id'
         @code_xpath = './cda:code'
         @author_datetime_xpath = "./cda:author/cda:time"
-        @method_xpath = './cda:methodCode'
         @anatomical_location_site_xpath = "./cda:targetSiteCode"
         @ordinality_xpath = "./cda:priorityCode"
         @entry_class = QDM::ProcedureOrder
