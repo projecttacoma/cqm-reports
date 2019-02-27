@@ -154,6 +154,10 @@ class Qrda1R5 < Mustache
   def provider_characteristic
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('provider_characteristic', '') }).to_json)
 
+  def substance_administered
+    JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('substance', 'administered') }).to_json)
+  end
+
   def substance_order
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('substance', 'ordered') }).to_json)
   end

@@ -8,7 +8,8 @@
     <code code="416118004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Administration"/>
     <statusCode code="completed"/>
     {{#relevantPeriod}}
-    {{{medication_duration_effective_time}}}
+      <!-- QDM Attribute: Relevant Period -->
+      {{{medication_duration_effective_time}}}
     {{/relevantPeriod}}
     {{> qrda_templates/template_partials/_medication_details}}
     <consumable>
@@ -17,15 +18,22 @@
         <templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/>
         <id root="{{random_id}}"/>
         <manufacturedMaterial>
+          <!--  QDM Attribute: Code -->
           {{> _codes}}
         </manufacturedMaterial>
       </manufacturedProduct>
     </consumable>
     {{#authorDatetime}}
-    {{> qrda_templates/template_partials/_author_participation}}
+      <!-- QDM Attribute: Author dateTime -->
+      {{> qrda_templates/template_partials/_author}}
     {{/authorDatetime}}
+    {{#reason}}
+      <!-- QDM Attribute: Reason -->
+      {{> qrda_templates/template_partials/_reason}}
+    {{/reason}}
     {{#negationRationale}}
-    {{> qrda_templates/template_partials/_reason}}
-    {{/negationRationale}} 
+      <!-- QDM Attribute: Negation Rationale -->
+      {{> qrda_templates/template_partials/_reason}}
+    {{/negationRationale}}
   </substanceAdministration>
 </entry>
