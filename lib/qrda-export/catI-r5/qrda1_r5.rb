@@ -130,6 +130,10 @@ class Qrda1R5 < Mustache
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('procedure', 'performed') }).to_json)
   end
 
+  def procedure_recommended
+    JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('procedure', 'recommended') }).to_json)
+  end
+
   def provider_care_experience
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('provider_care_experience', '') }).to_json)
   end

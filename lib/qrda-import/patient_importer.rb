@@ -42,6 +42,7 @@ module QRDA
         @data_element_importers << generate_importer(PhysicalExamPerformedImporter)
         @data_element_importers << generate_importer(PhysicalExamRecommendedImporter)
         @data_element_importers << generate_importer(ProcedureOrderImporter)
+        @data_element_importers << generate_importer(ProcedureRecommendedImporter)
         @data_element_importers << generate_importer(ProviderCareExperienceImporter)
         @data_element_importers << generate_importer(ProviderCharacteristicImporter)
         @data_element_importers << generate_importer(SubstanceAdministeredImporter)
