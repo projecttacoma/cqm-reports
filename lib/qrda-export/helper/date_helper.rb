@@ -41,6 +41,13 @@ module Qrda
           "</effectiveTime>"
         end
 
+        def medication_supply_request_period
+          "<effectiveTime xsi:type='IVL_TS'>"\
+          "<low #{value_or_null_flavor(self['relevantPeriod']['low'])}/>"\
+          "<high #{value_or_null_flavor(self['relevantPeriod']['high'])}/>"\
+          "</effectiveTime>"
+        end
+
         def prevalence_period
           "<effectiveTime>"\
           "<low #{value_or_null_flavor(self['prevalencePeriod']['low'])}/>"\

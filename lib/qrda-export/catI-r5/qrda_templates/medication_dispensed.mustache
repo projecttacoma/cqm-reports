@@ -15,20 +15,9 @@
         <text>{{description}}</text>
         <statusCode code="completed"/>
         {{#relevantPeriod}}
-        {{{medication_duration_effective_time}}}
+          <!-- QDM Attribute: Relevant Period -->
+          {{{medication_duration_effective_time}}}
         {{/relevantPeriod}}
-        {{#prescriberId}}
-        <participant typeCode="PRF">
-          <participantRole>
-          {{{medication_participants}}}
-          </participantRole>'
-        </participant>
-        {{/prescriberId}}
-        {{#daysSupplied}}
-        <entryRelationship typeCode="REFR">
-          {{> qrda_templates/template_partials/_days_supplied}}
-        </entryRelationship>
-        {{/daysSupplied}}
         <product>
           <manufacturedProduct classCode="MANU">
             <!-- Medication Information (consolidation) template -->
@@ -40,10 +29,40 @@
           </manufacturedProduct>
         </product>
         {{#authorDateTimeOrDispenserId}}
-        {{> qrda_templates/template_partials/_author}}
+          {{> qrda_templates/template_partials/_author}}
         {{/authorDateTimeOrDispenserId}}
+        {{#prescriberId}}
+        <participant typeCode="PRF">
+          <participantRole>
+            <!-- QDM Attribute: Prescriber Id -->
+            <id root="{{namingSystem}}" extension="{{value}}"/>
+          </participantRole>
+        </participant>
+        {{/prescriberId}}
+        {{#daysSupplied}}
+          <entryRelationship typeCode="REFR">
+              {{> qrda_templates/template_partials/_days_supplied}}
+          </entryRelationship>
+        {{/daysSupplied}}
+        <entryRelationship typeCode="REFR">
+          <substanceAdministration classCode="SBADM" moodCode="EVN">
+            {{> qrda_templates/template_partials/_medication_details}}
+            <consumable>
+              <manufacturedProduct>
+                <manufacturedMaterial nullFlavor="NA"/>
+              </manufacturedProduct>
+            </consumable>
+          </substanceAdministration>
+        </entryRelationship>
+        {{#supply}}
+          <!-- QDM Attribute: Supply -->
+          <entryRelationship typeCode="REFR">
+              {{> qrda_templates/template_partials/_medication_supply_request}}
+          </entryRelationship>
+        {{/supply}}
         {{#negationRationale}}
-        {{> qrda_templates/template_partials/_reason}}
+          <!-- QDM Attribute: Negation Rationale -->
+          {{> qrda_templates/template_partials/_reason}}
         {{/negationRationale}}
       </supply>
     </entryRelationship>
