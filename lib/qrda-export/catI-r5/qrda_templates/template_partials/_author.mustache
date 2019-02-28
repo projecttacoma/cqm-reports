@@ -4,11 +4,26 @@
   {{{author_time}}}
   {{/authorDatetime}}
   <assignedAuthor>
-  	{{#dispenserId}}
-    {{{authorId_selector}}}
-    {{/dispenserId}}
-    {{^dispenserId}}
-	<id nullFlavor="NA"/>
-    {{/dispenserId}}
+    {{#display_author_dispenser_id?}}
+      {{#dispenserId}}
+        <id root="{{namingSystem}}" extension="{{value}}"/>
+      {{/dispenserId}}
+      {{^dispenserId}}
+        <id nullFlavor="NA"/>
+      {{/dispenserId}}
+    {{/display_author_dispenser_id?}}
+    {{^display_author_dispenser_id?}}
+      {{#display_author_prescriber_id?}}
+        {{#prescriberId}}
+          <id root="{{namingSystem}}" extension="{{value}}"/>
+        {{/prescriberId}}
+        {{^prescriberId}}
+          <id nullFlavor="NA"/>
+        {{/prescriberId}}
+      {{/display_author_prescriber_id?}}
+      {{^display_author_prescriber_id?}}
+        <id nullFlavor="NA"/>
+      {{/display_author_prescriber_id?}}
+    {{/display_author_dispenser_id?}}
   </assignedAuthor>
 </author>
