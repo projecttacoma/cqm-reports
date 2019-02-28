@@ -19,6 +19,14 @@ module Qrda
           self[:dataElementCodes].size > 1
         end
 
+        def display_author_dispenser_id?
+          self['qdmCategory'] == 'medication' && self['qdmStatus'] == 'dispensed'
+        end
+
+        def display_author_prescriber_id?
+          self['qdmCategory'] == 'medication' && self['qdmStatus'] == 'order'
+        end
+
         def code_system_oid(name)
           Qrda::Export::Helper::CodeSystemHelper.oid_for_code_system(name)
         end
@@ -62,16 +70,6 @@ module Qrda
 
         def medication_participants
           return "<id root=\"#{self['prescriberId'].value}\" extension=\"#{self['prescriberId'].namingSystem}\"/>"
-        end
-
-        def authorId_selector
-          if self['qdmCategory'] == 'medication' && self['qdmStatus'] == 'dispensed'
-            "<id root=\"#{self['dispenserId']['value']}\" extension=\"#{self['dispenserId']['namingSystem']}\"/>"
-          elsif self['qdmCategory'] == 'medication' && self['qdmStatus'] == 'order'
-            "<id root=\"#{self['prescriberId']['value']}\" extension=\"#{self['prescriberId']['namingSystem']}\"/>"
-          else
-            '<id nullFlavor="NA"/>'
-          end
         end
 
         def authorDateTimeOrDispenserId
