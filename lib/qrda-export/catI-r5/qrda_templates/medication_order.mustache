@@ -27,6 +27,14 @@
       <!-- QDM Attribute: Author dateTime -->
       {{> qrda_templates/template_partials/_author}}
     {{/authorDatetime}}
+    {{#setting}}
+    <participant typeCode="LOC">
+      <participantRole>
+          <!-- QDM Attribute: Setting -->
+          <code {{> _code}}/>
+      </participantRole>
+    </participant>      
+    {{/setting}}
     {{#reason}}
       <!-- QDM Attribute: Reason -->
       {{> qrda_templates/template_partials/_reason}}
