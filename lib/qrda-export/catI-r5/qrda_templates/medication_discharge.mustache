@@ -3,16 +3,8 @@
     <!-- Discharge Medication Entry -->
     <templateId root="2.16.840.1.113883.10.20.24.3.105" extension="2018-10-01"/>
     <id root="1.3.6.1.4.1.115" extension="{{object_id}}"/>
-    <code code="75311-1"
-          codeSystem="2.16.840.1.113883.6.1" 
-          codeSystemName="LOINC" 
-          displayName="Discharge medications"/> 
+    <code code="75311-1" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Discharge medications"/> 
     <statusCode code="active"/>
-    {{#daysSupplied}}
-    <entryRelationship typeCode="REFR">
-      {{> qrda_templates/template_partials/_days_supplied}}
-    </entryRelationship>
-    {{/daysSupplied}}
     <entryRelationship typeCode="SUBJ">
       <substanceAdministration moodCode="EVN" classCode="SBADM">
         <!-- Medication Activity (consolidation) template -->
@@ -22,19 +14,11 @@
         <id root="1.3.6.1.4.1.115" extension="{{object_id}}"/>
         <text>{{description}}</text>
         <statusCode code="active"/> 
-        {{#relevantPeriod}}
-        {{{medication_duration_effective_time}}}
-        {{/relevantPeriod}}
-        {{^relevantPeriod}}
-          {{#authorDatetime}}
-          {{{author_effective_time}}}
-          {{/authorDatetime}}
-        {{/relevantPeriod}}
-        {{#frequency}}
-        {{> qrda_templates/template_partials/_medication_frequency}}
-        {{/frequency}}
+        {{#authorDatetime}}
+        <!-- QDM Attribute: Author dateTime -->
+        {{{author_effective_time}}}
+        {{/authorDatetime}}
         {{> qrda_templates/template_partials/_medication_details}}
-
         <consumable>
           <manufacturedProduct classCode="MANU">
             <!-- Medication Information (consolidation) template --> 
@@ -49,12 +33,31 @@
           </manufacturedProduct>
         </consumable>
         {{#authorDatetime}}
-        {{> qrda_templates/template_partials/_author_participation}}
+          {{> qrda_templates/template_partials/_author_participation}}
         {{/authorDatetime}}
         {{#negationRationale}}
-        {{> qrda_templates/template_partials/_reason}}
+          {{> qrda_templates/template_partials/_reason}}
         {{/negationRationale}} 
       </substanceAdministration>
     </entryRelationship>
+    {{#reason}}
+      <!-- QDM Attribute: Reason -->
+      {{> qrda_templates/template_partials/_reason}}
+    {{/reason}}
+    {{#negationRationale}}
+      <!-- QDM Attribute: Negation Rationale -->
+      {{> qrda_templates/template_partials/_reason}}
+    {{/negationRationale}}
+    {{#daysSupplied}}
+      <entryRelationship typeCode="REFR">
+          {{> qrda_templates/template_partials/_days_supplied}}
+      </entryRelationship>
+    {{/daysSupplied}}
+    {{#supply}}
+      <!-- QDM Attribute: Supply -->
+      <entryRelationship typeCode="REFR">
+          {{> qrda_templates/template_partials/_medication_supply_request}}
+      </entryRelationship>
+    {{/supply}}
   </act>
 </entry>
