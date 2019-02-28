@@ -68,10 +68,6 @@ module Qrda
           return "<value xsi:type=\"PQ\" value=\"#{result['value']}\" unit=\"#{result['unit']}\"/>" if result['unit']
         end
 
-        def medication_participants
-          return "<id root=\"#{self['prescriberId'].value}\" extension=\"#{self['prescriberId'].namingSystem}\"/>"
-        end
-
         def authorDateTimeOrDispenserId
           self['authorDatetime'] || self['dispenserId']
         end
