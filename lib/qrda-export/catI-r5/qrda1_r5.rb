@@ -110,6 +110,10 @@ class Qrda1R5 < Mustache
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('medication', 'ordered') }).to_json)
   end
 
+  def patient_characteristic_clinical_trial_participant
+    JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('patient_characteristic', 'clinical_trial_participant') }).to_json)
+  end
+
   def patient_characteristic_expired
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('patient_characteristic_expired', '') }).to_json)
   end
