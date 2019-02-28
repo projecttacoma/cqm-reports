@@ -9,13 +9,10 @@
     <text>{{description}}</text>
     <statusCode code="active"/>
     {{#relevantPeriod}}
-    {{{medication_duration_effective_time}}}
+      <!-- QDM Attribute: Relevant Period -->
+      {{{medication_duration_effective_time}}}
     {{/relevantPeriod}}
-    {{#frequency}}
-    {{> qrda_templates/template_partials/_medication_frequency}}
-    {{/frequency}}
     {{> qrda_templates/template_partials/_medication_details}}
-
     <consumable>
       <manufacturedProduct classCode="MANU">
         <!-- Medication Information (consolidation) template -->
