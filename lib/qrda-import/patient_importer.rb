@@ -14,7 +14,6 @@ module QRDA
         @data_element_importers = []
 
         @data_element_importers << generate_importer(EncounterPerformedImporter)
-        @data_element_importers << generate_importer(PhysicalExamPerformedImporter)
         @data_element_importers << generate_importer(LaboratoryTestPerformedImporter)
         @data_element_importers << generate_importer(DiagnosisImporter)
         @data_element_importers << generate_importer(InterventionOrderImporter)
@@ -40,6 +39,7 @@ module QRDA
         @data_element_importers << generate_importer(MedicationDispensedImporter)
         @data_element_importers << generate_importer(PatientCharacteristicExpired)
         @data_element_importers << generate_importer(PhysicalExamOrderImporter)
+        @data_element_importers << generate_importer(PhysicalExamPerformedImporter)
         @data_element_importers << generate_importer(PhysicalExamRecommendedImporter)
         @data_element_importers << generate_importer(ProcedureOrderImporter)
         @data_element_importers << generate_importer(ProviderCareExperienceImporter)
