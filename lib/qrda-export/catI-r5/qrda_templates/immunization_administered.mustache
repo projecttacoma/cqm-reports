@@ -1,16 +1,17 @@
 <entry>
   <substanceAdministration classCode="SBADM" moodCode="EVN" {{{negation_ind}}}>
-    <!-- Immunization Activity template -->
+    <!-- C-CDA R2 Immunization Activity -->
     <templateId root="2.16.840.1.113883.10.20.22.4.52" extension="2014-06-09"/>
-    <!-- Immunization, Administered template -->
+    <!-- Immunization Administered -->
     <templateId root="2.16.840.1.113883.10.20.24.3.140" extension="2017-08-01"/>
     <id root="1.3.6.1.4.1.115" extension="{{object_id}}"/>
     <code code="416118004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Administration"/>
     <statusCode code="completed"/>
     {{#authorDatetime}}
-    {{{author_effective_time}}}
+      <!-- QDM Attribute: Author dateTime -->
+      {{{author_effective_time}}}
     {{/authorDatetime}}
-    {{> qrda_templates/template_partials/_medication_details}}
+    {{> qrda_templates/template_partials/_immunization_details}}
     <consumable>
       <manufacturedProduct classCode="MANU">
         <!-- Immunization Information (consolidation) template -->
@@ -22,8 +23,13 @@
         </manufacturedMaterial>
       </manufacturedProduct>
     </consumable>
+    {{#reason}}
+      <!-- QDM Attribute: Reason -->
+      {{> qrda_templates/template_partials/_reason}}
+    {{/reason}}
     {{#negationRationale}}
-    {{> qrda_templates/template_partials/_reason}}
+      <!-- QDM Attribute: Negation Rationale -->
+      {{> qrda_templates/template_partials/_reason}}
     {{/negationRationale}}
   </substanceAdministration>
 </entry>
