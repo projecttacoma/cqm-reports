@@ -23,6 +23,12 @@ module Qrda
           Time.now.utc.to_formatted_s(:number)
         end
 
+        def active_date_time
+          "<effectiveTime xsi:type='IVL_TS'>"\
+          "<low #{value_or_null_flavor(self['activeDatetime'])}/>"\
+          "</effectiveTime>"
+        end
+
         def author_time
           "<time #{value_or_null_flavor(self['authorDatetime'])}/>"
         end
