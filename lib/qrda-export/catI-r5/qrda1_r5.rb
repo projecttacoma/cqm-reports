@@ -95,6 +95,10 @@ class Qrda1R5 < Mustache
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('laboratory_test', 'ordered') }).to_json)
   end
 
+  def laboratory_test_recommended
+    JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('laboratory_test', 'recommended') }).to_json)
+  end
+
   def medication_active
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('medication', 'active') }).to_json)
   end
