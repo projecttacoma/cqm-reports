@@ -48,6 +48,7 @@ require_relative 'qrda-import/data-element-importers/immunization_administered_i
 require_relative 'qrda-import/data-element-importers/intervention_performed_importer.rb'
 require_relative 'qrda-import/data-element-importers/intervention_recommended_importer.rb'
 require_relative 'qrda-import/data-element-importers/laboratory_test_order_importer.rb'
+require_relative 'qrda-import/data-element-importers/laboratory_test_recommended_importer.rb'
 require_relative 'qrda-import/data-element-importers/medication_administered_importer.rb'
 require_relative 'qrda-import/data-element-importers/medication_discharge_importer.rb'
 require_relative 'qrda-import/data-element-importers/medication_dispensed_importer.rb'
