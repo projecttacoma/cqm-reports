@@ -25,15 +25,28 @@
         <code code="29308-4" codeSystem="2.16.840.1.113883.6.1">
           <translation code="282291009" codeSystem="2.16.840.1.113883.6.96"/>
         </code>
-        <statusCode code="completed" />
         {{#prevalencePeriod}}
+        {{#completed_prevalence_period}}
+        <statusCode code="completed" />
+        {{/completed_prevalence_period}}
+        {{^completed_prevalence_period}}
+        <statusCode code="active" />
+        {{/completed_prevalence_period}}
+        <!-- QDM Attribute: Prevalence Period -->
         {{{prevalence_period}}}
         {{/prevalencePeriod}}
+        <!-- QDM Attribute: Code -->
         {{> qrda_templates/template_partials/_data_element_codes_as_values}}
         {{#anatomicalLocationSite}}
+          <!-- QDM Attribute: Anatomical Location Site -->
           {{> qrda_templates/template_partials/_anatomical_location_site}}
         {{/anatomicalLocationSite}}
+        {{#authorDatetime}}
+          <!-- QDM Attribute: Author dateTime -->
+          {{> qrda_templates/template_partials/_author}}
+        {{/authorDatetime}}
         {{#severity}}
+          <!-- QDM Attribute: Severity -->
           {{> qrda_templates/template_partials/_severity}}
         {{/severity}}
       </observation>
