@@ -22,6 +22,10 @@ module QRDA
         encounter_performed.facilityLocations = extract_facility_locations(entry_element)
         encounter_performed.principalDiagnosis = code_if_present(entry_element.at_xpath(@principal_diagnosis_xpath))
         encounter_performed.diagnoses = extract_diagnoses(entry_element)
+        if encounter_performed&.relevantPeriod&.low && encounter_performed&.relevantPeriod&.high
+          los = encounter_performed.relevantPeriod.high - encounter_performed.relevantPeriod.low
+          encounter_performed.lengthOfStay = QDM::Quantity.new(los.to_i, 'd')
+        end
         encounter_performed
       end
 
