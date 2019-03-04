@@ -48,6 +48,7 @@ require_relative 'qrda-import/data-element-importers/device_recommended_importer
 require_relative 'qrda-import/data-element-importers/diagnostic_study_performed_importer.rb'
 require_relative 'qrda-import/data-element-importers/diagnostic_study_recommended_importer.rb'
 require_relative 'qrda-import/data-element-importers/encounter_order_importer.rb'
+require_relative 'qrda-import/data-element-importers/encounter_recommended_importer.rb'
 require_relative 'qrda-import/data-element-importers/family_history_importer.rb'
 require_relative 'qrda-import/data-element-importers/immunization_administered_importer.rb'
 require_relative 'qrda-import/data-element-importers/immunization_order_importer.rb'
