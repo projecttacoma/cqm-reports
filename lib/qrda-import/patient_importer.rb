@@ -31,6 +31,7 @@ module QRDA
         @data_element_importers << generate_importer(DeviceOrderImporter)
         @data_element_importers << generate_importer(DiagnosticStudyPerformedImporter)
         @data_element_importers << generate_importer(EncounterOrderImporter)
+        @data_element_importers << generate_importer(FamilyHistoryImporter)
         @data_element_importers << generate_importer(ImmunizationAdministeredImporter)
         @data_element_importers << generate_importer(InterventionPerformedImporter)
         @data_element_importers << generate_importer(LaboratoryTestOrderImporter)
