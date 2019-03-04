@@ -34,6 +34,7 @@ module QRDA
         @data_element_importers << generate_importer(DiagnosticStudyPerformedImporter)
         @data_element_importers << generate_importer(DiagnosticStudyRecommendedImporter)
         @data_element_importers << generate_importer(EncounterOrderImporter)
+        @data_element_importers << generate_importer(FamilyHistoryImporter)
         @data_element_importers << generate_importer(ImmunizationAdministeredImporter)
         @data_element_importers << generate_importer(ImmunizationOrderImporter)
         @data_element_importers << generate_importer(InterventionPerformedImporter)
