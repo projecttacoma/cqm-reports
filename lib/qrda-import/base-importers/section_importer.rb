@@ -204,7 +204,7 @@ module QRDA
         components
       end
 
-      def extract_facility(parent_element, entry)
+      def extract_facility(parent_element)
         facility_element = parent_element.at_xpath(@facility_xpath)
         return unless facility_element
 
@@ -212,7 +212,7 @@ module QRDA
         participant_element = facility_element.at_xpath("./cda:participantRole[@classCode='SDLOC']/cda:code")
         facility.code = code_if_present(participant_element)
         facility.locationPeriod = extract_interval(facility_element, './cda:time')
-        entry.facilityLocations = [facility]
+        facility
       end
 
       def extract_related_to(parent_element)
