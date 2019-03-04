@@ -75,7 +75,7 @@ class Qrda1R5 < Mustache
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('device', 'recommended') }).to_json)
   end
 
-  def diagnostic_study_ordered
+  def diagnostic_study_order
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('diagnostic_study', 'ordered') }).to_json)
   end
 
