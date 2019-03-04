@@ -10,20 +10,41 @@
     <text>{{description}}</text>
     <statusCode code="completed"/>
     {{#relevantPeriod}}
-    {{{relevant_period}}}
+      <!-- QDM Attribute: Relevant Period -->
+      {{{relevant_period}}}
     {{/relevantPeriod}}
     <value nullFlavor="NA" xsi:type="CD" />
+    {{#method}}
+      <!-- QDM Attribute: Method -->
+      {{> qrda_templates/template_partials/_method}}
+    {{/method}}
     {{#authorDatetime}}
-    {{> qrda_templates/template_partials/_author}}
+      <!-- QDM Attribute: Author dateTime -->
+      {{> qrda_templates/template_partials/_author}}
     {{/authorDatetime}}
+    {{#facilityLocation}}
+      <!-- QDM Attribute: Facility Locations -->
+      {{> qrda_templates/template_partials/_encounter_facility_location}}
+    {{/facilityLocation}}
+    {{#reason}}
+      <!-- QDM Attribute: Reason -->
+      {{> qrda_templates/template_partials/_reason}}
+    {{/reason}}
     {{#negationRationale}}
-    {{> qrda_templates/template_partials/_reason}}
+      <!-- QDM Attribute: Negation Rationale -->
+      {{> qrda_templates/template_partials/_reason}}
     {{/negationRationale}}
+    {{#status}}
+      <!-- QDM Attribute: Status -->
+      {{> qrda_templates/template_partials/_status}}
+    {{/status}}
     {{#result}}
-    {{> qrda_templates/template_partials/_results}}
+      <!-- QDM Attribute: Result -->
+      {{> qrda_templates/template_partials/_results}}
     {{/result}}
     {{#components}}
-    {{> qrda_templates/template_partials/_component}}
+      <!-- QDM Attribute: Components -->
+      {{> qrda_templates/template_partials/_component}}
     {{/components}}
   </observation>
 </entry>
