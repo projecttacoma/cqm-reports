@@ -6,13 +6,13 @@ module QRDA
         @id_xpath = './cda:entryRelationship/cda:encounter/cda:id'
         @code_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.22']/cda:code"
         @author_datetime_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.22']/cda:author/cda:time"
-        @facility_location_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.22']/cda:participant[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.100']/cda:participantRole[@classCode='SDLOC']/cda:code"
+        @facility_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.22']/cda:participant[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.100']"
         @entry_class = QDM::EncounterOrder
       end
 
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         encounter_order = super
-        encounter_order.facilityLocation = code_if_present(entry_element.at_xpath(@facility_location_xpath))
+        encounter_order.facilityLocation = extract_facility(entry_element)
         encounter_order
       end
 
