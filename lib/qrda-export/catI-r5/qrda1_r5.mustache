@@ -42,13 +42,13 @@
             {{> qrda_templates/diagnosis}}
           {{/diagnosis}}
 
-          {{#device_ordered}}
-            {{> qrda_templates/device_ordered}}
-          {{/device_ordered}}
-
           {{#device_applied}}
             {{> qrda_templates/device_applied}}
           {{/device_applied}}
+
+          {{#device_order}}
+            {{> qrda_templates/device_order}}
+          {{/device_order}}
 
           {{#device_recommended}}
             {{> qrda_templates/device_recommended}}
