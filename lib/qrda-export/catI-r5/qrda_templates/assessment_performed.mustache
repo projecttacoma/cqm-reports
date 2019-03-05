@@ -7,16 +7,32 @@
     <text>{{description}}</text>
     <statusCode code="completed"/>
     {{#result}}
+    <!-- QDM Attribute: Result -->
     {{{result_value}}}
     {{/result}}
+    {{#method}}
+      <!-- QDM Attribute: Method -->
+      {{> qrda_templates/template_partials/_method}}
+    {{/method}}
     {{#authorDatetime}}
-    {{> qrda_templates/template_partials/_author}}
+      <!-- QDM Attribute: Author dateTime -->
+      {{> qrda_templates/template_partials/_author}}
     {{/authorDatetime}}
+    {{#reason}}
+      <!-- QDM Attribute: Reason -->
+      {{> qrda_templates/template_partials/_reason}}
+    {{/reason}}
     {{#negationRationale}}
-    {{> qrda_templates/template_partials/_reason}}
+      <!-- QDM Attribute: Negation Rationale -->
+      {{> qrda_templates/template_partials/_reason}}
     {{/negationRationale}}
     {{#components}}
-    {{> qrda_templates/template_partials/_component}}
+      <!-- QDM Attribute: Components -->
+      {{> qrda_templates/template_partials/_component}}
     {{/components}}
+    {{#relatedTo}}
+        <!-- QDM Attribute: Related To -->
+        {{> qrda_templates/template_partials/_related_to}}
+    {{/relatedTo}}
   </observation>
 </entry>
