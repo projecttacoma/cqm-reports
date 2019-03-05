@@ -9,24 +9,33 @@
     <text>{{description}}</text>
     <statusCode code="completed"/>
     {{#relevantPeriod}}
-    {{{relevant_period}}}
+      <!-- QDM Attribute: Relevant Period -->
+      {{{relevant_period}}}
     {{/relevantPeriod}}
     {{#anatomicalLocationSite}}
+      <!-- QDM Attribute: Anatomical Location Site -->
       {{> qrda_templates/template_partials/_anatomical_location_site}}
     {{/anatomicalLocationSite}}
     {{#authorDatetime}}
-    {{> qrda_templates/template_partials/_author}}
+      <!-- QDM Attribute: Author dateTime -->
+      {{> qrda_templates/template_partials/_author}}
     {{/authorDatetime}}
     <participant typeCode="DEV">
       <participantRole classCode="MANU">
         <playingDevice classCode="DEV">
+          <!-- QDM Attribute: Code -->
           {{> _codes}}
         </playingDevice>
       </participantRole>
     </participant>
+    {{#reason}}
+      <!-- QDM Attribute: Reason -->
+      {{> qrda_templates/template_partials/_reason}}
+    {{/reason}}
     {{#negationRationale}}
-    {{> qrda_templates/template_partials/_reason}}
-    {{/negationRationale}}  
+      <!-- QDM Attribute: Negation Rationale -->
+      {{> qrda_templates/template_partials/_reason}}
+    {{/negationRationale}}
   </procedure>
 </entry>
 
