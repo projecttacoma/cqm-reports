@@ -204,15 +204,17 @@ module QRDA
         components
       end
 
-      def extract_facility(parent_element)
-        facility_element = parent_element.at_xpath(@facility_xpath)
-        return unless facility_element
-
-        facility = QDM::FacilityLocation.new
-        participant_element = facility_element.at_xpath("./cda:participantRole[@classCode='SDLOC']/cda:code")
-        facility.code = code_if_present(participant_element)
-        facility.locationPeriod = extract_interval(facility_element, './cda:time')
-        facility
+      def extract_facility_locations(parent_element)
+        facility_location_elements = parent_element.xpath(@facility_locations_xpath)
+        facility_locations = []
+        facility_location_elements&.each do |facility_location_element|
+          facility_location = QDM::FacilityLocation.new
+          participant_element = facility_location_element.at_xpath("./cda:participantRole[@classCode='SDLOC']/cda:code")
+          facility_location.code = code_if_present(participant_element)
+          facility_location.locationPeriod = extract_interval(facility_location_element, './cda:time')
+          facility_locations << facility_location
+        end
+        facility_locations
       end
 
       def extract_related_to(parent_element)
