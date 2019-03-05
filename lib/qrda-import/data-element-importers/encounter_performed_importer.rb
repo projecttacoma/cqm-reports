@@ -19,7 +19,7 @@ module QRDA
         encounter_performed = super
         encounter_performed.admissionSource = code_if_present(entry_element.at_xpath(@admission_source_xpath))
         encounter_performed.dischargeDisposition = code_if_present(entry_element.at_xpath(@discharge_disposition_xpath))
-        extract_facility(entry_element, encounter_performed)
+        encounter_performed.facilityLocations = extract_facility_locations(entry_element)
         encounter_performed.principalDiagnosis = code_if_present(entry_element.at_xpath(@principal_diagnosis_xpath))
         encounter_performed.diagnoses = extract_diagnoses(entry_element)
         encounter_performed
