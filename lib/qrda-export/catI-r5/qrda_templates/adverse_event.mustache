@@ -26,6 +26,14 @@
         <statusCode code="completed" />
         {{> qrda_templates/template_partials/_data_element_codes_as_values}}
       </observation>
-   </entryRelationship>
+    </entryRelationship>
+    {{#type}}
+    <!-- QDM Attribute: Type -->
+    {{> qrda_templates/template_partials/_reaction_observation}}
+    {{/type}}
+    {{#severity}}
+    <!-- QDM Attribute: Severity -->
+    {{> qrda_templates/template_partials/severity}}
+    {{/severity}}
   </observation>
 </entry>
