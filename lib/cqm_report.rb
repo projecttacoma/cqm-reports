@@ -39,6 +39,7 @@ require_relative 'qrda-import/data-element-importers/laboratory_test_performed_i
 require_relative 'qrda-import/data-element-importers/adverse_event_importer.rb'
 require_relative 'qrda-import/data-element-importers/assessment_performed_importer.rb'
 require_relative 'qrda-import/data-element-importers/assessment_order_importer.rb'
+require_relative 'qrda-import/data-element-importers/assessment_recommended_importer.rb'
 require_relative 'qrda-import/data-element-importers/communication_performed_importer.rb'
 require_relative 'qrda-import/data-element-importers/device_applied_importer.rb'
 require_relative 'qrda-import/data-element-importers/device_order_importer.rb'
