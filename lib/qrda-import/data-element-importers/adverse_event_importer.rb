@@ -15,6 +15,7 @@ module QRDA
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         adverse_event = super
         adverse_event.severity = code_if_present(entry_element.at_xpath(@severity_xpath))
+        adverse_event.type = code_if_present(entry_element.at_xpath(@type_xpath))
         adverse_event.facilityLocation = extract_facility_locations(entry_element)[0]
         adverse_event
       end
