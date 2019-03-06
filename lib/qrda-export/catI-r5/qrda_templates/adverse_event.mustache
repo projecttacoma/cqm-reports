@@ -1,21 +1,22 @@
 <entry>
   <observation classCode="OBS" moodCode="EVN">
-    <!-- Adverse Event Template -->
+    <!-- Adverse Event -->
     <templateId root="2.16.840.1.113883.10.20.24.3.146" extension="2017-08-01"/>
     <id root="1.3.6.1.4.1.115" extension="{{object_id}}"/>
     <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
     <statusCode code="completed"/>
-    <!-- QDM Attribute: Relevant Period -->
     {{#relevantPeriod}}
-    {{{relevant_period}}}
+      <!-- QDM Attribute: Relevant Period -->
+      {{{relevant_period}}}
     {{/relevantPeriod}}
     <value xsi:type="CD" code="281647001" displayName="Adverse reaction" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"/>
     {{#authorDatetime}}
-    {{> qrda_templates/template_partials/_author}}
+      <!-- QDM Attribute: Author dateTime -->
+      {{> qrda_templates/template_partials/_author}}
     {{/authorDatetime}}
     {{#facilityLocation}}
-    <!-- QDM Attribute: Facility Location -->
-    {{> qrda_templates/template_partials/_facility_location}}
+      <!-- QDM Attribute: Facility Location -->
+      {{> qrda_templates/template_partials/_facility_location}}
     {{/facilityLocation}}
     <!-- QDM Attribute: Code -->
     <entryRelationship typeCode="CAUS" inversionInd="true">
@@ -28,12 +29,12 @@
       </observation>
     </entryRelationship>
     {{#type}}
-    <!-- QDM Attribute: Type -->
-    {{> qrda_templates/template_partials/_reaction_observation}}
+      <!-- QDM Attribute: Type -->
+      {{> qrda_templates/template_partials/_reaction_observation}}
     {{/type}}
     {{#severity}}
-    <!-- QDM Attribute: Severity -->
-    {{> qrda_templates/template_partials/severity}}
+      <!-- QDM Attribute: Severity -->
+      {{> qrda_templates/template_partials/severity}}
     {{/severity}}
   </observation>
 </entry>
