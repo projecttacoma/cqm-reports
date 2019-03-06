@@ -94,16 +94,21 @@ module QRDA
         puts "\n========================= QRDA VALIDATION ========================="
         cqm_patients = QDM::PatientGeneration.generate_exhastive_data_element_patients(true)
         validator = CqmValidators::Cat1R5.instance
+        cda_validator = CqmValidators::CDA.instance
         successful_count = 0
         cqm_patients.each do |cqm_patient|
           datatype_name = cqm_patient.givenNames[0]
           begin
             exported_qrda = generate_doc(cqm_patient)
             errors = validator.validate(exported_qrda)
-            if (errors.count.zero?)
+            cda_errors = cda_validator.validate(exported_qrda)
+            if (errors.count.zero? && cda_errors.count.zero?)
               successful_count += 1
             end
             errors.each do |error|
+              puts "\e[31mSchema Error In #{datatype_name}: #{error.message}\e[0m"
+            end
+            cda_errors.each do |error|
               puts "\e[31mSchema Error In #{datatype_name}: #{error.message}\e[0m"
             end
           rescue StandardError => e
