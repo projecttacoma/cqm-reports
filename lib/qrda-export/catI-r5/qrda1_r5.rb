@@ -19,6 +19,22 @@ class Qrda1R5 < Mustache
     @insurance_provider = JSON.parse(@qdmPatient.extendedData.insurance_providers) if @qdmPatient.extendedData && @qdmPatient.extendedData['insurance_providers']
   end
 
+  def patient_characteristic_birthdate
+    JSON.parse(@qdmPatient.dataElements.where(hqmfOid: '2.16.840.1.113883.10.20.28.3.54').to_json)
+  end
+
+  def patient_characteristic_sex
+    JSON.parse(@qdmPatient.dataElements.where(hqmfOid: '2.16.840.1.113883.10.20.28.3.55').to_json)
+  end
+
+  def patient_characteristic_race
+    JSON.parse(@qdmPatient.dataElements.where(hqmfOid: '2.16.840.1.113883.10.20.28.3.59').to_json)
+  end
+
+  def patient_characteristic_ethnicity
+    JSON.parse(@qdmPatient.dataElements.where(hqmfOid: '2.16.840.1.113883.10.20.28.3.56').to_json)
+  end
+
   def adverse_event
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('adverse_event', '') }).to_json)
   end

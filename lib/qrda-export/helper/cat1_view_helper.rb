@@ -4,7 +4,8 @@ module Qrda
     module Helper
       module Cat1ViewHelper
         def insurance_provider_code_and_code_system
-          "code=\"#{self['codes'].values.first[0]}\" codeSystem=\"#{code_system_oid(self['codes'].keys.first)}\" codeSystemName=\"#{self['codes'].keys.first}\""
+          insurance_code_system_oid = Qrda::Export::Helper::CodeSystemHelper.oid_for_code_system(self['codes'].keys.first)
+          "code=\"#{self['codes'].values.first[0]}\" codeSystem=\"#{insurance_code_system_oid}\" codeSystemName=\"#{self['codes'].keys.first}\""
         end
 
         def negation_ind
@@ -27,16 +28,16 @@ module Qrda
           self['qdmCategory'] == 'medication' && self['qdmStatus'] == 'order'
         end
 
-        def code_system_oid(name)
-          Qrda::Export::Helper::CodeSystemHelper.oid_for_code_system(name)
+        def code_system_oid(data_element_code)
+          data_element_code['codeSystemOid'] || Qrda::Export::Helper::CodeSystemHelper.oid_for_code_system(data_element_code['codeSystem'])
         end
 
         def code_and_codesystem
-          "code=\"#{self['code']}\" codeSystem=\"#{code_system_oid(self['codeSystem'])}\" codeSystemName=\"#{self['codeSystem']}\""
+          "code=\"#{self['code']}\" codeSystem=\"#{code_system_oid(self)}\" codeSystemName=\"#{self['codeSystem']}\""
         end
 
         def primary_code_and_codesystem
-          "code=\"#{self[:dataElementCodes][0]['code']}\" codeSystem=\"#{code_system_oid(self[:dataElementCodes][0]['codeSystem'])}\" codeSystemName=\"#{self[:dataElementCodes][0]['codeSystem']}\""
+          "code=\"#{self[:dataElementCodes][0]['code']}\" codeSystem=\"#{code_system_oid(self[:dataElementCodes][0])}\" codeSystemName=\"#{self[:dataElementCodes][0]['codeSystem']}\""
         end
 
         def translation_codes_and_codesystem_list
@@ -44,7 +45,7 @@ module Qrda
           self[:dataElementCodes].each_with_index do |_dec, index|
             next if index.zero?
 
-            translation_list += "<translation code=\"#{self[:dataElementCodes][index]['code']}\" codeSystem=\"#{code_system_oid(self[:dataElementCodes][index]['codeSystem'])}\" codeSystemName=\"#{self[:dataElementCodes][index]['codeSystem']}\"/>"
+            translation_list += "<translation code=\"#{self[:dataElementCodes][index]['code']}\" codeSystem=\"#{code_system_oid(self[:dataElementCodes][index])}\" codeSystemName=\"#{self[:dataElementCodes][index]['codeSystem']}\"/>"
           end
           translation_list
         end
@@ -64,7 +65,7 @@ module Qrda
 
         def result_value_as_string(result)
           return "<value xsi:type=\"CD\" nullFlavor=\"UNK\"/>" unless result
-          return "<value xsi:type=\"CD\" code=\"#{result['code']}\" codeSystem=\"#{code_system_oid(result['codeSystem'])}\" codeSystemName=\"#{result['codeSystem']}\"/>" if result['code']
+          return "<value xsi:type=\"CD\" code=\"#{result['code']}\" codeSystem=\"#{code_system_oid(result)}\" codeSystemName=\"#{result['codeSystem']}\"/>" if result['code']
           return "<value xsi:type=\"PQ\" value=\"#{result['value']}\" unit=\"#{result['unit']}\"/>" if result['unit']
         end
 
