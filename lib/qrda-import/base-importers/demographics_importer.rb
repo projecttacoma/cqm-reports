@@ -6,25 +6,25 @@ module QRDA
         patient_element = patient_role_element.at_xpath('./cda:patient')
         patient.givenNames = [patient_element.at_xpath('cda:name/cda:given').text]
         patient.familyName = patient_element.at_xpath('cda:name/cda:family').text
-        patient.qdmPatient.birthDatetime = Time.parse(patient_element.at_xpath('cda:birthTime')['value']).utc
+        patient.qdmPatient.birthDatetime = DateTime.parse(patient_element.at_xpath('cda:birthTime')['value'])
         pcbd = QDM::PatientCharacteristicBirthdate.new
         pcbd.birthDatetime = patient.qdmPatient.birthDatetime
         pcbd.dataElementCodes = [{ code: '21112-8', codeSystem: 'LOINC' }]
         patient.qdmPatient.dataElements << pcbd
 
         pcs = QDM::PatientCharacteristicSex.new
-        gender_code = patient_element.at_xpath('cda:administrativeGenderCode')['code']
-        pcs.dataElementCodes = [{ code: gender_code, codeSystem: 'AdministrativeGender' }]
+        code_element = patient_element.at_xpath('cda:administrativeGenderCode')
+        pcs.dataElementCodes = [code_if_present(code_element)]
         patient.qdmPatient.dataElements << pcs
 
         pcr = QDM::PatientCharacteristicRace.new
-        race_code = patient_element.at_xpath('cda:raceCode')['code']
-        pcr.dataElementCodes = [{ code: race_code, codeSystem: 'cdcrec' }]
+        code_element = patient_element.at_xpath('cda:raceCode')
+        pcr.dataElementCodes = [code_if_present(code_element)]
         patient.qdmPatient.dataElements << pcr
 
         pce = QDM::PatientCharacteristicEthnicity.new
-        ethnicity_code = patient_element.at_xpath('cda:ethnicGroupCode')['code']
-        pce.dataElementCodes = [{ code: ethnicity_code, codeSystem: 'cdcrec' }]
+        code_element = patient_element.at_xpath('cda:ethnicGroupCode')
+        pce.dataElementCodes = [code_if_present(code_element)]
         patient.qdmPatient.dataElements << pce
 
         provider_element = doc.xpath("//cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.55']")
@@ -36,6 +36,12 @@ module QRDA
         ip['financial_responsibility_type'] = { 'code' => 'SELF', 'codeSystem' => 'HL7 Relationship Code' }
         ip['codes'] = { 'SOP' => [provider_code] }
         patient['insurance_providers'] = [ip]
+      end
+
+      def code_if_present(code_element)
+        return unless code_element && code_element['codeSystem'] && code_element['code']
+
+        QDM::Code.new(code_element['code'], HQMF::Util::CodeSystemHelper.code_system_for(code_element['codeSystem']))
       end
     end
   end
