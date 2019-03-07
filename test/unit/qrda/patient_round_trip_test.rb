@@ -106,10 +106,10 @@ module QRDA
               successful_count += 1
             end
             errors.each do |error|
-              puts "\e[31mSchema Error In #{datatype_name}: #{error.message}\e[0m"
+              puts "\e[31mQRDA Schematron Error In #{datatype_name}: #{error.message}\e[0m"
             end
             cda_errors.each do |error|
-              puts "\e[31mSchema Error In #{datatype_name}: #{error.message}\e[0m"
+              puts "\e[31mCDA Schema Error In #{datatype_name}: #{error.message}\e[0m"
             end
           rescue StandardError => e
             puts "\e[31mException validating #{datatype_name}: #{e.message}\e[0m"
