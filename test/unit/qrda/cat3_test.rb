@@ -4,7 +4,7 @@ require 'cqm_validators'
 
 module QRDA
   module Cat3
-    class Cat3CVUTest < MiniTest::Test
+    class Cat3ValidationTest < MiniTest::Test
 
       def test_cat3_good
         # Read in GOOD file in fixtures
