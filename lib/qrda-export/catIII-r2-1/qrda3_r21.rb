@@ -10,13 +10,13 @@ class Qrda3R21 < Mustache
     @measures = measures
     @measure_result_hash = {}
     @measures.each do |measure|
-      @measure_result_hash[measure.hqmf_id] = { hqmf_id: measure.hqmf_id, hqmf_set_id: measure.hqmf_set_id, description: measure.description, measure_data: [], aggregate_count: [] }
+      @measure_result_hash[measure.hqmf_id] = { population_sets: measure.population_sets, hqmf_id: measure.hqmf_id, hqmf_set_id: measure.hqmf_set_id, description: measure.description, measure_data: [], aggregate_count: [] }
     end
     @aggregate_results.each do |_key, aggregate_result|
       @measure_result_hash[aggregate_result.measure_id].measure_data << aggregate_result
     end
     @measure_result_hash.each do |key, hash|
-      @measure_result_hash[key][:aggregate_count] = agg_results(key, hash.measure_data)
+      @measure_result_hash[key][:aggregate_count] = agg_results(key, hash.measure_data, hash.population_sets)
     end
     @provider = options[:provider]
     @performance_period_start = options[:start_time]
@@ -24,10 +24,10 @@ class Qrda3R21 < Mustache
     @submission_program = options[:submission_program]
   end
 
-  def agg_results(measure_id, cache_entries)
+  def agg_results(measure_id, cache_entries, population_sets)
     aggregate_count = Qrda::Export::Helper::AggregateCount.new(measure_id)
     cache_entries.each do |cache_entry|
-      aggregate_count.add_entry(cache_entry)
+      aggregate_count.add_entry(cache_entry, population_sets)
     end
     aggregate_count
   end
