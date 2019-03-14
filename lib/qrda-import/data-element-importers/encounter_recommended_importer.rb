@@ -12,7 +12,7 @@ module QRDA
 
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         encounter_recommended = super
-        encounter_recommended.facilityLocation = extract_facility(entry_element)
+        encounter_recommended.facilityLocation = extract_facility_locations(entry_element)[0]
         encounter_recommended
       end
 
