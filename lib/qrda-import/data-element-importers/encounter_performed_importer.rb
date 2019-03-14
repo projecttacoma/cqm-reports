@@ -9,7 +9,7 @@ module QRDA
         @author_datetime_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']/cda:author/cda:time"
         @admission_source_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']/cda:participant/cda:participantRole[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.151']/cda:code"
         @discharge_disposition_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']/sdtc:dischargeDispositionCode"
-        @facility_xpath = "./cda:entryRelationship/cda:encounter/cda:participant[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.100']"
+        @facility_locations_xpath = "./cda:entryRelationship/cda:encounter/cda:participant[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.100']"
         @principal_diagnosis_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']/cda:entryRelationship/cda:observation[cda:code/@code='8319008']/cda:value"
         @diagnosis_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']/cda:entryRelationship/cda:act/cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.4']"
         @entry_class = QDM::EncounterPerformed
