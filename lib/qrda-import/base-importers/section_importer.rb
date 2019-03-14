@@ -197,8 +197,9 @@ module QRDA
         component_elements = parent_element.xpath(@components_xpath)
         components = []
         component_elements&.each do |component_element|
-          component = QDM::Component.new(code_if_present(component_element.at_xpath('./cda:code')),
-                                         extract_result_value(component_element.at_xpath('./cda:value')))
+          component = QDM::Component.new
+          component.code = code_if_present(component_element.at_xpath('./cda:code'))
+          component.result =extract_result_value(component_element.at_xpath('./cda:value'))
           components << component
         end
         components
