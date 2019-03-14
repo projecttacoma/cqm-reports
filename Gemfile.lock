@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/projecttacoma/cqm-models.git
-  revision: 40b73f19f769415ccfd81c5161b856b64a3e3081
-  branch: master
+  revision: f81cec984a2832d939ef64b08c219ee178815896
+  branch: generate_id
   specs:
     cqm-models (1.0.2)
 
@@ -92,6 +92,7 @@ GEM
     public_suffix (3.0.3)
     rainbow (3.0.0)
     rake (12.3.2)
+    rb-readline (0.5.5)
     rubocop (0.52.1)
       parallel (~> 1.10)
       parser (>= 2.4.0.2, < 3.0)
@@ -151,6 +152,7 @@ DEPENDENCIES
   nokogiri-diff
   protected_attributes_continued
   rake
+  rb-readline
   rubocop (~> 0.52.1)
   simplecov
   tailor (~> 1.1.2)
