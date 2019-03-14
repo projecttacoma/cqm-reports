@@ -26,7 +26,6 @@ require_relative 'qrda-import/entry_finder.rb'
 
 require_relative 'qrda-import/base-importers/section_importer.rb'
 require_relative 'qrda-import/base-importers/demographics_importer.rb'
-require_relative 'qrda-import/base-importers/medication_importer.rb'
 
 require_relative 'qrda-import/data-element-importers/allergy_intolerance_importer.rb'
 require_relative 'qrda-import/data-element-importers/diagnostic_study_order_importer.rb'
