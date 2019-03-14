@@ -6,7 +6,7 @@ module QRDA
         @id_xpath = './cda:entryRelationship/cda:encounter/cda:id'
         @code_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.22']/cda:code"
         @author_datetime_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.22']/cda:author/cda:time"
-        @facility_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.22']/cda:participant[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.100']"
+        @facility_locations_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.22']/cda:participant[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.100']"
         @entry_class = QDM::EncounterOrder
       end
 
