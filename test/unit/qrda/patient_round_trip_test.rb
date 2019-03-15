@@ -93,7 +93,7 @@ module QRDA
       def test_exhaustive_qrda_validation
         puts "\n========================= QRDA VALIDATION ========================="
         cqm_patients = QDM::PatientGeneration.generate_exhastive_data_element_patients(true)
-        validator = CqmValidators::Cat1R5.instance
+        validator = CqmValidators::Cat1R51.instance
         cda_validator = CqmValidators::CDA.instance
         successful_count = 0
         cqm_patients.each do |cqm_patient|
