@@ -58,6 +58,13 @@ module Qrda
           "</effectiveTime>"
         end
 
+        def medication_duration_author_effective_time
+          "<effectiveTime xsi:type='IVL_TS'>"\
+          "<low #{value_or_null_flavor(self['authorDatetime'])}/>"\
+          "<high nullFlavor='UNK'/>"\
+          "</effectiveTime>"
+        end
+
         def prevalence_period
           "<effectiveTime>"\
           "<low #{value_or_null_flavor(self['prevalencePeriod']['low'])}/>"\

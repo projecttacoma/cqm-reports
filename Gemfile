@@ -26,6 +26,6 @@ group :test do
   gem 'minitest', '~> 5.3'
   gem 'minitest-reporters'
   gem 'awesome_print', :require => 'ap'
-  gem 'cqm-validators'
+  gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators.git', branch: 'qrda_5_1'
   gem 'nokogiri-diff'
 end

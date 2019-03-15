@@ -11,6 +11,12 @@
       <!-- QDM Attribute: Relevant Period -->
       {{{medication_duration_effective_time}}}
     {{/relevantPeriod}}
+    {{^relevantPeriod}}
+      {{#authorDatetime}}
+        <!-- QDM Attribute: Relevant Period -->
+        {{{medication_duration_author_effective_time}}}
+      {{/authorDatetime}}
+    {{/relevantPeriod}}
     {{> qrda_templates/template_partials/_medication_details}}
     <consumable>
       <manufacturedProduct classCode="MANU">
