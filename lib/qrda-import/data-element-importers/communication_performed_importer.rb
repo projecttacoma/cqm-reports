@@ -23,10 +23,6 @@ module QRDA
           communication_performed.sender = code_if_present(entry_element.at_xpath(@sender_xpath))
           communication_performed.recipient = code_if_present(entry_element.at_xpath(@recipient_xpath))
           communication_performed.relatedTo = extract_related_to(entry_element)
-          communication_performed.category = code_if_present(entry_element.at_xpath(@category_xpath))
-          communication_performed.medium = code_if_present(entry_element.at_xpath(@medium_xpath))
-          communication_performed.sender = code_if_present(entry_element.at_xpath(@sender_xpath))
-          communication_performed.recipient = code_if_present(entry_element.at_xpath(@recipient_xpath))
           communication_performed
         end
       end
