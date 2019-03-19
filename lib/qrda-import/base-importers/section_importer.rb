@@ -114,11 +114,12 @@ module QRDA
 
       def frequency_as_coded_value(parent_element, frequency_xpath)
         # Find the frequency interval in hours
-        frequency_in_hours = extract_frequency_in_hours(parent_element, frequency_xpath).to_i
+        frequency = extract_frequency_in_hours(parent_element, frequency_xpath)
         # If a frequency interval is not found, return nil
-        return nil unless frequency_in_hours
+        return nil unless frequency[:low]
         # If a frequency interval is found, search for a corresponding Direct Reference Code
-        key, value = Qrda::Export::Helper::FrequencyHelper::FREQUENCY_CODE_MAP.select { |_k,v| v[:in_hours] == frequency_in_hours }.first
+        key, value = Qrda::Export::Helper::FrequencyHelper::FREQUENCY_CODE_MAP.select { |_k,v| v[:low] == frequency['low'] &&
+           v[:high] == frequency['high'] && v[:institution_specified] == frequency['institution_specified'] && v[:unit] == frequency['unit']}.first
         # If a Direct Reference Code isn't found, return nil
         return nil unless key
         # If a Direct Reference Code is found, return that code
@@ -126,18 +127,20 @@ module QRDA
       end
 
       def extract_frequency_in_hours(parent_element, frequency_xpath)
-        return nil unless parent_element.at_xpath("#{frequency_xpath}/@value")
-        frequency_unit = ''
-        frequency_unit = parent_element.at_xpath(frequency_xpath)['unit'] if parent_element.at_xpath("#{frequency_xpath}/@unit")
-        frequency_value = parent_element.at_xpath(frequency_xpath)['value']
+        # Need to go get low, high and institutionspecified
+        low = parent_element.at_xpath("#{frequency_xpath}/@value").value if parent_element.at_xpath("#{frequency_xpath}/@value")
+        low = parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:low/@value").value if parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:low/@value")
+        unit = parent_element.at_xpath("#{frequency_xpath}/@unit").value if parent_element.at_xpath("#{frequency_xpath}/@unit")
+        unit = parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:low/@unit").value if parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:low/@unit")
+        high = parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:high/@value").value if parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:high/@value")
+        institution_specified = parent_element.at_xpath("#{frequency_xpath}/@institutionSpecified") || false
         # Expected units are H (hours) and D (days)
-        case frequency_unit.upcase
-        when 'H'
-          return frequency_value
-        when 'D'
-          return frequency_value.to_i * 24
+        if unit && unit.upcase == 'D'
+          low = low * 24 if low
+          high = high * 34 if high
+          unit = 'h'
         end
-        nil
+        {low: low, high: high, unit: unit, institution_specified: institution_specified}
       end
 
       def extract_result_values(parent_element)
