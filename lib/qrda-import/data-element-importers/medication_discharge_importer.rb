@@ -22,7 +22,7 @@ module QRDA
         medication_discharge.dosage = extract_scalar(entry_element, @dosage_xpath)
         medication_discharge.supply = extract_scalar(entry_element, @supply_xpath)
         medication_discharge.frequency = frequency_as_coded_value(entry_element, @frequency_xpath)
-        medication_discharge.daysSupplied = extract_scalar(entry_element, @days_supplied_xpath)
+        medication_discharge.daysSupplied = extract_scalar(entry_element, @days_supplied_xpath)&.value
         medication_discharge.route = code_if_present(entry_element.at_xpath(@route_xpath))
         medication_discharge
       end
