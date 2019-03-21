@@ -33,14 +33,14 @@ module Qrda
         def medication_frequency
           # If the code matches one of the known Direct Reference Codes, export that time in hours. Otherwise default to "every twenty four hours" code
           frequency_code_entry = FREQUENCY_CODE_MAP[self['code']] || FREQUENCY_CODE_MAP['396125000']
-          if(!frequency_code_entry[:institution_specified])
-            if(frequency_code_entry[:high].nil?)
+          if !frequency_code_entry[:institution_specified]
+            if frequency_code_entry[:high].nil?
               institution_not_specified_point_frequency(frequency_code_entry)
             else
               institution_not_specified_range_frequency(frequency_code_entry)
             end
           else
-            if(frequency_code_entry[:high].nil?)
+            if frequency_code_entry[:high].nil?
               institution_specified_point_frequency(frequency_code_entry)
             else
               institution_specified_range_frequency(frequency_code_entry)
@@ -77,7 +77,6 @@ module Qrda
           "</period>"\
           "</effectiveTime>"
         end
-
       end
     end
   end

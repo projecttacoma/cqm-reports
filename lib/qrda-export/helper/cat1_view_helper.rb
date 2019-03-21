@@ -72,7 +72,6 @@ module Qrda
         def authorDateTimeOrDispenserId
           self['authorDatetime'] || self['dispenserId']
         end
-
       end
     end
   end

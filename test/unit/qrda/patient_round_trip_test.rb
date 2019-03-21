@@ -15,7 +15,7 @@ module QRDA
 
       def create_test_measures_collection
         # Delete all existing for atomicity
-        CQM::Measure.delete_all()
+        CQM::Measure.delete_all
         mes = CQM::Measure.new
         mes.hqmf_id = 'b794a9c2-8e83-11e8-9eb6-529269fb1459'
         mes.hqmf_set_id = 'bdfa0e38-8e83-11e8-9eb6-529269fb1459'
@@ -38,21 +38,21 @@ module QRDA
       end
 
       def add_different_frequency_codes_to_medication(medication_test_patient)
-        medication_test_element = medication_test_patient.qdmPatient.medications().first()
+        medication_test_element = medication_test_patient.qdmPatient.medications.first
 
-        institution_specified_range = medication_test_element.clone()
+        institution_specified_range = medication_test_element.clone
         institution_specified_range.frequency = QDM::Code.new('396107007', 'SNOMED-CT')
         medication_test_patient.qdmPatient.dataElements.push(institution_specified_range)
 
-        institution_specified_point = medication_test_element.clone()
+        institution_specified_point = medication_test_element.clone
         institution_specified_point.frequency = QDM::Code.new('229797004', 'SNOMED-CT')
         medication_test_patient.qdmPatient.dataElements.push(institution_specified_point)
 
-        institution_not_specified_range = medication_test_element.clone()
+        institution_not_specified_range = medication_test_element.clone
         institution_not_specified_range.frequency = QDM::Code.new('225752000', 'SNOMED-CT')
         medication_test_patient.qdmPatient.dataElements.push(institution_not_specified_range)
 
-        institution_not_specified_point = medication_test_element.clone()
+        institution_not_specified_point = medication_test_element.clone
         institution_not_specified_point.frequency = QDM::Code.new('225756002', 'SNOMED-CT')
         medication_test_patient.qdmPatient.dataElements.push(institution_not_specified_point)
       end
@@ -60,7 +60,7 @@ module QRDA
       def test_exhaustive_patient_roundtrip
         puts "\n========================= QRDA ROUNDTRIP ========================="
         cqm_patients = QDM::PatientGeneration.generate_exhastive_data_element_patients(true)
-        add_different_frequency_codes_to_medication(cqm_patients.find{|patient| patient.familyName.include? 'MedicationDispensed'})
+        add_different_frequency_codes_to_medication(cqm_patients.find { |patient| patient.familyName.include? 'MedicationDispensed' })
         successful_count = 0
         cqm_patients.each do |cqm_patient| 
           datatype_name = cqm_patient.givenNames[0]
@@ -111,10 +111,10 @@ module QRDA
       end
 
       def test_exhaustive_qrda_validation
-        skip_types = ['Participation', 'CareGoal']
+        skip_types = %w[Participation CareGoal]
         puts "\n========================= QRDA VALIDATION ========================="
         cqm_patients = QDM::PatientGeneration.generate_exhastive_data_element_patients(true)
-        add_different_frequency_codes_to_medication(cqm_patients.find{|patient| patient.familyName.include? 'MedicationDispensed'})
+        add_different_frequency_codes_to_medication(cqm_patients.find { |patient| patient.familyName.include? 'MedicationDispensed' })
         validator = CqmValidators::Cat1R51.instance
         cda_validator = CqmValidators::CDA.instance
         successful_count = 0
