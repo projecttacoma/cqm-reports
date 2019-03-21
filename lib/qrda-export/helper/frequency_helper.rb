@@ -59,7 +59,7 @@ module Qrda
           "<period xsi:type='IVL_PQ'>"\
           "<low value='#{frequency_code_entry[:low]}' unit='#{frequency_code_entry[:unit]}'/>"\
           "<high value='#{frequency_code_entry[:high]}' unit='#{frequency_code_entry[:unit]}'/>"\
-          "</period>"
+          "</period>"\
           "</effectiveTime>"
         end
 
@@ -74,7 +74,7 @@ module Qrda
           "<period xsi:type='IVL_PQ'>"\
           "<low value='#{frequency_code_entry[:low]}' unit='#{frequency_code_entry[:unit]}'/>"\
           "<high value='#{frequency_code_entry[:high]}' unit='#{frequency_code_entry[:unit]}'/>"\
-          "</period>"
+          "</period>"\
           "</effectiveTime>"
         end
 
