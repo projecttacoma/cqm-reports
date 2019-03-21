@@ -118,8 +118,7 @@ module QRDA
         # If a frequency interval is not found, return nil
         return nil unless frequency[:low]
         # If a frequency interval is found, search for a corresponding Direct Reference Code
-        key, value = Qrda::Export::Helper::FrequencyHelper::FREQUENCY_CODE_MAP.select { |_k,v| v[:low] == frequency['low'] &&
-           v[:high] == frequency['high'] && v[:institution_specified] == frequency['institution_specified'] && v[:unit] == frequency['unit']}.first
+        key, value = Qrda::Export::Helper::FrequencyHelper::FREQUENCY_CODE_MAP.select { |_k,v| v[:low] == frequency['low'] && v[:high] == frequency['high'] && v[:institution_specified] == frequency['institution_specified'] && v[:unit] == frequency['unit'] }.first
         # If a Direct Reference Code isn't found, return nil
         return nil unless key
         # If a Direct Reference Code is found, return that code
@@ -138,9 +137,8 @@ module QRDA
         if unit && unit.upcase == 'D'
           low = low * 24 if low
           high = high * 34 if high
-          unit = 'h'
         end
-        {low: low, high: high, unit: unit, institution_specified: institution_specified}
+        { low: low, high: high, unit: unit, institution_specified: institution_specified }
       end
 
       def extract_result_values(parent_element)
@@ -202,7 +200,7 @@ module QRDA
         component_elements&.each do |component_element|
           component = QDM::Component.new
           component.code = code_if_present(component_element.at_xpath('./cda:code'))
-          component.result =extract_result_value(component_element.at_xpath('./cda:value'))
+          component.result = extract_result_value(component_element.at_xpath('./cda:value'))
           components << component
         end
         components
