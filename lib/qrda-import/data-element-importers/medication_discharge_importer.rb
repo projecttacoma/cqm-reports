@@ -12,7 +12,7 @@ module QRDA
         @frequency_xpath = "./cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:effectiveTime[@operator='A']/cda:period"
         @days_supplied_xpath = "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.157']/cda:quantity"
         @route_xpath = "./cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:routeCode"
-        
+
         @entry_class = QDM::MedicationDischarge
       end
 
