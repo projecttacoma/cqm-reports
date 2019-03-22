@@ -28,9 +28,9 @@
             </manufacturedMaterial>
           </manufacturedProduct>
         </product>
-        {{#authorDateTime_or_dispenserId}}
+        {{#authorDateTime_or_dispenserId?}}
           {{> qrda_templates/template_partials/_author}}
-        {{/authorDateTime_or_dispenserId}}
+        {{/authorDateTime_or_dispenserId?}}
         {{#prescriberId}}
         <participant typeCode="PRF">
           <participantRole>
