@@ -69,7 +69,7 @@ module Qrda
           return "<value xsi:type=\"PQ\" value=\"#{result['value']}\" unit=\"#{result['unit']}\"/>" if result['unit']
         end
 
-        def authorDateTime_or_dispenserId
+        def authorDateTime_or_dispenserId?
           self['authorDatetime'] || self['dispenserId']
         end
       end
