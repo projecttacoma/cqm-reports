@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gemspec :development_group => :test
 
 gem 'mongoid', '~> 6.4.2'
-gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'generate_id'
+gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'master'
 gem 'protected_attributes_continued'
 
 group :development, :test do
