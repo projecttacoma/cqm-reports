@@ -13,7 +13,7 @@ class Qrda3R21 < Mustache
       @measure_result_hash[measure.hqmf_id] = { population_sets: measure.population_sets, hqmf_id: measure.hqmf_id, hqmf_set_id: measure.hqmf_set_id, description: measure.description, measure_data: [], aggregate_count: [] }
     end
     @aggregate_results.each do |hqmf_id, measure_aggregate_result|
-      measure_aggregate_result.each do |_key,  aggregate_result|
+      measure_aggregate_result.each do |_key, aggregate_result|
         @measure_result_hash[hqmf_id].measure_data << aggregate_result
       end
     end
