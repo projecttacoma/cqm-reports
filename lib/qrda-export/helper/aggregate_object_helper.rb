@@ -98,8 +98,6 @@ module Qrda
       class AggregateCount
         attr_accessor :measure_id,  :populations, :population_groups
 
-        ALL_POPULATION_CODES = %w[IPP DENOM NUMER NUMEX DENEX DENEXCEP MSRPOPL MSRPOPLEX OBSERV].freeze
-
         def initialize(measure_id)
           @populations = []
           @measure_id = measure_id
@@ -109,7 +107,7 @@ module Qrda
         def add_entry(cache_entry, population_sets)
           population_set = population_sets.where(population_set_id: cache_entry.pop_set_hash[:population_set_id]).first
           entry_populations = []
-          ALL_POPULATION_CODES.each do |pop_code|
+          %w[IPP DENOM NUMER NUMEX DENEX DENEXCEP MSRPOPL MSRPOPLEX OBSERV].each do |pop_code|
             next unless population_set.populations[pop_code] || pop_code == 'OBSERV'
 
             population = create_population_from_population_set(pop_code, population_set, cache_entry)
