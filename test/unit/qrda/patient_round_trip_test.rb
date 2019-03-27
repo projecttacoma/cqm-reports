@@ -24,9 +24,9 @@ module QRDA
         mes.save
       end
 
-      def generate_doc(patient)
+      def generate_doc(patient, options = nil)
         measures = CQM::Measure.all
-        options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31) }
+        options ||= { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31) }
         rawxml = Qrda1R5.new(patient, measures, options).render
         xml = Tempfile.new(['test_patient', '.xml'])
         xml.write rawxml
@@ -35,6 +35,22 @@ module QRDA
         doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
         doc
+      end
+
+      def generate_shell_patient(type)
+        cqm_patient = QDM::BaseTypeGeneration.generate_cqm_patient(type)
+        qdm_patient = QDM::BaseTypeGeneration.generate_qdm_patient
+        # Add patient characteristics
+        sex = QDM::PatientGeneration.generate_loaded_datatype('QDM::PatientCharacteristicSex')
+        race = QDM::PatientGeneration.generate_loaded_datatype('QDM::PatientCharacteristicRace')
+        ethnicity = QDM::PatientGeneration.generate_loaded_datatype('QDM::PatientCharacteristicEthnicity')
+        birthdate = QDM::PatientGeneration.generate_loaded_datatype('QDM::PatientCharacteristicBirthdate')
+        qdm_patient.dataElements.push(sex)
+        qdm_patient.dataElements.push(race)
+        qdm_patient.dataElements.push(ethnicity)
+        qdm_patient.dataElements.push(birthdate)
+        cqm_patient.qdmPatient = qdm_patient
+        cqm_patient
       end
 
       def add_different_frequency_codes_to_medication(medication_test_patient)
@@ -55,6 +71,72 @@ module QRDA
         institution_not_specified_point = medication_test_element.clone
         institution_not_specified_point.frequency = QDM::Code.new('225756002', 'SNOMED-CT')
         medication_test_patient.qdmPatient.dataElements.push(institution_not_specified_point)
+      end
+
+      def generate_provider
+        provider = CQM::Provider.new(
+          givenNames: ['Joe'],
+          familyName: 'Smith',
+          specialty: '282N00000A',
+          title: 'Dr.'
+        )
+        address = CQM::Address.new(
+          street: ['Street'],
+          city: 'City',
+          state: 'state',
+          zip: 'zip',
+          country: 'country',
+          use: 'use'
+        )
+        telecom = CQM::Telecom.new(
+          preferred: true,
+          value: 'value',
+          use: 'use'
+        )
+        npi = QDM::Id.new(namingSystem: CQM::Provider::NPI_OID, value: '1693839684')
+        tin = QDM::Id.new(namingSystem: CQM::Provider::TAX_ID_OID, value: '538782414')
+        ccn = QDM::Id.new(namingSystem: CQM::Provider::CCN_OID, value: '159826')
+        provider.ids << npi
+        provider.ids << tin
+        provider.ids << ccn
+        provider.addresses << address
+        provider.telecoms << telecom
+        provider
+      end
+
+      def test_provider_roundtrip
+        cqm_patient = generate_shell_patient('provider')
+        provider = generate_provider
+        options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31), provider: provider }
+        doc = generate_doc(cqm_patient, options)
+        assert_equal provider.specialty, doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:code/@code').value
+        assert_equal provider.familyName, doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:assignedPerson/cda:name/cda:family').text
+        assert_equal provider.givenNames.join(' '), doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:assignedPerson/cda:name/cda:given').text
+        assert_equal provider.addresses.first.street.join(' '), doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:addr/cda:streetAddressLine').text
+        assert_equal provider.addresses.first.city, doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:addr/cda:city').text
+        assert_equal provider.addresses.first.state, doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:addr/cda:state').text
+        assert_equal provider.addresses.first.zip, doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:addr/cda:postalCode').text
+        assert_equal provider.addresses.first.country, doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:addr/cda:country').text
+        assert_equal provider.npi, doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:id[@root="2.16.840.1.113883.4.6"]/@extension').value
+        assert_equal provider.ccn, doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:id[@root="2.16.840.1.113883.4.336"]/@extension').value
+        assert_equal provider.tin, doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@root="2.16.840.1.113883.4.2"]/@extension').value
+      end
+
+      def test_no_provider_roundtrip
+        cqm_patient = generate_shell_patient('provider')
+        options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31) }
+        doc = generate_doc(cqm_patient, options)
+        assert_equal '282N00000X', doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:code/@code').value
+        assert_equal 'Carroll', doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:assignedPerson/cda:name/cda:family').text
+        assert_equal 'Daryl', doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:assignedPerson/cda:name/cda:given').text
+        assert_equal '16432 Jayme Viaduct Manor', doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:addr/cda:streetAddressLine').text
+        assert_equal 'Clairland', doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:addr/cda:city').text
+        assert_equal 'MS', doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:addr/cda:state').text
+        assert_equal '38796', doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:addr/cda:postalCode').text
+        assert_equal 'US', doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:addr/cda:country').text
+        assert_equal '1982671962', doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:id[@root="2.16.840.1.113883.4.6"]/@extension').value
+        assert_equal '463132', doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:id[@root="2.16.840.1.113883.4.336"]/@extension').value
+        assert_equal '695939209', doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@root="2.16.840.1.113883.4.2"]/@extension').value
       end
 
       def test_exhaustive_patient_roundtrip

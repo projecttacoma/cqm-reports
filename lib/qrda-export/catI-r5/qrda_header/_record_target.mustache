@@ -10,10 +10,12 @@
     </addr>
     <telecom use="WP" value="tel:+1-781-271-3000"/>
     <patient>
-      <name>
-        <given>{{{given_name}}}</given>
-        <family>{{family_name}}</family>
-      </name>
+      {{#patient}}
+        <name>
+          <given>{{{given_name}}}</given>
+          <family>{{familyName}}</family>
+        </name>
+      {{/patient}}
       {{#patient_characteristic_sex}}
         {{#dataElementCodes}}
           <administrativeGenderCode {{> _code}}/>
