@@ -13,37 +13,43 @@
       </time>
       {{#provider}}
       <assignedEntity>
-        <id extension="{{{provider_npi}}}" root="2.16.840.1.113883.4.6"/>
+        {{#provider_npi}}
+          <id extension="{{value}}" root="2.16.840.1.113883.4.6"/>
+        {{/provider_npi}}
         {{#provider_ccn}}
-          <id extension="{{{provider_ccn}}}" root="2.16.840.1.113883.4.336"/>
+          <id extension="{{value}}" root="2.16.840.1.113883.4.336"/>
         {{/provider_ccn}}
-        <code code="{{{provider_type_code}}}" codeSystem="2.16.840.1.113883.6.101" codeSystemName="Healthcare Provider Taxonomy (HIPAA)"/>
-        {{#provider_addresses}}
+        {{#specialty}}
+        <code code="{{specialty}}" codeSystem="2.16.840.1.113883.6.101" codeSystemName="Healthcare Provider Taxonomy (HIPAA)"/>
+        {{/specialty}}
+        {{#addresses}}
         <addr use="HP">
           <streetAddressLine>{{{provider_street}}}</streetAddressLine>
-          <city>{{{city}}}</city>
-          <state>{{{state}}}</state>
-          <postalCode>{{{zip}}}</postalCode>
-          <country>{{{country}}}</country>
+          <city>{{city}}</city>
+          <state>{{state}}</state>
+          <postalCode>{{zip}}</postalCode>
+          <country>{{country}}</country>
         </addr>
-        {{/provider_addresses}}
+        {{/addresses}}
         <assignedPerson>
           <name>
             <given>{{{given_name}}}</given>
-            <family>{{{family_name}}}</family>
+            <family>{{familyName}}</family>
           </name>
         </assignedPerson>
         <representedOrganization>
-          <id extension="{{{provider_tin}}}" root="2.16.840.1.113883.4.2"/>
-          {{#provider_addresses}}
+          {{#provider_tin}}
+          <id extension="{{value}}" root="2.16.840.1.113883.4.2"/>
+          {{/provider_tin}}
+          {{#addresses}}
           <addr use="HP">
             <streetAddressLine>{{{provider_street}}}</streetAddressLine>
-            <city>{{{city}}}</city>
-            <state>{{{state}}}</state>
-            <postalCode>{{{zip}}}</postalCode>
-            <country>{{{country}}}</country>
+            <city>{{city}}</city>
+            <state>{{state}}</state>
+            <postalCode>{{zip}}</postalCode>
+            <country>{{country}}</country>
           </addr>
-          {{/provider_addresses}}
+          {{/addresses}}
         </representedOrganization>
       </assignedEntity>
       {{/provider}}

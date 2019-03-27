@@ -6,8 +6,8 @@ module Qrda
           JSON.parse(@provider.to_json) if @provider
         end
 
-        def provider_addresses
-          @provider['addresses']
+        def patient
+          JSON.parse(@patient.to_json)
         end
 
         def provider_street
@@ -15,19 +15,22 @@ module Qrda
         end
 
         def provider_npi
-          @provider.npi
+          return nil unless self['ids']
+          self['ids'].map { |id| id if id['namingSystem'] == '2.16.840.1.113883.4.6' }.compact
         end
 
         def provider_tin
-          @provider.tin
+          return nil unless self['ids']
+          self['ids'].map { |id| id if id['namingSystem'] == '2.16.840.1.113883.4.2' }.compact
         end
 
         def provider_ccn
-          @provider.ccn
+          return nil unless self['ids']
+          self['ids'].map { |id| id if id['namingSystem'] == '2.16.840.1.113883.4.336' }.compact
         end
 
         def provider_type_code
-          @provider['specialty']
+          self['specialty']
         end
 
         def mrn
@@ -35,11 +38,7 @@ module Qrda
         end
 
         def given_name
-          @patient.givenNames.join(' ')
-        end
-
-        def family_name
-          @patient.familyName
+          self['givenNames'].join(' ')
         end
 
         def insurance_provider
