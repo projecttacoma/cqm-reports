@@ -3,7 +3,7 @@ module Qrda
     module Helper
       module Cat1ViewHelper
         def insurance_provider_code_and_code_system
-          insurance_code_system_oid = Qrda::Export::Helper::CodeSystemHelper.oid_for_code_system(self['codes'].keys.first)
+          insurance_code_system_oid = HQMF::Util::CodeSystemHelper.oid_for_code_system(self['codes'].keys.first)
           "code=\"#{self['codes'].values.first[0]}\" codeSystem=\"#{insurance_code_system_oid}\" codeSystemName=\"#{self['codes'].keys.first}\""
         end
 
@@ -28,7 +28,7 @@ module Qrda
         end
 
         def code_system_oid(data_element_code)
-          data_element_code['codeSystemOid'] || Qrda::Export::Helper::CodeSystemHelper.oid_for_code_system(data_element_code['codeSystem'])
+          data_element_code['codeSystemOid'] || HQMF::Util::CodeSystemHelper.oid_for_code_system(data_element_code['codeSystem'])
         end
 
         def code_and_codesystem
