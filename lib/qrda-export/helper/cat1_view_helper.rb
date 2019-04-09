@@ -1,4 +1,3 @@
-require 'byebug'
 module Qrda
   module Export
     module Helper
