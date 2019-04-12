@@ -104,6 +104,18 @@ module QRDA
         provider
       end
 
+      def test_negated_vs
+        cqm_patient = generate_shell_patient('negated_vs')
+        qdm_patient = QDM::Patient.new
+        dt = QDM::PatientGeneration.generate_loaded_datatype('QDM::EncounterOrder', true)
+        dt.dataElementCodes = [QDM::Code.new('1.2.3.4', 'NA_VALUESET')]
+        qdm_patient.dataElements << dt
+        cqm_patient.qdmPatient = qdm_patient
+        options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31) }
+        doc = generate_doc(cqm_patient, options)
+        assert_equal 1 , doc.xpath('//cda:code[@nullFlavor="NA" and @sdtc:valueSet="1.2.3.4"]').size
+      end
+
       def test_provider_roundtrip
         cqm_patient = generate_shell_patient('provider')
         provider = generate_provider
