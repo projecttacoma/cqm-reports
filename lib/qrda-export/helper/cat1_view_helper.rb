@@ -33,9 +33,9 @@ module Qrda
 
         def code_and_codesystem
           if self['codeSystem'] == 'NA_VALUESET'
-            return "nullFlavor=\"NA\" sdtc:valueSet=\"#{self['code']}\""
+            "nullFlavor=\"NA\" sdtc:valueSet=\"#{self['code']}\""
           else
-            return "code=\"#{self['code']}\" codeSystem=\"#{code_system_oid(self)}\" codeSystemName=\"#{self['codeSystem']}\""
+            "code=\"#{self['code']}\" codeSystem=\"#{code_system_oid(self)}\" codeSystemName=\"#{self['codeSystem']}\""
           end
         end
 
