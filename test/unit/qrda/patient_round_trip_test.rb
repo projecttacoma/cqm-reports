@@ -113,7 +113,7 @@ module QRDA
         cqm_patient.qdmPatient = qdm_patient
         options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31) }
         doc = generate_doc(cqm_patient, options)
-        assert_equal 1 , doc.xpath('//cda:code[@nullFlavor="NA" and @sdtc:valueSet="1.2.3.4"]').size
+        assert_equal 1, doc.xpath('//cda:code[@nullFlavor="NA" and @sdtc:valueSet="1.2.3.4"]').size
       end
 
       def test_provider_roundtrip
