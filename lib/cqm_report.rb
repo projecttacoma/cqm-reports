@@ -59,6 +59,7 @@ require_relative 'qrda-import/data-element-importers/medication_order_importer.r
 require_relative 'qrda-import/data-element-importers/patient_care_experience_importer.rb'
 require_relative 'qrda-import/data-element-importers/patient_characteristic_clinical_trial_participant_importer.rb'
 require_relative 'qrda-import/data-element-importers/patient_characteristic_expired_importer.rb'
+require_relative 'qrda-import/data-element-importers/patient_characteristic_payer_importer.rb'
 require_relative 'qrda-import/data-element-importers/physical_exam_order_importer.rb'
 require_relative 'qrda-import/data-element-importers/physical_exam_performed_importer.rb'
 require_relative 'qrda-import/data-element-importers/physical_exam_recommended_importer.rb'
