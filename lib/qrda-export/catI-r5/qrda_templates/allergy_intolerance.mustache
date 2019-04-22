@@ -30,6 +30,10 @@
         </playingEntity>
       </participantRole>
     </participant>
+    {{#type}}
+      <!-- QDM Attribute: Type -->
+      {{> qrda_templates/template_partials/_reaction_observation}}
+    {{/type}}
     {{#severity}}
       <!-- QDM Attribute: Severity -->
       {{> qrda_templates/template_partials/_severity}}
