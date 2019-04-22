@@ -45,6 +45,7 @@ module QRDA
         @data_element_importers << generate_importer(PatientCareExperienceImporter)
         @data_element_importers << generate_importer(PatientCharacteristicClinicalTrialParticipantImporter)
         @data_element_importers << generate_importer(PatientCharacteristicExpiredImporter)
+        @data_element_importers << generate_importer(PatientCharacteristicPayerImporter)
         @data_element_importers << generate_importer(PhysicalExamOrderImporter)
         @data_element_importers << generate_importer(PhysicalExamPerformedImporter)
         @data_element_importers << generate_importer(PhysicalExamRecommendedImporter)

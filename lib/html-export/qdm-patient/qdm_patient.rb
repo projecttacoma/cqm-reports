@@ -8,7 +8,6 @@ class QdmPatient < Mustache
     @include_style = include_style
     @patient = patient
     @qdmPatient = patient.qdmPatient
-    @insurance_provider = @patient.insurance_providers if @patientinsurance_providers
   end
 
   def include_style?
@@ -44,9 +43,5 @@ class QdmPatient < Mustache
 
   def end_time?
     self['high'] && DateTime.parse(self['high']).year < 3000
-  end
-
-  def insurance_provider_code
-    self['codes'].values.first[0]
   end
 end

@@ -2,11 +2,6 @@ module Qrda
   module Export
     module Helper
       module Cat1ViewHelper
-        def insurance_provider_code_and_code_system
-          insurance_code_system_oid = HQMF::Util::CodeSystemHelper.oid_for_code_system(self['codes'].keys.first)
-          "code=\"#{self['codes'].values.first[0]}\" codeSystem=\"#{insurance_code_system_oid}\" codeSystemName=\"#{self['codes'].keys.first}\""
-        end
-
         def negation_ind
           self[:negationRationale].nil? ? "" : "negationInd=\"true\""
         end

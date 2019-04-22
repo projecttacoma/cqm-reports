@@ -45,10 +45,12 @@ module QRDA
         race = QDM::PatientGeneration.generate_loaded_datatype('QDM::PatientCharacteristicRace')
         ethnicity = QDM::PatientGeneration.generate_loaded_datatype('QDM::PatientCharacteristicEthnicity')
         birthdate = QDM::PatientGeneration.generate_loaded_datatype('QDM::PatientCharacteristicBirthdate')
+        payer = QDM::PatientGeneration.generate_loaded_datatype('QDM::PatientCharacteristicPayer')
         qdm_patient.dataElements.push(sex)
         qdm_patient.dataElements.push(race)
         qdm_patient.dataElements.push(ethnicity)
         qdm_patient.dataElements.push(birthdate)
+        qdm_patient.dataElements.push(payer)
         cqm_patient.qdmPatient = qdm_patient
         cqm_patient
       end

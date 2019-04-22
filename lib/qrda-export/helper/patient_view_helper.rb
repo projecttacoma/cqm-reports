@@ -40,10 +40,6 @@ module Qrda
         def given_name
           self['givenNames'].join(' ')
         end
-
-        def insurance_provider
-          @insurance_provider
-        end
       end
     end
   end

@@ -16,7 +16,10 @@ class Qrda1R5 < Mustache
     @performance_period_start = options[:start_time]
     @performance_period_end = options[:end_time]
     @submission_program = options[:submission_program]
-    @insurance_provider = JSON.parse(@qdmPatient.extendedData.insurance_providers) if @qdmPatient.extendedData && @qdmPatient.extendedData['insurance_providers']
+  end
+
+  def patient_characteristic_payer
+    JSON.parse(@qdmPatient.get_data_elements('patient_characteristic', 'payer').to_json)
   end
 
   def patient_characteristic_birthdate

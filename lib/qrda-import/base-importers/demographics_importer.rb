@@ -26,16 +26,6 @@ module QRDA
         code_element = patient_element.at_xpath('cda:ethnicGroupCode')
         pce.dataElementCodes = [code_if_present(code_element)]
         patient.qdmPatient.dataElements << pce
-
-        provider_element = doc.xpath("//cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.55']")
-        return if provider_element.blank?
-
-        return if provider_element.blank?
-        provider_code = provider_element.first.at_xpath('cda:value')['code']
-        ip = {}
-        ip['financial_responsibility_type'] = { 'code' => 'SELF', 'codeSystem' => 'HL7 Relationship Code' }
-        ip['codes'] = { 'SOP' => [provider_code] }
-        patient['insurance_providers'] = [ip]
       end
 
       def code_if_present(code_element)
