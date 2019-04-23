@@ -7,11 +7,11 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-validators.git
-  revision: 3d601b056203c75b531585675590b152bc7a9a2e
-  branch: qrda_5_1
+  revision: 119a54a428dc613dfa56986f64f0a30d8bc56291
+  branch: master
   specs:
     cqm-validators (0.1.0)
-      nokogiri (~> 1.8.2)
+      nokogiri (~> 1.10.3)
 
 PATH
   remote: .
@@ -22,7 +22,7 @@ PATH
       memoist (~> 0.9.1)
       mongoid-tree (~> 2.1.0)
       mustache
-      nokogiri (~> 1.8.5)
+      nokogiri (~> 1.10.3)
       uuid (~> 2.3.7)
       zip-zip (~> 0.3)
 
@@ -69,7 +69,7 @@ GEM
     macaddr (1.7.1)
       systemu (~> 2.6.2)
     memoist (0.9.3)
-    mini_portile2 (2.3.0)
+    mini_portile2 (2.4.0)
     minitest (5.11.3)
     minitest-reporters (1.3.6)
       ansi
@@ -84,8 +84,8 @@ GEM
     mongoid-tree (2.1.1)
       mongoid (>= 4.0, < 8)
     mustache (1.1.0)
-    nokogiri (1.8.5)
-      mini_portile2 (~> 2.3.0)
+    nokogiri (1.10.3)
+      mini_portile2 (~> 2.4.0)
     nokogiri-diff (0.2.0)
       nokogiri (~> 1.5)
       tdiff (~> 0.3, >= 0.3.2)
