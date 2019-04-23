@@ -3,9 +3,17 @@ inherit_from: .rubocop_todo.yml
 AllCops:
   TargetRubyVersion: 2.3
 
+Metrics/AbcSize:
+  Exclude:
+    - 'lib/qrda-import/patient_importer.rb'
+
 Metrics/ClassLength:
   Exclude:
     - 'test/**/*'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'lib/qrda-import/patient_importer.rb'
 
 Documentation:
   Enabled: false
