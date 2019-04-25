@@ -79,6 +79,10 @@ module Qrda
           "</effectiveTime>"
         end
 
+        def relevant_period_as_value
+          "<effectiveTime #{value_or_null_flavor(self['relevantPeriod']['low'])}/>"
+        end
+
         def insurance_provider_period
           start_time = self['start_time'] ? DateTime.strptime(self['start_time'].to_s, '%s').to_s : nil
           end_time = self['end_time'] ? DateTime.strptime(self['end_time'].to_s, '%s').to_s : nil
