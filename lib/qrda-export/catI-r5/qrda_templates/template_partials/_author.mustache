@@ -6,7 +6,7 @@
   <assignedAuthor>
     {{#display_author_dispenser_id?}}
       {{#dispenserId}}
-        <id root="{{namingSystem}}" extension="{{value}}"/>
+        {{{id_or_null_flavor}}}
       {{/dispenserId}}
       {{^dispenserId}}
         <id nullFlavor="NA"/>
@@ -15,7 +15,7 @@
     {{^display_author_dispenser_id?}}
       {{#display_author_prescriber_id?}}
         {{#prescriberId}}
-          <id root="{{namingSystem}}" extension="{{value}}"/>
+          {{{id_or_null_flavor}}}
         {{/prescriberId}}
         {{^prescriberId}}
           <id nullFlavor="NA"/>
