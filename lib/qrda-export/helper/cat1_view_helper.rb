@@ -22,6 +22,11 @@ module Qrda
           self['qdmCategory'] == 'medication' && self['qdmStatus'] == 'order'
         end
 
+        def id_or_null_flavor
+          return "<id root=\"#{self['namingSystem']}\" extension=\"#{self['value']}\"/>" if self['namingSystem'] && self['value']
+          return "<id nullFlavor=\"NA\"/>"
+        end
+
         def code_system_oid(data_element_code)
           data_element_code['codeSystemOid'] || HQMF::Util::CodeSystemHelper.oid_for_code_system(data_element_code['codeSystem'])
         end
