@@ -24,7 +24,7 @@ module Qrda
 
         def id_or_null_flavor
           return "<id root=\"#{self['namingSystem']}\" extension=\"#{self['value']}\"/>" if self['namingSystem'] && self['value']
-          return "<id nullFlavor=\"NA\"/>"
+          "<id nullFlavor=\"NA\"/>"
         end
 
         def code_system_oid(data_element_code)
