@@ -8,7 +8,10 @@ Metrics/AbcSize:
     - 'lib/qrda-import/patient_importer.rb'
 
 Metrics/ClassLength:
+  Max: 110
   Exclude:
+    - 'lib/qrda-import/base-importers/section_importer.rb'
+    - 'lib/qrda-export/catI-r5/qrda1_r5.rb'
     - 'test/**/*'
 
 Metrics/MethodLength:
