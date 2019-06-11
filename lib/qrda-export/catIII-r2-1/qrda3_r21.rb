@@ -6,6 +6,8 @@ class Qrda3R21 < Mustache
 
   self.template_path = __dir__
 
+  PAYER_MAP = { '1' => 'A', '2' => 'B', '349' => 'D' }.freeze
+
   def initialize(aggregate_results, measures, options = {})
     @aggregate_results = aggregate_results
     @measures = measures
@@ -75,8 +77,21 @@ class Qrda3R21 < Mustache
     when 'SEX'
       [{ tid: '2.16.840.1.113883.10.20.27.3.6', extension: '2016-09-01' }]
     when 'PAYER'
-      [{ tid: '2.16.840.1.113883.10.20.27.3.9', extension: '2016-02-01' }]
+      [{ tid: '2.16.840.1.113883.10.20.27.3.9', extension: '2016-02-01' },
+       { tid: '2.16.840.1.113883.10.20.27.3.18', extension: '2018-05-01' }]
     end
+  end
+
+  def cms_payer_code
+    PAYER_MAP[self['code']]
+  end
+
+  def is_cpcplus?
+    @submission_program == 'CPCPLUS'
+  end
+
+  def payer_code?
+    self['type'] == 'PAYER'
   end
 
   def supplemental_data_code
