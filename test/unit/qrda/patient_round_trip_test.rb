@@ -2,7 +2,6 @@ require_relative '../../test_helper'
 require 'cqm/models'
 require 'cqm_validators'
 require 'nokogiri/diff'
-require 'byebug'
 
 module QRDA
   module Cat1

@@ -36,13 +36,7 @@ module HQMF
         '2.16.840.1.113883.18.2' => 'AdministrativeSex',
         '2.16.840.1.113883.5.1' => 'AdministrativeGender',
         '1.2.3.4.5.6.7.8.9.10' => 'NA_VALUESET'
-      }
-
-      CODE_SYSTEM_ALIASES = {
-        'FDA SPL' => 'NCI Thesaurus',
-        'HSLOC' => 'HL7 Healthcare Service Location',
-        'SOP' => "Source of Payment Typology"
-      }
+      }.freeze
 
       # Returns the name of a code system given an oid
       # @param [String] oid of a code system
@@ -50,7 +44,6 @@ module HQMF
       def self.code_system_for(oid)
         CODE_SYSTEMS[oid] || "Unknown"
       end
-
 
       # Returns the whole map of OIDs to code systems
       # @terurn [Hash] oids as keys, code system names as values
