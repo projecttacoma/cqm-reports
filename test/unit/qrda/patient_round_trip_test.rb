@@ -2,6 +2,7 @@ require_relative '../../test_helper'
 require 'cqm/models'
 require 'cqm_validators'
 require 'nokogiri/diff'
+require 'byebug'
 
 module QRDA
   module Cat1
@@ -59,19 +60,19 @@ module QRDA
         medication_test_element = medication_test_patient.qdmPatient.medications.first
 
         institution_specified_range = medication_test_element.clone
-        institution_specified_range.frequency = QDM::Code.new('396107007', 'SNOMED-CT')
+        institution_specified_range.frequency = QDM::Code.new('396107007', '2.16.840.1.113883.6.96')
         medication_test_patient.qdmPatient.dataElements.push(institution_specified_range)
 
         institution_specified_point = medication_test_element.clone
-        institution_specified_point.frequency = QDM::Code.new('229797004', 'SNOMED-CT')
+        institution_specified_point.frequency = QDM::Code.new('229797004', '2.16.840.1.113883.6.96')
         medication_test_patient.qdmPatient.dataElements.push(institution_specified_point)
 
         institution_not_specified_range = medication_test_element.clone
-        institution_not_specified_range.frequency = QDM::Code.new('225752000', 'SNOMED-CT')
+        institution_not_specified_range.frequency = QDM::Code.new('225752000', '2.16.840.1.113883.6.96')
         medication_test_patient.qdmPatient.dataElements.push(institution_not_specified_range)
 
         institution_not_specified_point = medication_test_element.clone
-        institution_not_specified_point.frequency = QDM::Code.new('225756002', 'SNOMED-CT')
+        institution_not_specified_point.frequency = QDM::Code.new('225756002', '2.16.840.1.113883.6.96')
         medication_test_patient.qdmPatient.dataElements.push(institution_not_specified_point)
       end
 
@@ -110,7 +111,7 @@ module QRDA
         cqm_patient = generate_shell_patient('negated_vs')
         qdm_patient = QDM::Patient.new
         dt = QDM::PatientGeneration.generate_loaded_datatype('QDM::EncounterOrder', true)
-        dt.dataElementCodes = [QDM::Code.new('1.2.3.4', 'NA_VALUESET')]
+        dt.dataElementCodes = [QDM::Code.new('1.2.3.4', '1.2.3.4.5.6.7.8.9.10')]
         qdm_patient.dataElements << dt
         cqm_patient.qdmPatient = qdm_patient
         options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31) }

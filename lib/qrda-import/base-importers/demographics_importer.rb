@@ -9,7 +9,7 @@ module QRDA
         patient.qdmPatient.birthDatetime = DateTime.parse(patient_element.at_xpath('cda:birthTime')['value'])
         pcbd = QDM::PatientCharacteristicBirthdate.new
         pcbd.birthDatetime = patient.qdmPatient.birthDatetime
-        pcbd.dataElementCodes = [{ code: '21112-8', codeSystem: 'LOINC' }]
+        pcbd.dataElementCodes = [{ code: '21112-8', codeSystemOid: '2.16.840.1.113883.6.1' }]
         patient.qdmPatient.dataElements << pcbd
 
         pcs = QDM::PatientCharacteristicSex.new
@@ -29,9 +29,9 @@ module QRDA
       end
 
       def code_if_present(code_element)
-        return unless code_element && code_element['codeSystem'] && code_element['code']
-
-        QDM::Code.new(code_element['code'], HQMF::Util::CodeSystemHelper.code_system_for(code_element['codeSystem']))
+        return unless code_element && code_element['code'] && (code_element['codeSystem'] || code_element['codeSystemOid'])
+        oid = code_element['codeSystem'] || code_element['codeSystemOid']
+        QDM::Code.new(code_element['code'], oid)
       end
     end
   end

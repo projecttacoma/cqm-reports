@@ -79,9 +79,8 @@ module QRDA
       end
 
       def code_if_present(code_element)
-        return unless code_element && code_element['codeSystem'] && code_element['code']
-
-        QDM::Code.new(code_element['code'], HQMF::Util::CodeSystemHelper.code_system_for(code_element['codeSystem']))
+        return unless code_element && code_element['code'] && code_element['codeSystem']
+        QDM::Code.new(code_element['code'], code_element['codeSystem'])
       end
 
       def extract_dates(parent_element, entry)
@@ -126,7 +125,8 @@ module QRDA
         # If a Direct Reference Code isn't found, return nil
         return nil unless key
         # If a Direct Reference Code is found, return that code
-        QDM::Code.new(key, HQMF::Util::CodeSystemHelper.code_system_for(value[:codeSystem]))
+        oid =value[:codeSystem] || value[:codeSystemOid]
+        QDM::Code.new(key, oid)
       end
 
       def extract_frequency_in_hours(parent_element, frequency_xpath)
@@ -186,7 +186,7 @@ module QRDA
         code_elements = coded_parent_element.xpath(@code_xpath)
         code_elements.each do |code_element|
           if code_element['nullFlavor'] == 'NA' && code_element['sdtc:valueSet']
-            entry.dataElementCodes = [{ code: code_element['sdtc:valueSet'], codeSystem: 'NA_VALUESET' }]
+            entry.dataElementCodes = [{ code: code_element['sdtc:valueSet'], codeSystem: '1.2.3.4.5.6.7.8.9.10' }]
           end
         end
       end

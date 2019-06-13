@@ -6,7 +6,6 @@ module HQMF
         '2.16.840.1.113883.6.1' =>    'LOINC',
         '2.16.840.1.113883.6.96' =>   'SNOMEDCT',
         '2.16.840.1.113883.6.12' =>   'CPT',
-        #'2.16.840.1.113883.3.88.12.80.32' => 'CPT', # Encounter Type from C32, a subset of CPT
         '2.16.840.1.113883.6.88' =>   'RXNORM',
         '2.16.840.1.113883.6.103' =>  'ICD9CM',
         '2.16.840.1.113883.6.104' =>  'ICD9CM',
@@ -35,7 +34,8 @@ module HQMF
         '2.16.840.1.113883.3.221.5' => "Source of Payment Typology",
         '2.16.840.1.113883.6.13' => 'CDT',
         '2.16.840.1.113883.18.2' => 'AdministrativeSex',
-        '2.16.840.1.113883.5.1' => 'AdministrativeGender'
+        '2.16.840.1.113883.5.1' => 'AdministrativeGender',
+        '1.2.3.4.5.6.7.8.9.10' => 'NA_VALUESET'
       }
 
       CODE_SYSTEM_ALIASES = {
@@ -44,27 +44,13 @@ module HQMF
         'SOP' => "Source of Payment Typology"
       }
 
-      # Some old OID are still around in data, this hash maps retired OID values to
-      # the new value
-      OID_ALIASES = {
-        '2.16.840.1.113883.6.59' => '2.16.840.1.113883.12.292' # CVX
-      }
-
       # Returns the name of a code system given an oid
       # @param [String] oid of a code system
       # @return [String] the name of the code system as described in the measure definition JSON
       def self.code_system_for(oid)
-        oid = OID_ALIASES[oid] if OID_ALIASES[oid]
         CODE_SYSTEMS[oid] || "Unknown"
       end
 
-      # Returns the oid for a code system given a codesystem name
-      # @param [String] the name of the code system
-      # @return [String] the oid of the code system
-      def self.oid_for_code_system(code_system)
-        code_system = CODE_SYSTEM_ALIASES[code_system] if CODE_SYSTEM_ALIASES[code_system]
-        CODE_SYSTEMS.invert[code_system]
-      end
 
       # Returns the whole map of OIDs to code systems
       # @terurn [Hash] oids as keys, code system names as values

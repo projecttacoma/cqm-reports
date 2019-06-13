@@ -27,28 +27,26 @@ module Qrda
           "<id nullFlavor=\"NA\"/>"
         end
 
-        def code_system_oid(data_element_code)
-          data_element_code['codeSystemOid'] || HQMF::Util::CodeSystemHelper.oid_for_code_system(data_element_code['codeSystem'])
-        end
-
         def code_and_codesystem
-          if self['codeSystem'] == 'NA_VALUESET'
+          oid = self['codeSystem'] || self['codeSystemOid']
+          if oid == '1.2.3.4.5.6.7.8.9.10'
             "nullFlavor=\"NA\" sdtc:valueSet=\"#{self['code']}\""
           else
-            "code=\"#{self['code']}\" codeSystem=\"#{code_system_oid(self)}\" codeSystemName=\"#{self['codeSystem']}\""
+            "code=\"#{self['code']}\" codeSystem=\"#{oid}\" codeSystemName=\"#{HQMF::Util::CodeSystemHelper.code_system_for(oid)}\""
           end
         end
 
         def primary_code_and_codesystem
-          "code=\"#{self[:dataElementCodes][0]['code']}\" codeSystem=\"#{code_system_oid(self[:dataElementCodes][0])}\" codeSystemName=\"#{self[:dataElementCodes][0]['codeSystem']}\""
+          oid = self[:dataElementCodes][0]['codeSystem'] || self[:dataElementCodes][0]['codeSystemOid']
+          "code=\"#{self[:dataElementCodes][0]['code']}\" codeSystem=\"#{oid}\" codeSystemName=\"#{oid}\""
         end
 
         def translation_codes_and_codesystem_list
           translation_list = ""
           self[:dataElementCodes].each_with_index do |_dec, index|
             next if index.zero?
-
-            translation_list += "<translation code=\"#{self[:dataElementCodes][index]['code']}\" codeSystem=\"#{code_system_oid(self[:dataElementCodes][index])}\" codeSystemName=\"#{self[:dataElementCodes][index]['codeSystem']}\"/>"
+            oid = self[:dataElementCodes][index]['codeSystem'] || self[:dataElementCodes][index]['codeSystemOid']
+            translation_list += "<translation code=\"#{self[:dataElementCodes][index]['code']}\" codeSystem=\"#{oid}\" codeSystemName=\"#{HQMF::Util::CodeSystemHelper.code_system_for(oid)}\"/>"
           end
           translation_list
         end
@@ -68,7 +66,8 @@ module Qrda
 
         def result_value_as_string(result)
           return "<value xsi:type=\"CD\" nullFlavor=\"UNK\"/>" unless result
-          return "<value xsi:type=\"CD\" code=\"#{result['code']}\" codeSystem=\"#{code_system_oid(result)}\" codeSystemName=\"#{result['codeSystem']}\"/>" if result['code']
+          oid = result['codeSystem'] || result['codeSystemOid']
+          return "<value xsi:type=\"CD\" code=\"#{result['code']}\" codeSystem=\"#{oid}\" codeSystemName=\"#{HQMF::Util::CodeSystemHelper.code_system_for(oid)}\"/>" if result['code']
           return "<value xsi:type=\"PQ\" value=\"#{result['value']}\" unit=\"#{result['unit']}\"/>" if result['unit']
         end
 
