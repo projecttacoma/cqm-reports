@@ -52,7 +52,6 @@ Layout/ExtraSpacing:
 # Cop supports --auto-correct.
 Layout/LeadingCommentSpace:
   Exclude:
-    - 'lib/util/code_system_helper.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -250,7 +249,6 @@ Style/IfUnlessModifier:
 # Cop supports --auto-correct.
 Style/MutableConstant:
   Exclude:
-    - 'lib/util/code_system_helper.rb'
 
 # Offense count: 7
 # Cop supports --auto-correct.
