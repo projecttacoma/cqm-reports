@@ -186,7 +186,7 @@ module QRDA
         code_elements = coded_parent_element.xpath(@code_xpath)
         code_elements.each do |code_element|
           if code_element['nullFlavor'] == 'NA' && code_element['sdtc:valueSet']
-            entry.dataElementCodes = [{ code: code_element['sdtc:valueSet'], codeSystem: '1.2.3.4.5.6.7.8.9.10' }]
+            entry.dataElementCodes = [{ code: code_element['sdtc:valueSet'], codeSystemOid: '1.2.3.4.5.6.7.8.9.10' }]
           end
         end
       end
