@@ -28,7 +28,7 @@ module Qrda
         end
 
         def code_and_codesystem
-          oid = self['codeSystem'] || self['codeSystemOid']
+          oid = self['codeSystemOid'] || self['codeSystem']
           if oid == '1.2.3.4.5.6.7.8.9.10'
             "nullFlavor=\"NA\" sdtc:valueSet=\"#{self['code']}\""
           else
@@ -37,7 +37,7 @@ module Qrda
         end
 
         def primary_code_and_codesystem
-          oid = self[:dataElementCodes][0]['codeSystem'] || self[:dataElementCodes][0]['codeSystemOid']
+          oid = self[:dataElementCodes][0]['codeSystemOid'] || self[:dataElementCodes][0]['codeSystem']
           "code=\"#{self[:dataElementCodes][0]['code']}\" codeSystem=\"#{oid}\" codeSystemName=\"#{oid}\""
         end
 
@@ -45,7 +45,7 @@ module Qrda
           translation_list = ""
           self[:dataElementCodes].each_with_index do |_dec, index|
             next if index.zero?
-            oid = self[:dataElementCodes][index]['codeSystem'] || self[:dataElementCodes][index]['codeSystemOid']
+            oid = self[:dataElementCodes][index]['codeSystemOid'] || self[:dataElementCodes][index]['codeSystem']
             translation_list += "<translation code=\"#{self[:dataElementCodes][index]['code']}\" codeSystem=\"#{oid}\" codeSystemName=\"#{HQMF::Util::CodeSystemHelper.code_system_for(oid)}\"/>"
           end
           translation_list
@@ -66,7 +66,7 @@ module Qrda
 
         def result_value_as_string(result)
           return "<value xsi:type=\"CD\" nullFlavor=\"UNK\"/>" unless result
-          oid = result['codeSystem'] || result['codeSystemOid']
+          oid = result['codeSystemOid'] || result['codeSystem']
           return "<value xsi:type=\"CD\" code=\"#{result['code']}\" codeSystem=\"#{oid}\" codeSystemName=\"#{HQMF::Util::CodeSystemHelper.code_system_for(oid)}\"/>" if result['code']
           return "<value xsi:type=\"PQ\" value=\"#{result['value']}\" unit=\"#{result['unit']}\"/>" if result['unit']
         end
