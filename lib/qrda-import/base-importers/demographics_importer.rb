@@ -29,9 +29,9 @@ module QRDA
       end
 
       def code_if_present(code_element)
-        return unless code_element && code_element['code'] && (code_element['codeSystem'] || code_element['codeSystemOid'])
-        oid = code_element['codeSystem'] || code_element['codeSystemOid']
-        QDM::Code.new(code_element['code'], oid)
+        return unless code_element && code_element['code'] && code_element['codeSystem']
+
+        QDM::Code.new(code_element['code'], code_element['codeSystem'])
       end
     end
   end
