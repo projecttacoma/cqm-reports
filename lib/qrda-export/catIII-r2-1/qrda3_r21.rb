@@ -86,7 +86,7 @@ class Qrda3R21 < Mustache
     PAYER_MAP[self['code']]
   end
 
-  def is_cpcplus?
+  def cpcplus?
     @submission_program == 'CPCPLUS'
   end
 

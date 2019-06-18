@@ -25,8 +25,8 @@
 {{> qrda_header/_custodian}}
 {{> qrda_header/_information_recipient}}
 {{> qrda_header/_legal_authenticator}}
-{{#is_cpcplus?}}
+{{#cpcplus?}}
   {{> qrda_header/_participant_location}}
-{{/is_cpcplus?}}
+{{/cpcplus?}}
 {{> qrda_header/_participant_ehr}}
 {{> qrda_header/_documentation_of_service_event}}
