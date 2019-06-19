@@ -38,7 +38,7 @@ module Qrda
 
         def primary_code_and_codesystem
           oid = self[:dataElementCodes][0]['codeSystemOid'] || self[:dataElementCodes][0]['codeSystem']
-          "code=\"#{self[:dataElementCodes][0]['code']}\" codeSystem=\"#{oid}\" codeSystemName=\"#{oid}\""
+          "code=\"#{self[:dataElementCodes][0]['code']}\" codeSystem=\"#{oid}\" codeSystemName=\"#{HQMF::Util::CodeSystemHelper.code_system_for(oid)}\""
         end
 
         def translation_codes_and_codesystem_list

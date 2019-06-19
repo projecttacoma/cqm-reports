@@ -27,7 +27,11 @@ class QdmPatient < Mustache
   end
 
   def code_code_system_string
-    "#{self['code']} (#{self['codeSystem']})"
+    "#{self['code']} (#{HQMF::Util::CodeSystemHelper.code_system_for(self['codeSystemOid'])})"
+  end
+
+  def code_system_name
+    HQMF::Util::CodeSystemHelper.code_system_for(self['codeSystemOid'])
   end
 
   def result_string
