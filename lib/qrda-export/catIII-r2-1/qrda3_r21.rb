@@ -6,7 +6,7 @@ class Qrda3R21 < Mustache
 
   self.template_path = __dir__
 
-  PAYER_MAP = { '1' => 'A', '2' => 'B', '349' => 'D' }.freeze
+  PAYER_MAP = { '1' => 'A', '2' => 'B', '3' => 'D', '4' => 'D', '5' => 'C', '6' => 'C', '7' => 'D', '8' => 'D', '9' => 'D' }.freeze
 
   def initialize(aggregate_results, measures, options = {})
     @aggregate_results = aggregate_results
@@ -83,7 +83,7 @@ class Qrda3R21 < Mustache
   end
 
   def cms_payer_code
-    PAYER_MAP[self['code']]
+    PAYER_MAP[self['code'][0]] || 'D'
   end
 
   def cpcplus?
