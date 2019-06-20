@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/projecttacoma/cqm-models.git
-  revision: ccf4093a4a6ad9bfeaf28f278919d0be4919bb6a
-  branch: master
-  specs:
-    cqm-models (1.1.1.0)
-
-GIT
   remote: https://github.com/projecttacoma/cqm-validators.git
   revision: 119a54a428dc613dfa56986f64f0a30d8bc56291
   branch: master
@@ -16,7 +9,8 @@ GIT
 PATH
   remote: .
   specs:
-    cqm-reports (1.0.0.0)
+    cqm-reports (2.0.0)
+      cqm-models (~> 2.0.0)
       erubis (~> 2.7.0)
       log4r (~> 1.1.10)
       memoist (~> 0.9.1)
@@ -54,6 +48,7 @@ GEM
       simplecov
       url
     concurrent-ruby (1.1.4)
+    cqm-models (2.0.0)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     docile (1.3.1)
@@ -147,7 +142,6 @@ DEPENDENCIES
   byebug
   cane (~> 2.3.0)
   codecov
-  cqm-models!
   cqm-reports!
   cqm-validators!
   factory_girl (~> 4.1.0)
