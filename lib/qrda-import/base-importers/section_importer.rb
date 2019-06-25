@@ -125,8 +125,7 @@ module QRDA
         # If a Direct Reference Code isn't found, return nil
         return nil unless key
         # If a Direct Reference Code is found, return that code
-        oid = value[:codeSystem] || value[:codeSystemOid]
-        QDM::Code.new(key, oid)
+        QDM::Code.new(key, value[:code_system])
       end
 
       def extract_frequency_in_hours(parent_element, frequency_xpath)

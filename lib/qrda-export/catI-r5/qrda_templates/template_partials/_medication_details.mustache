@@ -33,4 +33,8 @@
 <!--  QDM Attribute: Dosage -->
 <doseQuantity value="{{value}}" unit="{{unit}}"/>
 {{/dosage}}
+{{^dosage}}
+<!--  QDM Attribute: Dosage -->
+<doseQuantity nullFlavor="UNK"/>
+{{/dosage}}
 {{/negated}}
