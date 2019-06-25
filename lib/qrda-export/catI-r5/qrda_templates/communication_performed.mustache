@@ -6,6 +6,10 @@
           <!-- QDM Attribute: Category -->
           <code {{> _code}}/>
         {{/category}}
+        {{^category}}
+          <!-- QDM Attribute: Category -->
+          <code nullFlavor="UNK"/>
+        {{/category}}
         <statusCode code="completed"/>
         {{#relevantPeriod}}
           <!-- QDM Attribute: Relevant Period -->

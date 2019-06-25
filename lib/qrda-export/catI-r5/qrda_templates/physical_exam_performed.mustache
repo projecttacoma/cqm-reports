@@ -17,6 +17,10 @@
     <!-- QDM Attribute: Result -->
     {{{result_value}}}
     {{/result}}
+    {{^result}}
+    <!-- QDM Attribute: Result -->
+    <value xsi:type="CD" nullFlavor="UNK"/>
+    {{/result}}
     {{#method}}
       <!-- QDM Attribute: Method -->
       {{> qrda_templates/template_partials/_method}}

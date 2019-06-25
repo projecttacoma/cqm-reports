@@ -120,7 +120,7 @@ module Qrda
             end
             entry_populations << population if population
           end
-          return if population_groups.find {|pg| pg.populations.collect(&:id).sort == entry_populations.collect(&:id).sort }
+          return if population_groups.find {|pg| pg.populations.collect(&:id).compact.sort == entry_populations.collect(&:id).compact.sort }
 
           pg = PopulationGroup.new
           pg.populations = entry_populations
