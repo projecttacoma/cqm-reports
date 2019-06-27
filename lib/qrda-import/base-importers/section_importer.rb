@@ -157,9 +157,9 @@ module QRDA
 
         value = value_element['value']
         if value.present?
-          return value.strip.to_i if (value_element['unit'] == "1" || value_element['unit'].nil?)
+          return value.strip.to_f if (value_element['unit'] == "1" || value_element['unit'].nil?)
 
-          return QDM::Quantity.new(value.strip.to_i, value_element['unit'])
+          return QDM::Quantity.new(value.strip.to_f, value_element['unit'])
         elsif value_element['code'].present?
           return code_if_present(value_element)
         end
@@ -194,7 +194,7 @@ module QRDA
         scalar_element = parent_element.at_xpath(scalar_xpath)
         return unless scalar_element
 
-        QDM::Quantity.new(scalar_element['value'].to_i, scalar_element['unit'])
+        QDM::Quantity.new(scalar_element['value'].to_f, scalar_element['unit'])
       end
 
       def extract_components(parent_element)
