@@ -51,6 +51,10 @@ module Qrda
           translation_list
         end
 
+        def value_as_float
+          self['value'].to_f
+        end
+
         def result_value
           return "<value xsi:type=\"CD\" nullFlavor=\"UNK\"/>" unless self['result']
 
