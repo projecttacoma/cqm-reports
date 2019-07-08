@@ -5,7 +5,7 @@ module QRDA
         super(entry_finder)
         @entry_does_not_have_reason = true
         @id_xpath = './cda:id'
-        @code_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
+        @code_xpath = "./cda:entryRelationship[@typeCode='REFR']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
         @author_datetime_xpath = "./cda:author/cda:time"
         @relevant_period_xpath = "./cda:effectiveTime"
         @related_to_xpath = "./sdtc:inFulfillmentOf1/sdtc:actReference"
