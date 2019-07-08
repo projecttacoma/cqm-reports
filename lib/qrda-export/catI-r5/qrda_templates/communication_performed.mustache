@@ -46,8 +46,7 @@
           <!-- QDM Attribute: Negation Rationale -->
           {{> qrda_templates/template_partials/_reason}}
         {{/negationRationale}}
-        {{^negationRationale}}
-        <entryRelationship typeCode="RSON">
+        <entryRelationship typeCode="REFR">
           <observation classCode="OBS" moodCode="EVN">
             <templateId root="2.16.840.1.113883.10.20.24.3.88" extension="2014-12-01"/>
             <id root="1.3.6.1.4.1.115" extension="{{object_id}}" />
@@ -57,7 +56,6 @@
             {{> qrda_templates/template_partials/_data_element_codes_as_values}}
           </observation>
         </entryRelationship>
-        {{/negationRationale}}
         {{#relatedTo}}
           <!-- QDM Attribute: relatedTo -->
           {{> qrda_templates/template_partials/_related_to}}
