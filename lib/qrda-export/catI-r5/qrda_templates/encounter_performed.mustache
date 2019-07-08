@@ -42,11 +42,11 @@
           <!-- QDM Attribute: Diagnoses -->
           {{> qrda_templates/template_partials/_encounter_diagnosis}}
         {{/diagnoses}}
-        {{#negationRationale}}
-          <!-- QDM Attribute: Negation Rationale -->
-          {{> qrda_templates/template_partials/_reason}}
-        {{/negationRationale}}
       </encounter>
     </entryRelationship>
+    {{#negationRationale}}
+      <!-- QDM Attribute: Negation Rationale -->
+      {{> qrda_templates/template_partials/_reason}}
+    {{/negationRationale}}
   </act>
 </entry>
