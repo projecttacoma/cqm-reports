@@ -60,11 +60,11 @@
               {{> qrda_templates/template_partials/_medication_supply_request}}
           </entryRelationship>
         {{/supply}}
-        {{#negationRationale}}
-          <!-- QDM Attribute: Negation Rationale -->
-          {{> qrda_templates/template_partials/_reason}}
-        {{/negationRationale}}
       </supply>
     </entryRelationship>
+    {{#negationRationale}}
+      <!-- QDM Attribute: Negation Rationale -->
+      {{> qrda_templates/template_partials/_reason}}
+    {{/negationRationale}}
   </act>
 </entry>

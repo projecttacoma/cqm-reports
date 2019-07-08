@@ -25,11 +25,11 @@
           <!-- QDM Attribute: Reason -->
           {{> qrda_templates/template_partials/_reason}}
         {{/reason}}
-        {{#negationRationale}}
-          <!-- QDM Attribute: Negation Rationale -->
-          {{> qrda_templates/template_partials/_reason}}
-        {{/negationRationale}}
       </encounter>
     </entryRelationship>
+    {{#negationRationale}}
+      <!-- QDM Attribute: Negation Rationale -->
+      {{> qrda_templates/template_partials/_reason}}
+    {{/negationRationale}}
   </act>
 </entry>
