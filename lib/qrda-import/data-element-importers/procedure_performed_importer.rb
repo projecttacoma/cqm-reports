@@ -14,6 +14,7 @@ module QRDA
         @ordinality_xpath = "./cda:priorityCode"
         @incision_datetime_xpath = "./cda:entryRelationship/cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.89']/cda:effectiveTime"
         @components_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.149']"
+        @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
         @entry_class = QDM::ProcedurePerformed
       end
 
@@ -25,6 +26,7 @@ module QRDA
         procedure_performed.ordinality = code_if_present(entry_element.at_xpath(@ordinality_xpath))
         procedure_performed.incisionDatetime = extract_time(entry_element, @incision_datetime_xpath)
         procedure_performed.components = extract_components(entry_element)
+        extract_reason(entry_element, procedure_performed)
         procedure_performed
       end
 

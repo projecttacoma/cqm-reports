@@ -15,6 +15,7 @@ module QRDA
         @setting_xpath = "./cda:participant/cda:participantRole/cda:code"
         @prescriber_id_xpath = "./cda:author/cda:assignedAuthor/cda:id"
         @days_supplied_xpath = "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.157']/cda:quantity"
+        @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
         @entry_class = QDM::MedicationOrder
       end
 
@@ -28,6 +29,7 @@ module QRDA
         medication_order.setting = code_if_present(entry_element.at_xpath(@setting_xpath))
         medication_order.prescriberId = extract_id(entry_element, @prescriber_id_xpath)
         medication_order.daysSupplied = extract_scalar(entry_element, @days_supplied_xpath)&.value
+        extract_reason(entry_element, medication_order)
         medication_order
       end
 

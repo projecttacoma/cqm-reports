@@ -10,6 +10,7 @@ module QRDA
         @dosage_xpath = "./cda:doseQuantity"
         @supply_xpath = "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.99']/cda:quantity"
         @route_xpath = "./cda:routeCode"
+        @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
         @entry_class = QDM::ImmunizationOrder
       end
 
@@ -19,6 +20,7 @@ module QRDA
         immunization_order.dosage = extract_scalar(entry_element, @dosage_xpath)
         immunization_order.supply = extract_scalar(entry_element, @supply_xpath)
         immunization_order.route = code_if_present(entry_element.at_xpath(@route_xpath))
+        extract_reason(entry_element, immunization_order)
         immunization_order
       end
 

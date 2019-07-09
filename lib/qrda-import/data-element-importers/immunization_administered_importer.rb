@@ -8,6 +8,7 @@ module QRDA
         @author_datetime_xpath = "./cda:effectiveTime"
         @dosage_xpath = "./cda:doseQuantity"
         @route_xpath = "./cda:routeCode"
+        @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
         @entry_class = QDM::ImmunizationAdministered
       end
 
@@ -15,6 +16,7 @@ module QRDA
         immunization_administered = super
         immunization_administered.dosage = extract_scalar(entry_element, @dosage_xpath)
         immunization_administered.route = code_if_present(entry_element.at_xpath(@route_xpath))
+        extract_reason(entry_element, immunization_administered)
         immunization_administered
       end
 

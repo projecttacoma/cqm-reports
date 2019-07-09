@@ -49,7 +49,7 @@ module QRDA
         if @result_xpath
           entry.result = extract_result_values(entry_element)
         end
-        extract_reason_or_negation(entry_element, entry)
+        extract_negation(entry_element, entry)
         entry
       end
 
@@ -165,24 +165,28 @@ module QRDA
         end
       end
 
-      # extracts the reason or negation data. if an element is negated and the code has a null flavor, a random code is assigned for calculation
-      # coded_parent_element is the 'parent' element when the coded is nested (e.g., medication order)
-      def extract_reason_or_negation(parent_element, entry, coded_parent_element = nil)
-        coded_parent_element ||= parent_element
-        reason_element = parent_element.xpath(".//cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value | .//cda:entryRelationship[@typeCode='RSON']/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.1.27']/cda:code")
+      def extract_reason(parent_element, entry)
+        return unless @reason_xpath
+        reason_element = parent_element.xpath(@reason_xpath)
         negation_indicator = parent_element['negationInd']
-        unless reason_element.blank?
-          if negation_indicator.eql?('true')
-            entry.negationRationale = code_if_present(reason_element.first)
-          else
-            entry.reason = code_if_present(reason_element.first) unless @entry_does_not_have_reason
-          end
-        end
-        extract_negated_code(coded_parent_element, entry)
+        # Return and do not set reason attribute if the entry is negated
+        return if negation_indicator.eql?('true')
+        
+        entry.reason = code_if_present(reason_element.first) unless reason_element.blank? 
       end
 
-      def extract_negated_code(coded_parent_element, entry)
-        code_elements = coded_parent_element.xpath(@code_xpath)
+      def extract_negation(parent_element, entry)
+        negation_element = parent_element.xpath("./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value")
+        negation_indicator = parent_element['negationInd']
+        # Return and do not set negationRationale attribute if the entry is not negated
+        return unless negation_indicator.eql?('true') 
+        
+        entry.negationRationale = code_if_present(negation_element.first) unless negation_element.blank?
+        extract_negated_code(parent_element, entry)
+      end
+
+      def extract_negated_code(parent_element, entry)
+        code_elements = parent_element.xpath(@code_xpath)
         code_elements.each do |code_element|
           if code_element['nullFlavor'] == 'NA' && code_element['sdtc:valueSet']
             entry.dataElementCodes = [{ code: code_element['sdtc:valueSet'], codeSystemOid: '1.2.3.4.5.6.7.8.9.10' }]
