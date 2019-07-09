@@ -13,6 +13,7 @@ module QRDA
         @method_xpath = './cda:methodCode'
         @facility_locations_xpath = "./cda:participant[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.100']"
         @components_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.149']"
+        @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
         @entry_class = QDM::DiagnosticStudyPerformed
       end
 
@@ -24,6 +25,7 @@ module QRDA
         diagnostic_study_performed.method = code_if_present(entry_element.at_xpath(@method_xpath))
         diagnostic_study_performed.facilityLocation = extract_facility_locations(entry_element)[0]
         diagnostic_study_performed.components = extract_components(entry_element)
+        extract_reason(entry_element, diagnostic_study_performed)
         diagnostic_study_performed
       end
 

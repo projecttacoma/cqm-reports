@@ -10,6 +10,7 @@ module QRDA
         @dosage_xpath = "./cda:doseQuantity"
         @frequency_xpath = "./cda:effectiveTime[@operator='A']/cda:period"
         @route_xpath = "./cda:routeCode"
+        @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
         @entry_class = QDM::MedicationAdministered
       end
 
@@ -18,6 +19,7 @@ module QRDA
         medication_administered.dosage = extract_scalar(entry_element, @dosage_xpath)
         medication_administered.frequency = frequency_as_coded_value(entry_element, @frequency_xpath)
         medication_administered.route = code_if_present(entry_element.at_xpath(@route_xpath))
+        extract_reason(entry_element, medication_administered)
         medication_administered
       end
 

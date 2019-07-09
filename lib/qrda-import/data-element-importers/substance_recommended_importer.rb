@@ -10,6 +10,7 @@ module QRDA
         @frequency_xpath = "./cda:effectiveTime[@operator='A']/cda:period"
         @refills_xpath = "./cda:repeatNumber"
         @route_xpath = "./cda:routeCode"
+        @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
         @entry_class = QDM::SubstanceRecommended
       end
 
@@ -19,6 +20,7 @@ module QRDA
         substance_recommended.frequency = frequency_as_coded_value(entry_element, @frequency_xpath)
         substance_recommended.refills = extract_scalar(entry_element, @refills_xpath)&.value
         substance_recommended.route = code_if_present(entry_element.at_xpath(@route_xpath))
+        extract_reason(entry_element, substance_recommended)
         substance_recommended
       end
 

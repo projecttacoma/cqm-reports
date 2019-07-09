@@ -9,6 +9,7 @@ module QRDA
         @result_xpath = "./cda:value"
         @method_xpath = './cda:methodCode'
         @components_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.149']"
+        @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
         @entry_class = QDM::AssessmentPerformed
       end
 
@@ -16,6 +17,7 @@ module QRDA
         assessment_performed = super
         assessment_performed.method = code_if_present(entry_element.at_xpath(@method_xpath))
         assessment_performed.components = extract_components(entry_element)
+        extract_reason(entry_element, assessment_performed)
         assessment_performed
       end
 
