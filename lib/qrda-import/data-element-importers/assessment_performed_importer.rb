@@ -17,7 +17,7 @@ module QRDA
         assessment_performed = super
         assessment_performed.method = code_if_present(entry_element.at_xpath(@method_xpath))
         assessment_performed.components = extract_components(entry_element)
-        extract_reason(entry_element, assessment_performed)
+        assessment_performed.reason = extract_reason(entry_element)
         assessment_performed
       end
 

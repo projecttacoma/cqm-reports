@@ -12,7 +12,7 @@ module QRDA
 
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         assessment_recommended = super
-        extract_reason(entry_element, assessment_recommended)
+        assessment_recommended.reason = extract_reason(entry_element)
         assessment_recommended
       end
 

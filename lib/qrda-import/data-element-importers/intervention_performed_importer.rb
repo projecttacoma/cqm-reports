@@ -16,7 +16,7 @@ module QRDA
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         intervention_performed = super
         intervention_performed.status = code_if_present(entry_element.at_xpath(@status_xpath))
-        extract_reason(entry_element, intervention_performed)
+        intervention_performed.reason = extract_reason(entry_element)
         intervention_performed
       end
 

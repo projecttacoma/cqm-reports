@@ -22,7 +22,7 @@ module QRDA
         substance_order.frequency = frequency_as_coded_value(entry_element, @frequency_xpath)
         substance_order.refills = extract_scalar(entry_element, @refills_xpath)&.value
         substance_order.route = code_if_present(entry_element.at_xpath(@route_xpath))
-        extract_reason(entry_element, substance_order)
+        substance_order.reason = extract_reason(entry_element)
         substance_order
       end
 

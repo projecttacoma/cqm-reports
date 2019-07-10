@@ -14,7 +14,7 @@ module QRDA
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         physical_exam_recommended = super
         physical_exam_recommended.anatomicalLocationSite = code_if_present(entry_element.at_xpath(@anatomical_location_site_xpath))
-        extract_reason(entry_element, physical_exam_recommended)
+        physical_exam_recommended.reason = extract_reason(entry_element)
         physical_exam_recommended
       end
 

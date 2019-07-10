@@ -12,7 +12,7 @@ module QRDA
 
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         device_order = super
-        extract_reason(entry_element, device_order)
+        device_order.reason = extract_reason(entry_element)
         device_order
       end
 

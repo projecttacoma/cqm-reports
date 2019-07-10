@@ -165,14 +165,14 @@ module QRDA
         end
       end
 
-      def extract_reason(parent_element, entry)
+      def extract_reason(parent_element)
         return unless @reason_xpath
         reason_element = parent_element.xpath(@reason_xpath)
         negation_indicator = parent_element['negationInd']
         # Return and do not set reason attribute if the entry is negated
-        return if negation_indicator.eql?('true')
+        return nil if negation_indicator.eql?('true')
         
-        entry.reason = code_if_present(reason_element.first) unless reason_element.blank? 
+        reason_element.blank? ? nil : code_if_present(reason_element.first) 
       end
 
       def extract_negation(parent_element, entry)

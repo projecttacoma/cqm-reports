@@ -29,7 +29,7 @@ module QRDA
         medication_order.setting = code_if_present(entry_element.at_xpath(@setting_xpath))
         medication_order.prescriberId = extract_id(entry_element, @prescriber_id_xpath)
         medication_order.daysSupplied = extract_scalar(entry_element, @days_supplied_xpath)&.value
-        extract_reason(entry_element, medication_order)
+        medication_order.reason = extract_reason(entry_element)
         medication_order
       end
 

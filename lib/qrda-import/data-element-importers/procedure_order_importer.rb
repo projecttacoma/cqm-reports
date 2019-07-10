@@ -16,7 +16,7 @@ module QRDA
         procedure_order = super
         procedure_order.anatomicalLocationSite = code_if_present(entry_element.at_xpath(@anatomical_location_site_xpath))
         procedure_order.ordinality = code_if_present(entry_element.at_xpath(@ordinality_xpath))
-        extract_reason(entry_element, procedure_order)
+        procedure_order.reason = extract_reason(entry_element)
         procedure_order
       end
 

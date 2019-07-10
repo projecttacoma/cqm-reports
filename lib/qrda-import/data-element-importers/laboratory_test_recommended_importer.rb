@@ -12,7 +12,7 @@ module QRDA
 
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         laboratory_test_recommended = super
-        extract_reason(entry_element, laboratory_test_recommended)
+        laboratory_test_recommended.reason = extract_reason(entry_element)
         laboratory_test_recommended
       end
 
