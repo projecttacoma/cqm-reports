@@ -12,7 +12,7 @@ module QRDA
 
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         device_recommended = super
-        extract_reason(entry_element, device_recommended)
+        device_recommended.reason = extract_reason(entry_element)
         device_recommended
       end
 

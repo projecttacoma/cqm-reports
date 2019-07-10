@@ -20,7 +20,7 @@ module QRDA
         immunization_order.dosage = extract_scalar(entry_element, @dosage_xpath)
         immunization_order.supply = extract_scalar(entry_element, @supply_xpath)
         immunization_order.route = code_if_present(entry_element.at_xpath(@route_xpath))
-        extract_reason(entry_element, immunization_order)
+        immunization_order.reason = extract_reason(entry_element)
         immunization_order
       end
 

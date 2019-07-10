@@ -12,7 +12,7 @@ module QRDA
 
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         intervention_order = super
-        extract_reason(entry_element, intervention_order)
+        intervention_order.reason = extract_reason(entry_element)
         intervention_order
       end
 

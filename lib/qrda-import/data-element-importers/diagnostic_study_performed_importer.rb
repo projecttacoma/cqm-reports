@@ -25,7 +25,7 @@ module QRDA
         diagnostic_study_performed.method = code_if_present(entry_element.at_xpath(@method_xpath))
         diagnostic_study_performed.facilityLocation = extract_facility_locations(entry_element)[0]
         diagnostic_study_performed.components = extract_components(entry_element)
-        extract_reason(entry_element, diagnostic_study_performed)
+        diagnostic_study_performed.reason = extract_reason(entry_element)
         diagnostic_study_performed
       end
 

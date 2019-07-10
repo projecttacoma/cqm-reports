@@ -22,7 +22,7 @@ module QRDA
         laboratory_test_performed.method = code_if_present(entry_element.at_xpath(@method_xpath))
         laboratory_test_performed.resultDatetime = extract_time(entry_element, @result_datetime_xpath)
         laboratory_test_performed.components = extract_components(entry_element)
-        extract_reason(entry_element, laboratory_test_performed)
+        laboratory_test_performed.reason = extract_reason(entry_element)
         laboratory_test_performed
       end
 

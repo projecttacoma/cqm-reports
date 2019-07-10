@@ -19,7 +19,7 @@ module QRDA
         medication_administered.dosage = extract_scalar(entry_element, @dosage_xpath)
         medication_administered.frequency = frequency_as_coded_value(entry_element, @frequency_xpath)
         medication_administered.route = code_if_present(entry_element.at_xpath(@route_xpath))
-        extract_reason(entry_element, medication_administered)
+        medication_administered.reason = extract_reason(entry_element)
         medication_administered
       end
 

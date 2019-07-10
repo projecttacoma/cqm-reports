@@ -16,7 +16,7 @@ module QRDA
         procedure_recommended = super
         procedure_recommended.anatomicalLocationSite = code_if_present(entry_element.at_xpath(@anatomical_location_site_xpath))
         procedure_recommended.ordinality = code_if_present(entry_element.at_xpath(@ordinality_xpath))
-        extract_reason(entry_element, procedure_recommended)
+        procedure_recommended.reason = extract_reason(entry_element)
         procedure_recommended
       end
 
