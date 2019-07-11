@@ -4,7 +4,7 @@ A library for import and export of reports for use with electronic Clinical Qual
 Versioning
 ==========
 
-Starting with version **2.0.0** released on !!date!!, cqm-reports versioning has the format **X.Y.Z**, where:
+Starting with version **2.0.0** released on 6/20/2019, cqm-reports versioning has the format **X.Y.Z**, where:
 
 * **X** maps to a version of QRDA. See the table below to see the existing mapping to QRDA versions.
 
