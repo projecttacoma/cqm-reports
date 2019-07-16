@@ -196,7 +196,7 @@ module QRDA
 
       def extract_scalar(parent_element, scalar_xpath)
         scalar_element = parent_element.at_xpath(scalar_xpath)
-        return unless scalar_element
+        return unless scalar_element && scalar_element['value'].present?
 
         QDM::Quantity.new(scalar_element['value'].to_f, scalar_element['unit'])
       end
