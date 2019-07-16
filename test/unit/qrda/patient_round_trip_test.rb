@@ -188,7 +188,7 @@ module QRDA
             # If change represents and addition or deletion
             if (change == "+" || change == "-")
               # Ignore guid and generation-time based changes
-              if ((!change_info.parent.to_s.include? "effectiveTime") && (!change_info.parent.to_s.include? "extension=") && (!change_info.parent.to_s.include? "root=") &&
+              if ((!change_info.parent.to_s.include? "effectiveTime")  && !((change_info.to_html =~ /root=/)==1) && !((change_info.to_html =~ /extension=/)==1) &&
                 (!((change_info.parent.name.include? "time") && ((change_info.parent.parent.name.include? "legalAuthenticator") || (change_info.parent.parent.name.include? "author")))))
                 differences += "\e[31m#{change} #{change_info.to_html}\e[0m \n"
                 different = true
