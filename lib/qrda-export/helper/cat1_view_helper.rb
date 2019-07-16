@@ -55,6 +55,11 @@ module Qrda
           self['value'].to_f
         end
 
+        def dose_quantity_value
+          return "<doseQuantity value=\"#{value_as_float}\" unit=\"#{self['unit']}\"/>" if self['unit']
+          "<doseQuantity value=\"#{value_as_float}\" />"
+        end
+
         def result_value
           return "<value xsi:type=\"CD\" nullFlavor=\"UNK\"/>" unless self['result']
 
