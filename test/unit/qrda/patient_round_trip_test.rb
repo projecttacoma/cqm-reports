@@ -160,6 +160,11 @@ module QRDA
         successful_count = 0
         cqm_patients.each do |cqm_patient| 
           datatype_name = cqm_patient.givenNames[0]
+          cqm_patient.qdmPatient.dataElements.each do |data_element|
+            if (!data_element['negationRationale'].nil? && !data_element['reason'].nil?)
+              data_element.reason = nil
+            end
+          end
           # Initial QRDA export
           begin
             exported_qrda = generate_doc(cqm_patient)
