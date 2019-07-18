@@ -140,10 +140,14 @@ Metrics/AbcSize:
 # Offense count: 1
 # Configuration parameters: CountComments, ExcludedMethods.
 Metrics/BlockLength:
+  Exclude:
+    - 'test/unit/qrda/patient_round_trip_test.rb'
   Max: 35
 
 # Offense count: 5
 Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'test/unit/qrda/patient_round_trip_test.rb'
   Max: 15
 
 # Offense count: 30
@@ -153,6 +157,8 @@ Metrics/MethodLength:
 
 # Offense count: 6
 Metrics/PerceivedComplexity:
+  Exclude:
+    - 'test/unit/qrda/patient_round_trip_test.rb'
   Max: 16
 
 # Offense count: 2
