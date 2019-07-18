@@ -4,15 +4,17 @@ A library for import and export of reports for use with electronic Clinical Qual
 Versioning
 ==========
 
-Starting with version **1.0.0.0** released on 5/22/2019, cqm-reports versioning has the format **W.X.Y.Z**, where:
+Starting with version **2.0.0** released on 6/20/2019, cqm-reports versioning has the format **X.Y.Z**, where:
 
-* **W** maps to a version of QRDA Category 1 and QRDA Category 3. See the table below to see the existing mapping to QRDA versions.
+* **X** maps to a version of QRDA. See the table below to see the existing mapping to QRDA versions.
 
-  | W | QRDA Cat 1 | QRDA Cat 3 |
+  | X | QRDA Cat 1 | QRDA Cat 3 |
   | --- | --- | --- |
-  | 1 | R1 STU5.1 | R1 STU2.1 |
+  | 2 | R1 STU5.1 | R1 STU2.1 |
 
-* **X.Y.Z** uses [SemVer](http://semver.org/) for versioning. **X.Y.Z** starts at 0.0.0 when **W** is incremented.
+* **Y** indicates major changes (incompatible API changes)
+
+* **Z** indicates minor changes (added functionality in a backwards-compatible manner) and patch changes (backwards-compatible bug fixes)
 
 For the versions available, see [tags on this repository](https://github.com/projecttacoma/cqm-validators/tags).
 
