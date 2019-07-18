@@ -160,6 +160,11 @@ module QRDA
         successful_count = 0
         cqm_patients.each do |cqm_patient| 
           datatype_name = cqm_patient.givenNames[0]
+          cqm_patient.qdmPatient.dataElements.each do |data_element|
+            if (!data_element['negationRationale'].nil? && !data_element['reason'].nil?)
+              data_element.reason = nil
+            end
+          end
           # Initial QRDA export
           begin
             exported_qrda = generate_doc(cqm_patient)
@@ -188,7 +193,7 @@ module QRDA
             # If change represents and addition or deletion
             if (change == "+" || change == "-")
               # Ignore guid and generation-time based changes
-              if ((!change_info.parent.to_s.include? "effectiveTime") && (!change_info.parent.to_s.include? "extension=") && (!change_info.parent.to_s.include? "root=") &&
+              if ((!change_info.parent.to_s.include? "effectiveTime") && ((change_info.to_html =~ /root=/) != 1) && ((change_info.to_html =~ /extension=/) != 1) &&
                 (!((change_info.parent.name.include? "time") && ((change_info.parent.parent.name.include? "legalAuthenticator") || (change_info.parent.parent.name.include? "author")))))
                 differences += "\e[31m#{change} #{change_info.to_html}\e[0m \n"
                 different = true

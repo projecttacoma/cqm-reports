@@ -5,6 +5,7 @@ AllCops:
 
 Metrics/AbcSize:
   Exclude:
+    - 'test/unit/qrda/patient_round_trip_test.rb'
     - 'lib/qrda-import/patient_importer.rb'
 
 Metrics/ClassLength:
@@ -17,6 +18,7 @@ Metrics/ClassLength:
 
 Metrics/MethodLength:
   Exclude:
+    - 'test/unit/qrda/patient_round_trip_test.rb'
     - 'lib/qrda-import/patient_importer.rb'
 
 Documentation:
