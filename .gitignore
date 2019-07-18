@@ -6,4 +6,4 @@ tmp
 .idea
 .rvmrc
 .byebug_history
-
+Gemfile.lock
