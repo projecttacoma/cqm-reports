@@ -95,9 +95,9 @@ module QRDA
           value: 'value',
           use: 'use'
         )
-        npi = QDM::Id.new(namingSystem: CQM::Provider::NPI_OID, value: '1693839684')
-        tin = QDM::Id.new(namingSystem: CQM::Provider::TAX_ID_OID, value: '538782414')
-        ccn = QDM::Id.new(namingSystem: CQM::Provider::CCN_OID, value: '159826')
+        npi = QDM::Identifier.new(namingSystem: CQM::Provider::NPI_OID, value: '1693839684')
+        tin = QDM::Identifier.new(namingSystem: CQM::Provider::TAX_ID_OID, value: '538782414')
+        ccn = QDM::Identifier.new(namingSystem: CQM::Provider::CCN_OID, value: '159826')
         provider.ids << npi
         provider.ids << tin
         provider.ids << ccn

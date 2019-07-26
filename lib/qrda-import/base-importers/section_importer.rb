@@ -61,7 +61,7 @@ module QRDA
 
         # If an extension is not included, use the root as the value.  Other wise use the extension
         value = id_element['extension'] || id_element['root']
-        identifier = QDM::Id.new(value: value, namingSystem: id_element['root'])
+        identifier = QDM::Identifier.new(value: value, namingSystem: id_element['root'])
         identifier
       end
 
