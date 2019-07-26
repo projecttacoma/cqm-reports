@@ -9,7 +9,7 @@ module QRDA
         patient.qdmPatient.birthDatetime = DateTime.parse(patient_element.at_xpath('cda:birthTime')['value'])
         pcbd = QDM::PatientCharacteristicBirthdate.new
         pcbd.birthDatetime = patient.qdmPatient.birthDatetime
-        pcbd.dataElementCodes = [{ code: '21112-8', codeSystemOid: '2.16.840.1.113883.6.1' }]
+        pcbd.dataElementCodes = [{ code: '21112-8', system: '2.16.840.1.113883.6.1' }]
         patient.qdmPatient.dataElements << pcbd
 
         pcs = QDM::PatientCharacteristicSex.new
