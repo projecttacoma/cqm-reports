@@ -83,6 +83,10 @@ module Qrda
           "<effectiveTime #{value_or_null_flavor(self['relevantPeriod']['low'])}/>"
         end
 
+        def relevant_date_time
+          "<effectiveTime #{value_or_null_flavor(self['relevantDatetime'])}/>"
+        end
+
         def medication_duration_effective_time
           "<effectiveTime xsi:type=\"IVL_TS\">"\
           "<low #{value_or_null_flavor(self['relevantPeriod']['low'])}/>"\
