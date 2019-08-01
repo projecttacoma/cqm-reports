@@ -6,7 +6,7 @@ module QRDA
         @id_xpath = './cda:id'
         @code_xpath = "./cda:entryRelationship[@typeCode='REFR']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
         @author_datetime_xpath = "./cda:author/cda:time"
-        @relevant_period_xpath = "./cda:effectiveTime"
+        # @relevant_period_xpath = "./cda:effectiveTime"
         @related_to_xpath = "./sdtc:inFulfillmentOf1/sdtc:actReference"
         @category_xpath = './cda:code'
         @medium_xpath = "./cda:participant[@typeCode='VIA']/cda:participantRole/cda:code"
@@ -19,9 +19,9 @@ module QRDA
         communication_performed = super
         communication_performed.category = code_if_present(entry_element.at_xpath(@category_xpath))
         communication_performed.medium = code_if_present(entry_element.at_xpath(@medium_xpath))
-        communication_performed.sender = code_if_present(entry_element.at_xpath(@sender_xpath))
-        communication_performed.recipient = code_if_present(entry_element.at_xpath(@recipient_xpath))
-        communication_performed.relatedTo = extract_related_to(entry_element)
+        # communication_performed.sender = code_if_present(entry_element.at_xpath(@sender_xpath))
+        # communication_performed.recipient = code_if_present(entry_element.at_xpath(@recipient_xpath))
+        # communication_performed.relatedTo = extract_related_to(entry_element)
         communication_performed
       end
     end

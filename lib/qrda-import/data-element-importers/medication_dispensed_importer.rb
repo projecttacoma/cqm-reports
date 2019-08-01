@@ -26,8 +26,8 @@ module QRDA
         medication_dispensed.frequency = frequency_as_coded_value(entry_element, @frequency_xpath)
         medication_dispensed.daysSupplied = extract_scalar(entry_element, @days_supplied_xpath)&.value
         medication_dispensed.route = code_if_present(entry_element.at_xpath(@route_xpath))
-        medication_dispensed.prescriberId = extract_id(entry_element, @prescriber_id_xpath)
-        medication_dispensed.dispenserId = extract_id(entry_element, @dispenser_id_xpath)
+        # medication_dispensed.prescriberId = extract_id(entry_element, @prescriber_id_xpath)
+        # medication_dispensed.dispenserId = extract_id(entry_element, @dispenser_id_xpath)
         medication_dispensed
       end
 
