@@ -14,7 +14,9 @@
         {{#relevantPeriod}}
         {{{relevant_period}}}
         {{/relevantPeriod}}
-        <value {{> _code}} xsi:type="CD"/>
+        {{#code}}
+          <value {{> _code}} xsi:type="CD"/>
+        {{/code}}
       </observation>
     </entryRelationship>
   </act>
