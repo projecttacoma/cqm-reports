@@ -17,7 +17,7 @@ class QdmPatient < Mustache
   def data_elements
     de_hash = {}
     @qdmPatient.dataElements.each do |data_element|
-      de_hash[data_element._type] ? de_hash[data_element._type].element_list << data_element : de_hash[data_element._type] = { title: data_element._type, element_list: [data_element] }
+      de_hash[data_element._type] ? de_hash[data_element._type][:element_list] << data_element : de_hash[data_element._type] = { title: data_element._type, element_list: [data_element] }
     end
     JSON.parse(de_hash.values.to_json)
   end
