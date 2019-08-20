@@ -139,7 +139,8 @@ module QRDA
         # Expected units are H (hours) and D (days)
         if unit && unit.upcase == 'D'
           low = low * 24 if low
-          high = high * 34 if high
+          high = high * 24 if high
+          unit = 'h'
         end
         { low: low, high: high, unit: unit, institution_specified: institution_specified }
       end
