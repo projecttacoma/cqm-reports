@@ -6,7 +6,7 @@ module QRDA
         @id_xpath = './cda:id'
         @code_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.148']/cda:value"
         @author_datetime_xpath = './cda:author/cda:time'
-        @relevant_period_xpath = './cda:effectiveTime'
+        @relevant_date_time_xpath = './cda:effectiveTime'
         @facility_locations_xpath = "./cda:participant[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.100']"
         @severity_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.8']/cda:value"
         @type_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9']/cda:value"

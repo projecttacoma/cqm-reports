@@ -61,7 +61,7 @@ module QRDA
 
         # If an extension is not included, use the root as the value.  Other wise use the extension
         value = id_element['extension'] || id_element['root']
-        identifier = QDM::Id.new(value: value, namingSystem: id_element['root'])
+        identifier = QDM::Identifier.new(value: value, namingSystem: id_element['root'])
         identifier
       end
 
@@ -190,7 +190,7 @@ module QRDA
         code_elements = parent_element.xpath(@code_xpath)
         code_elements.each do |code_element|
           if code_element['nullFlavor'] == 'NA' && code_element['sdtc:valueSet']
-            entry.dataElementCodes = [{ code: code_element['sdtc:valueSet'], codeSystemOid: '1.2.3.4.5.6.7.8.9.10' }]
+            entry.dataElementCodes = [{ code: code_element['sdtc:valueSet'], system: '1.2.3.4.5.6.7.8.9.10' }]
           end
         end
       end

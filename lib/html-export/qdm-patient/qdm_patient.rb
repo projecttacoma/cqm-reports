@@ -17,7 +17,7 @@ class QdmPatient < Mustache
   def data_elements
     de_hash = {}
     @qdmPatient.dataElements.each do |data_element|
-      de_hash[data_element._type] ? de_hash[data_element._type].element_list << data_element : de_hash[data_element._type] = { title: data_element._type, element_list: [data_element] }
+      de_hash[data_element._type] ? de_hash[data_element._type][:element_list] << data_element : de_hash[data_element._type] = { title: data_element._type, element_list: [data_element] }
     end
     JSON.parse(de_hash.values.to_json)
   end
@@ -27,11 +27,11 @@ class QdmPatient < Mustache
   end
 
   def code_code_system_string
-    "#{self['code']} (#{HQMF::Util::CodeSystemHelper.code_system_for(self['codeSystemOid'])})"
+    "#{self['code']} (#{HQMF::Util::CodeSystemHelper.code_system_for(self['system'])})"
   end
 
   def code_system_name
-    HQMF::Util::CodeSystemHelper.code_system_for(self['codeSystemOid'])
+    HQMF::Util::CodeSystemHelper.code_system_for(self['system'])
   end
 
   def result_string

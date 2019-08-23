@@ -198,10 +198,6 @@ class Qrda1R5 < Mustache
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('provider_care_experience', '') }).to_json)
   end
 
-  def provider_characteristic
-    JSON.parse(@qdmPatient.get_data_elements('provider_characteristic', nil).to_json)
-  end
-
   def substance_administered
     JSON.parse(@qdmPatient.get_data_elements('substance', 'administered').to_json)
   end

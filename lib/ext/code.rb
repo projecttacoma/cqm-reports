@@ -3,7 +3,7 @@ module QDM
     def ==(other)
       return false unless other.is_a? QDM::Code
 
-      (code == other.code) && (codeSystem == other.codeSystem) && (codeSystemOid == other.codeSystemOid) && (version == other.version)
+      (code == other.code) && (system == other.system) && (version == other.version)
     end
 
     alias eql? ==

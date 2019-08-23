@@ -10,7 +10,6 @@ module QRDA
         @admission_source_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']/cda:participant/cda:participantRole[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.151']/cda:code"
         @discharge_disposition_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']/sdtc:dischargeDispositionCode"
         @facility_locations_xpath = "./cda:entryRelationship/cda:encounter/cda:participant[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.100']"
-        @principal_diagnosis_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']/cda:entryRelationship/cda:observation[cda:code/@code='8319008']/cda:value"
         @diagnosis_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']/cda:entryRelationship/cda:act/cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.4']"
         @entry_class = QDM::EncounterPerformed
       end
@@ -20,7 +19,6 @@ module QRDA
         encounter_performed.admissionSource = code_if_present(entry_element.at_xpath(@admission_source_xpath))
         encounter_performed.dischargeDisposition = code_if_present(entry_element.at_xpath(@discharge_disposition_xpath))
         encounter_performed.facilityLocations = extract_facility_locations(entry_element)
-        encounter_performed.principalDiagnosis = code_if_present(entry_element.at_xpath(@principal_diagnosis_xpath))
         encounter_performed.diagnoses = extract_diagnoses(entry_element)
         if encounter_performed&.relevantPeriod&.low && encounter_performed&.relevantPeriod&.high
           los = encounter_performed.relevantPeriod.high - encounter_performed.relevantPeriod.low
