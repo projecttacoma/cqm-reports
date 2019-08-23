@@ -161,6 +161,10 @@ Metrics/PerceivedComplexity:
     - 'test/unit/qrda/patient_round_trip_test.rb'
   Max: 16
 
+Naming/FileName:
+  Exclude:
+    - 'lib/cqm-reports.rb'
+
 # Offense count: 2
 # Configuration parameters: NamePrefix, NamePrefixBlacklist, NameWhitelist, MethodDefinitionMacros.
 # NamePrefix: is_, has_, have_
