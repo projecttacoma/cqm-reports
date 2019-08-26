@@ -95,13 +95,13 @@ module QRDA
           high_time = DateTime.parse(parent_element.at_xpath(interval_xpath)['value'])
         end
         if parent_element.at_xpath("#{interval_xpath}/cda:low")
-          low_time = DateTime.parse(parent_element.at_xpath("#{interval_xpath}/cda:low")['value'])
+          low_time = if parent_element.at_xpath("#{interval_xpath}/cda:low")['value']
+                       DateTime.parse(parent_element.at_xpath("#{interval_xpath}/cda:low")['value'])
+                     end
         end
         if parent_element.at_xpath("#{interval_xpath}/cda:high")
           high_time = if parent_element.at_xpath("#{interval_xpath}/cda:high")['value']
                         DateTime.parse(parent_element.at_xpath("#{interval_xpath}/cda:high")['value'])
-                      else
-                        DateTime.new(9999,1,1)
                       end
         end
         if parent_element.at_xpath("#{interval_xpath}/cda:center")

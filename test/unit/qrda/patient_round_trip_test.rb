@@ -55,6 +55,33 @@ module QRDA
         cqm_patient
       end
 
+      def test_interval_round_trips
+        cqm_patient = generate_shell_patient('interval')
+        cqm_patient.qdmPatient.dataElements << QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(nil, nil),
+                                                                           dataElementCodes: [QDM::BaseTypeGeneration.generate_code_field])
+        cqm_patient.qdmPatient.dataElements << QDM::ProcedurePerformed.new(relevantPeriod: QDM::Interval.new(Time.now, nil),
+                                                                           dataElementCodes: [QDM::BaseTypeGeneration.generate_code_field])
+        cqm_patient.qdmPatient.dataElements << QDM::InterventionPerformed.new(relevantPeriod: QDM::Interval.new(Time.now, Time.now),
+                                                                              dataElementCodes: [QDM::BaseTypeGeneration.generate_code_field])
+        cqm_patient.qdmPatient.dataElements << QDM::CommunicationPerformed.new(relevantPeriod: QDM::Interval.new(nil, Time.now),
+                                                                               dataElementCodes: [QDM::BaseTypeGeneration.generate_code_field])
+        options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31) }
+        doc = generate_doc(cqm_patient, options)
+        imported_patient = @importer.parse_cat1(doc)
+        # Both high and low values are nil
+        assert_equal nil, imported_patient.qdmPatient.encounters.first.relevantPeriod.low
+        assert_equal nil, imported_patient.qdmPatient.encounters.first.relevantPeriod.high
+        # Only high value is nil
+        assert imported_patient.qdmPatient.procedures.first.relevantPeriod.low.is_a? DateTime
+        assert_equal nil, imported_patient.qdmPatient.procedures.first.relevantPeriod.high
+        # Both low and high have a DateTime value
+        assert imported_patient.qdmPatient.interventions.first.relevantPeriod.low.is_a? DateTime
+        assert imported_patient.qdmPatient.interventions.first.relevantPeriod.high.is_a? DateTime
+        # Only low value is nil
+        assert_equal nil, imported_patient.qdmPatient.communications.first.relevantPeriod.low
+        assert imported_patient.qdmPatient.communications.first.relevantPeriod.high.is_a? DateTime    
+      end
+
       def add_different_frequency_codes_to_medication(medication_test_patient)
         medication_test_element = medication_test_patient.qdmPatient.medications.first
 
