@@ -16,10 +16,7 @@ module QRDA
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
         @importer.import_data_elements(@patient, doc, @map)
         
-        assert_equal 2, @patient.qdmPatient.dataElements.length
-        de = @patient.qdmPatient.dataElements.first
-        assert_equal 2, de.dataElementCodes.length
-        assert_operator de.dataElementCodes[0], :!=, de.dataElementCodes[1]
+        assert_equal 3, @patient.qdmPatient.dataElements.length
       end
     end
   end
