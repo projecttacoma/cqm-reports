@@ -78,21 +78,42 @@ module QRDA
           new_data_elements = []
 
           id_map.each_value do |elem_ids|
-            
             elem_id = elem_ids.first
             data_element = data_elements.find { |de| de.id == elem_id }
-
-            elem_ids[1,elem_ids.length].each do |merge_id|
-              merge_element = data_elements.find { |de| de.id == merge_id }
-              data_element.merge!(merge_element)
-            end
-
+            # Keep the first element with a shared ID
             new_data_elements << data_element
+
+            # Encounters require elements beyond id for uniqueness
+            next unless data_element._type == 'QDM::EncounterPerformed'
+            unique_element_keys = []
+            # Add key_elements_for_determining_encounter_uniqueness to array, this is used to determine if other
+            # elements with the same ID should be considered as unique
+            unique_element_keys << key_elements_for_determining_encounter_uniqueness(data_element)
+
+            # Loop through all other data elements with the same id
+            elem_ids[1,elem_ids.length].each do |dup_id|                
+              dup_element = data_elements.find { |de| de.id == dup_id }
+              dup_element_keys = key_elements_for_determining_encounter_uniqueness(dup_element)
+              # See if a previously selected data element shared all of the keys files
+              # If all key fields match, move on.
+              next if unique_element_keys.include?(dup_element_keys)
+              # If all key fields don't match, keep element
+              new_data_elements << dup_element
+              # Add to list of unique element keys
+              unique_element_keys << dup_element_keys
+            end
           end
 
           patient.qdmPatient.dataElements << new_data_elements
           entry_id_map.merge!(id_map)
         end
+      end
+
+      def key_elements_for_determining_encounter_uniqueness(encounter)
+        codes = encounter.codes.collect { |dec| "#{dec.code}_#{dec.codeSystemOid}" }.sort.to_s
+        admission_date_time = encounter.relevantPeriod.low.to_s
+        discharge_date_time = encounter.relevantPeriod.high.to_s
+        "#{codes}#{admission_date_time}#{discharge_date_time}"
       end
 
       def get_patient_expired(record, doc)

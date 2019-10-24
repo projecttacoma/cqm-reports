@@ -73,5 +73,3 @@ require_relative 'qrda-import/data-element-importers/substance_order_importer.rb
 require_relative 'qrda-import/data-element-importers/substance_recommended_importer.rb'
 require_relative 'qrda-import/data-element-importers/symptom_importer.rb'
 require_relative 'qrda-import/patient_importer.rb'
-require_relative 'ext/data_element.rb'
-require_relative 'ext/code.rb'
