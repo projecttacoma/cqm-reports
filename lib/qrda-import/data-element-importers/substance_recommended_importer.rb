@@ -21,6 +21,7 @@ module QRDA
         substance_recommended.refills = extract_scalar(entry_element, @refills_xpath)&.value
         substance_recommended.route = code_if_present(entry_element.at_xpath(@route_xpath))
         substance_recommended.reason = extract_reason(entry_element)
+        substance_recommended.requester = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
         substance_recommended
       end
 

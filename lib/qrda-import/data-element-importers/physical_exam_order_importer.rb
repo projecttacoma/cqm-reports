@@ -15,6 +15,7 @@ module QRDA
         physical_exam_order = super
         physical_exam_order.anatomicalLocationSite = code_if_present(entry_element.at_xpath(@anatomical_location_site_xpath))
         physical_exam_order.reason = extract_reason(entry_element)
+        physical_exam_order.requester = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
         physical_exam_order
       end
 

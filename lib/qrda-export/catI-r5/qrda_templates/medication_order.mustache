@@ -3,7 +3,7 @@
   <substanceAdministration classCode="SBADM" moodCode="RQO" {{{negation_ind}}}>
     <templateId root="2.16.840.1.113883.10.20.22.4.42" extension="2014-06-09"/>
     <!-- Medication, Order template -->
-    <templateId root="2.16.840.1.113883.10.20.24.3.47" extension="2018-10-01"/>
+    <templateId root="2.16.840.1.113883.10.20.24.3.47" extension="2019-12-01"/>
     <id root="1.3.6.1.4.1.115" extension="{{object_id}}"/>
     <text>{{description}}</text>
     <statusCode code="active"/>
@@ -41,6 +41,12 @@
       </participantRole>
     </participant>      
     {{/setting}}
+    {{#prescriber}}
+      <!-- QDM Attribute: Prescriber -->
+      <participant typeCode="PRF">
+        {{> qrda_templates/template_partials/_entity}}
+      </participant>
+    {{/prescriber}}
     {{#reason}}
       <!-- QDM Attribute: Reason -->
       {{> qrda_templates/template_partials/_reason}}

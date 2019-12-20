@@ -4,6 +4,7 @@ class Qrda1R5 < Mustache
   include Qrda::Export::Helper::ViewHelper
   include Qrda::Export::Helper::Cat1ViewHelper
   include Qrda::Export::Helper::PatientViewHelper
+  include Qrda::Export::Helper::EntityHelper
   include Qrda::Export::Helper::FrequencyHelper
 
   self.template_path = __dir__
@@ -196,6 +197,10 @@ class Qrda1R5 < Mustache
 
   def provider_care_experience
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('provider_care_experience', '') }).to_json)
+  end
+
+  def related_person
+    JSON.parse(@qdmPatient.get_data_elements('related_person', nil).to_json)
   end
 
   def substance_administered

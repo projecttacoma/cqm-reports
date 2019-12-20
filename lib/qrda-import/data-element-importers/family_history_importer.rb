@@ -13,6 +13,7 @@ module QRDA
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         family_history = super
         family_history.relationship = code_if_present(entry_element.at_xpath(@relationship_xpath))
+        family_history.recorder = extract_entity(entry_element, "./cda:component/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.112']//cda:participant[@typeCode='PRF']")
         family_history
       end
 

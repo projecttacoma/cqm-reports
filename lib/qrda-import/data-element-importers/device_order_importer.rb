@@ -12,6 +12,7 @@ module QRDA
 
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         device_order = super
+        device_order.requester = extract_entity(entry_element, "./cda:entryRelationship/cda:supply//cda:participant[@typeCode='PRF']")
         device_order.reason = extract_reason(entry_element)
         device_order
       end

@@ -13,6 +13,7 @@ module QRDA
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         laboratory_test_order = super
         laboratory_test_order.reason = extract_reason(entry_element)
+        laboratory_test_order.requester = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
         laboratory_test_order
       end
 

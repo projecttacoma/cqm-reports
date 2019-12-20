@@ -207,13 +207,11 @@ module QRDA
             puts differences
           end
         end
-        # TODO: REMOVE KNOWN_DIFFS  ONCE QRDA IS UPDATED TO MATCH NEWEST SPEC
-        known_diffs = 1
-        assert_equal 0, cqm_patients.count - successful_count - known_diffs
+        assert_equal 0, cqm_patients.count - successful_count
       end
 
       def test_exhaustive_qrda_validation
-        skip_types = %w[Participation CareGoal]
+        skip_types = %w[Entity PatientEntity CarePartner Practitioner Organization Participation CareGoal DiagnosisComponent]
         puts "\n========================= QRDA VALIDATION ========================="
         cqm_patients = QDM::PatientGeneration.generate_exhastive_data_element_patients(true)
         add_different_frequency_codes_to_medication(cqm_patients.find { |patient| patient.familyName.include? 'MedicationDispensed' })
@@ -244,8 +242,7 @@ module QRDA
           end
         end
         # TODO: REMOVE KNOWN_DIFFS ONCE QRDA IS UPDATED TO MATCH NEWEST SPEC
-        known_diffs = 8
-        assert_equal 0, cqm_patients.count - successful_count - known_diffs
+        assert_equal 0, cqm_patients.count - successful_count
       end
     end
   end

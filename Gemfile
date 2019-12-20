@@ -17,6 +17,7 @@ group :development do
 end
 
 group :test do
+  gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', branch: 'qrda_5_2_updates'
   gem 'factory_girl', '~> 4.1.0'
   gem 'tailor', '~> 1.1.2'
   gem 'cane', '~> 2.3.0'
@@ -26,6 +27,6 @@ group :test do
   gem 'minitest', '~> 5.3'
   gem 'minitest-reporters'
   gem 'awesome_print', :require => 'ap'
-  gem 'cqm-validators'
+  gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators', branch: 'master'
   gem 'nokogiri-diff'
 end

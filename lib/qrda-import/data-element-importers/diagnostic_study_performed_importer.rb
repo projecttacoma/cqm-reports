@@ -6,6 +6,7 @@ module QRDA
         @id_xpath = './cda:id'
         @code_xpath = './cda:code'
         @relevant_period_xpath = "./cda:effectiveTime"
+        @relevant_date_time_xpath = './cda:effectiveTime[@value]'
         @author_datetime_xpath = "./cda:author/cda:time"
         @result_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.2']/cda:value"
         @result_datetime_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.2']/cda:effectiveTime"
@@ -26,6 +27,7 @@ module QRDA
         diagnostic_study_performed.facilityLocation = extract_facility_locations(entry_element)[0]
         diagnostic_study_performed.components = extract_components(entry_element)
         diagnostic_study_performed.reason = extract_reason(entry_element)
+        diagnostic_study_performed.performer = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
         diagnostic_study_performed
       end
 

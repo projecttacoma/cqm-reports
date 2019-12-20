@@ -13,6 +13,7 @@ module QRDA
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         symptom = super
         symptom.severity = code_if_present(entry_element.at_xpath(@severity_xpath))
+        symptom.recorder = extract_entity(entry_element, "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.136']//cda:participant[@typeCode='PRF']")
         symptom
       end
 

@@ -8,6 +8,7 @@ module QRDA
         @author_datetime_xpath = "./cda:author/cda:time"
         @anatomical_location_site_xpath = "./cda:targetSiteCode"
         @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
+        @rank_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.166']/cda:value/@value"
         @entry_class = QDM::ProcedureRecommended
       end
 
@@ -15,6 +16,8 @@ module QRDA
         procedure_recommended = super
         procedure_recommended.anatomicalLocationSite = code_if_present(entry_element.at_xpath(@anatomical_location_site_xpath))
         procedure_recommended.reason = extract_reason(entry_element)
+        procedure_recommended.requester = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        procedure_recommended.rank = entry_element.at_xpath(@rank_xpath)&.value&.strip.to_i
         procedure_recommended
       end
 
