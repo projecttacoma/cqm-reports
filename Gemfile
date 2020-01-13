@@ -6,6 +6,8 @@ gem 'mongoid', '~> 6.4.2'
 
 gem 'protected_attributes_continued'
 
+gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'cql-change-BONNIEMAT-608'
+
 group :development, :test do
   gem 'bundler-audit'
   gem 'rubocop', '~> 0.52.1', require: false
