@@ -21,6 +21,9 @@
           <administrativeGenderCode {{> _code}}/>
         {{/dataElementCodes}}
       {{/patient_characteristic_sex}}
+      {{^patient_characteristic_sex}}
+          <administrativeGenderCode nullFlavor="UNK"/>
+      {{/patient_characteristic_sex}}
       {{#patient_characteristic_birthdate}}
         {{{birth_date_time}}}
       {{/patient_characteristic_birthdate}}
@@ -29,10 +32,16 @@
           <raceCode {{> _code}}/>
         {{/dataElementCodes}}
       {{/patient_characteristic_race}}
+      {{^patient_characteristic_race}}
+          <raceCode nullFlavor="UNK"/>
+      {{/patient_characteristic_race}}
       {{#patient_characteristic_ethnicity}}
         {{#dataElementCodes}}
           <ethnicGroupCode {{> _code}}/>
         {{/dataElementCodes}}
+      {{/patient_characteristic_ethnicity}}
+      {{^patient_characteristic_ethnicity}}
+          <ethnicGroupCode nullFlavor="UNK"/>
       {{/patient_characteristic_ethnicity}}
       <languageCommunication>
         <templateId root="2.16.840.1.113883.3.88.11.83.2" assigningAuthorityName="HITSP/C83"/>
