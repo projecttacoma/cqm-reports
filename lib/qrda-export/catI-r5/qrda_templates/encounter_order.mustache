@@ -13,6 +13,9 @@
         {{> _codes}}
         <text>{{description}}</text>
         <statusCode code="active"/>
+        {{#priority}}
+          <priorityCode {{> _code}}/>
+        {{/priority}}
         {{#authorDatetime}}
           <!-- QDM Attribute: Author dateTime -->
           {{> qrda_templates/template_partials/_author}}

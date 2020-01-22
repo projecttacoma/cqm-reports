@@ -52,6 +52,7 @@ module QRDA
         @data_element_importers << generate_importer(ProcedureOrderImporter)
         @data_element_importers << generate_importer(ProcedurePerformedImporter)
         @data_element_importers << generate_importer(ProcedureRecommendedImporter)
+        @data_element_importers << generate_importer(ProgramParticipationImporter)
         @data_element_importers << generate_importer(ProviderCareExperienceImporter)
         @data_element_importers << generate_importer(RelatedPersonImporter)
         @data_element_importers << generate_importer(SubstanceAdministeredImporter)

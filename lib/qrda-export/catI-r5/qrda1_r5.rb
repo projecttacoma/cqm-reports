@@ -195,6 +195,10 @@ class Qrda1R5 < Mustache
     JSON.parse(@qdmPatient.get_data_elements('procedure', 'recommended').to_json)
   end
 
+  def program_participation
+    JSON.parse(@qdmPatient.get_data_elements('participation', nil).to_json)
+  end
+
   def provider_care_experience
     JSON.parse(@qdmPatient.dataElements.where(hqmfOid: { '$in' => HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids('provider_care_experience', '') }).to_json)
   end

@@ -85,6 +85,13 @@ module Qrda
           "</effectiveTime>"
         end
 
+        def participation_period
+          "<effectiveTime>"\
+          "<low #{value_or_null_flavor(self['participationPeriod']['low'])}/>"\
+          "<high #{value_or_null_flavor(self['participationPeriod']['high'])}/>"\
+          "</effectiveTime>"
+        end
+
         def relevant_period_as_value
           "<effectiveTime #{value_or_null_flavor(self['relevantPeriod']['low'])}/>"
         end

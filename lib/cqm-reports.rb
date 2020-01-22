@@ -67,6 +67,7 @@ require_relative 'qrda-import/data-element-importers/physical_exam_recommended_i
 require_relative 'qrda-import/data-element-importers/procedure_order_importer.rb'
 require_relative 'qrda-import/data-element-importers/procedure_performed_importer.rb'
 require_relative 'qrda-import/data-element-importers/procedure_recommended_importer.rb'
+require_relative 'qrda-import/data-element-importers/program_participation_importer.rb'
 require_relative 'qrda-import/data-element-importers/provider_care_experience_importer.rb'
 require_relative 'qrda-import/data-element-importers/related_person_importer.rb'
 require_relative 'qrda-import/data-element-importers/substance_administered_importer.rb'
