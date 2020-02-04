@@ -1,5 +1,10 @@
 <entry>
-  <substanceAdministration classCode="SBADM" moodCode="EVN" {{{negation_ind}}}>
+    {{#negated}}
+      <substanceAdministration classCode="SBADM" moodCode="EVN" {{{negation_ind}}}>
+    {{/negated}}
+    {{^negated}}
+      <substanceAdministration classCode="SBADM" moodCode="EVN" negationInd="false">
+    {{/negated}}
     <!-- C-CDA R2 Immunization Activity -->
     <templateId root="2.16.840.1.113883.10.20.22.4.52" extension="2015-08-01"/>
     <!-- Immunization Administered -->
