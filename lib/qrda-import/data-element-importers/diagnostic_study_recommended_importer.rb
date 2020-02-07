@@ -11,6 +11,7 @@ module QRDA
 
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         diagnostic_study_recommended = super
+        diagnostic_study_recommended.requester = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
         diagnostic_study_recommended
       end
 

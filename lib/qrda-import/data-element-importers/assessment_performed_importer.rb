@@ -10,6 +10,8 @@ module QRDA
         @method_xpath = './cda:methodCode'
         @components_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.149']"
         @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
+        @relevant_period_xpath = "./cda:effectiveTime"
+        @relevant_date_time_xpath = './cda:effectiveTime[@value]'
         @entry_class = QDM::AssessmentPerformed
       end
 
@@ -18,6 +20,7 @@ module QRDA
         assessment_performed.method = code_if_present(entry_element.at_xpath(@method_xpath))
         assessment_performed.components = extract_components(entry_element)
         assessment_performed.reason = extract_reason(entry_element)
+        assessment_performed.performer = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
         assessment_performed
       end
 

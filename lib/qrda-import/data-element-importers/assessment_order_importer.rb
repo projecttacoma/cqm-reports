@@ -13,6 +13,7 @@ module QRDA
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         assessment_order = super
         assessment_order.reason = extract_reason(entry_element)
+        assessment_order.requester = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
         assessment_order
       end
 

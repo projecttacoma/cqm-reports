@@ -11,6 +11,7 @@ module QRDA
 
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         provider_care_experience = super
+        provider_care_experience.recorder = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
         provider_care_experience
       end
 

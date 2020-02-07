@@ -7,6 +7,7 @@ module QRDA
         @code_xpath = "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code"
         @author_datetime_xpath = "./cda:author/cda:time"
         @relevant_period_xpath = "./cda:effectiveTime"
+        @relevant_date_time_xpath = './cda:effectiveTime'
         @dosage_xpath = "./cda:doseQuantity"
         @frequency_xpath = "./cda:effectiveTime[@operator='A']/cda:period"
         @route_xpath = "./cda:routeCode"
@@ -18,6 +19,7 @@ module QRDA
         substance_administered.dosage = extract_scalar(entry_element, @dosage_xpath)
         substance_administered.frequency = frequency_as_coded_value(entry_element, @frequency_xpath)
         substance_administered.route = code_if_present(entry_element.at_xpath(@route_xpath))
+        substance_administered.performer = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
         substance_administered
       end
 

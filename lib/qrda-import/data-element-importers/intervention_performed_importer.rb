@@ -6,6 +6,7 @@ module QRDA
         @id_xpath = './cda:id'
         @code_xpath = './cda:code'
         @relevant_period_xpath = "./cda:effectiveTime"
+        @relevant_date_time_xpath = './cda:effectiveTime'
         @author_datetime_xpath = "./cda:author/cda:time"
         @result_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.2']/cda:value"
         @status_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.93']/cda:value"
@@ -17,6 +18,7 @@ module QRDA
         intervention_performed = super
         intervention_performed.status = code_if_present(entry_element.at_xpath(@status_xpath))
         intervention_performed.reason = extract_reason(entry_element)
+        intervention_performed.performer = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
         intervention_performed
       end
 

@@ -85,8 +85,11 @@ module QRDA
 
       def extract_dates(parent_element, entry)
         entry.authorDatetime = extract_time(parent_element, @author_datetime_xpath) if @author_datetime_xpath
-        entry.relevantPeriod = extract_interval(parent_element, @relevant_period_xpath) if @relevant_period_xpath
         entry.prevalencePeriod = extract_interval(parent_element, @prevalence_period_xpath) if @prevalence_period_xpath
+        entry.relevantDatetime = extract_time(parent_element, @relevant_date_time_xpath) if @relevant_date_time_xpath
+        # If there is a relevantDatetime, don't look for a relevantPeriod
+        return if entry.respond_to?(:relevantDatetime) && entry.relevantDatetime
+        entry.relevantPeriod = extract_interval(parent_element, @relevant_period_xpath) if @relevant_period_xpath
       end
 
       def extract_interval(parent_element, interval_xpath)
@@ -95,13 +98,13 @@ module QRDA
           high_time = DateTime.parse(parent_element.at_xpath(interval_xpath)['value'])
         end
         if parent_element.at_xpath("#{interval_xpath}/cda:low")
-          low_time = DateTime.parse(parent_element.at_xpath("#{interval_xpath}/cda:low")['value'])
+          low_time = if parent_element.at_xpath("#{interval_xpath}/cda:low")['value']
+                       DateTime.parse(parent_element.at_xpath("#{interval_xpath}/cda:low")['value'])
+                     end
         end
         if parent_element.at_xpath("#{interval_xpath}/cda:high")
           high_time = if parent_element.at_xpath("#{interval_xpath}/cda:high")['value']
                         DateTime.parse(parent_element.at_xpath("#{interval_xpath}/cda:high")['value'])
-                      else
-                        DateTime.new(9999,1,1)
                       end
         end
         if parent_element.at_xpath("#{interval_xpath}/cda:center")
@@ -236,6 +239,45 @@ module QRDA
         related_ids
       end
 
+      def extract_entity(parent_element, entity_xpath)
+        care_partner_entity_element = parent_element.at_xpath(entity_xpath + "/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.160']")
+        patient_entity_element = parent_element.at_xpath(entity_xpath + "/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.161']")
+        practitioner_entity_element = parent_element.at_xpath(entity_xpath + "/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.162']")
+        organization_entity_element = parent_element.at_xpath(entity_xpath + "/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.163']")
+        return extract_care_partner_entity(care_partner_entity_element) if care_partner_entity_element
+        return extract_patient_entity(patient_entity_element) if patient_entity_element
+        return extract_practitioner_entity(practitioner_entity_element) if practitioner_entity_element
+        return extract_organization_entity(organization_entity_element) if organization_entity_element
+      end
+
+      def extract_care_partner_entity(care_partner_entity_element)
+        care_partner_entity = QDM::CarePartner.new
+        care_partner_entity.identifier = extract_id(care_partner_entity_element, './cda:id')
+        care_partner_entity.relationship = code_if_present(care_partner_entity_element.at_xpath('./cda:playingEntity/cda:code'))
+        care_partner_entity
+      end
+
+      def extract_patient_entity(patient_entity_element)
+        patient_entity = QDM::PatientEntity.new
+        patient_entity.identifier = extract_id(patient_entity_element, './cda:id')
+        patient_entity
+      end
+
+      def extract_practitioner_entity(practitioner_entity_element)
+        practitioner_entity = QDM::Practitioner.new
+        practitioner_entity.identifier = extract_id(practitioner_entity_element, './cda:id')
+        practitioner_entity.role = code_if_present(practitioner_entity_element.at_xpath('./cda:code'))
+        practitioner_entity.specialty = code_if_present(practitioner_entity_element.at_xpath('./cda:playingEntity/cda:code'))
+        practitioner_entity.qualification = code_if_present(practitioner_entity_element.at_xpath('./cda:scopingEntity/cda:code'))
+        practitioner_entity
+      end
+
+      def extract_organization_entity(organization_entity_element)
+        organization_entity = QDM::Organization.new
+        organization_entity.identifier = extract_id(organization_entity_element, './cda:id')
+        organization_entity.type = code_if_present(organization_entity_element.at_xpath('./cda:playingEntity/cda:code'))
+        organization_entity
+      end
     end
   end
 end

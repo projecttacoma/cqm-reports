@@ -6,6 +6,7 @@ module QRDA
         @id_xpath = './cda:id'
         @code_xpath = "./cda:code"
         @relevant_period_xpath = "./cda:effectiveTime"
+        @relevant_date_time_xpath = './cda:effectiveTime'
         @author_datetime_xpath = "./cda:author/cda:time"
         @method_xpath = './cda:methodCode'
         @result_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.2']/cda:value"
@@ -14,6 +15,7 @@ module QRDA
         @incision_datetime_xpath = "./cda:entryRelationship/cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.89']/cda:effectiveTime"
         @components_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.149']"
         @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
+        @rank_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.166']/cda:value/@value"
         @entry_class = QDM::ProcedurePerformed
       end
 
@@ -25,6 +27,8 @@ module QRDA
         procedure_performed.incisionDatetime = extract_time(entry_element, @incision_datetime_xpath)
         procedure_performed.components = extract_components(entry_element)
         procedure_performed.reason = extract_reason(entry_element)
+        procedure_performed.performer = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        procedure_performed.rank = entry_element.at_xpath(@rank_xpath)&.value&.strip.to_i
         procedure_performed
       end
 

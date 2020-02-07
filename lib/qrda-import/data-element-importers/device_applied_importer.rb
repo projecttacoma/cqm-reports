@@ -7,6 +7,7 @@ module QRDA
         @code_xpath = './cda:participant/cda:participantRole/cda:playingDevice/cda:code'
         @author_datetime_xpath = "./cda:author/cda:time"
         @relevant_period_xpath = "./cda:effectiveTime"
+        @relevant_date_time_xpath = './cda:effectiveTime[@value]'
         @anatomical_location_site_xpath = "./cda:targetSiteCode"
         @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
         @entry_class = QDM::DeviceApplied
@@ -16,6 +17,7 @@ module QRDA
         device_applied = super
         device_applied.anatomicalLocationSite = code_if_present(entry_element.at_xpath(@anatomical_location_site_xpath))
         device_applied.reason = extract_reason(entry_element)
+        device_applied.performer = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
         device_applied
       end
 

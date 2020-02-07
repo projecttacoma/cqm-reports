@@ -207,31 +207,30 @@ module QRDA
             puts differences
           end
         end
-        # TODO: REMOVE KNOWN_DIFFS  ONCE QRDA IS UPDATED TO MATCH NEWEST SPEC
-        known_diffs = 1
-        assert_equal 0, cqm_patients.count - successful_count - known_diffs
+        assert_equal 0, cqm_patients.count - successful_count
       end
 
       def test_exhaustive_qrda_validation
-        skip_types = %w[Participation CareGoal]
+        skip_types = %w[Entity PatientEntity CarePartner Practitioner Organization CareGoal DiagnosisComponent]
         puts "\n========================= QRDA VALIDATION ========================="
         cqm_patients = QDM::PatientGeneration.generate_exhastive_data_element_patients(true)
         add_different_frequency_codes_to_medication(cqm_patients.find { |patient| patient.familyName.include? 'MedicationDispensed' })
-        validator = CqmValidators::Cat1R51.instance
+        # TODO: Add Schematron Validator when available
+        # validator = CqmValidators::Cat1R51.instance
         cda_validator = CqmValidators::CDA.instance
         successful_count = 0
         cqm_patients.each do |cqm_patient|
           datatype_name = cqm_patient.givenNames[0]
           begin
             exported_qrda = generate_doc(cqm_patient)
-            errors = validator.validate(exported_qrda)
+            errors = [] # validator.validate(exported_qrda)
             cda_errors = cda_validator.validate(exported_qrda)
             if (errors.count.zero? && cda_errors.count.zero?)
               successful_count += 1
             end
             if (skip_types.include? datatype_name)
               puts "Ignoring results for datatype #{datatype_name}"
-              successful_count += 1
+              # successful_count += 1
             end
             errors.each do |error|
               puts "\e[31mQRDA Schematron Error In #{datatype_name}: #{error.message}\e[0m"
@@ -244,8 +243,7 @@ module QRDA
           end
         end
         # TODO: REMOVE KNOWN_DIFFS ONCE QRDA IS UPDATED TO MATCH NEWEST SPEC
-        known_diffs = 8
-        assert_equal 0, cqm_patients.count - successful_count - known_diffs
+        assert_equal 0, cqm_patients.count - successful_count
       end
     end
   end

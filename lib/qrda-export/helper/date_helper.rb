@@ -23,10 +23,16 @@ module Qrda
           Time.now.utc.to_formatted_s(:number)
         end
 
+        def sent_date_time
+          "<low #{value_or_null_flavor(self['sentDatetime'])}/>"
+        end
+
+        def received_date_time
+          "<high #{value_or_null_flavor(self['receivedDatetime'])}/>"
+        end
+
         def active_date_time
-          "<effectiveTime xsi:type='IVL_TS'>"\
-          "<low #{value_or_null_flavor(self['activeDatetime'])}/>"\
-          "</effectiveTime>"
+          "<effectiveTime #{value_or_null_flavor(self['activeDatetime'])}/>"
         end
 
         def author_time
@@ -79,11 +85,24 @@ module Qrda
           "</effectiveTime>"
         end
 
+        def participation_period
+          "<effectiveTime>"\
+          "<low #{value_or_null_flavor(self['participationPeriod']['low'])}/>"\
+          "<high #{value_or_null_flavor(self['participationPeriod']['high'])}/>"\
+          "</effectiveTime>"
+        end
+
         def relevant_period_as_value
           "<effectiveTime #{value_or_null_flavor(self['relevantPeriod']['low'])}/>"
         end
 
-        def relevant_date_time
+        def relevant_date_time_low
+          "<effectiveTime>"\
+          "<low #{value_or_null_flavor(self['relevantDatetime'])}/>"\
+          "</effectiveTime>"
+        end
+
+        def relevant_date_time_value
           "<effectiveTime #{value_or_null_flavor(self['relevantDatetime'])}/>"
         end
 

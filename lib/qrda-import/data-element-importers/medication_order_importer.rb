@@ -27,9 +27,9 @@ module QRDA
         medication_order.refills = extract_scalar(entry_element, @refills_xpath)&.value
         medication_order.route = code_if_present(entry_element.at_xpath(@route_xpath))
         medication_order.setting = code_if_present(entry_element.at_xpath(@setting_xpath))
-        # medication_order.prescriberId = extract_id(entry_element, @prescriber_id_xpath)
         medication_order.daysSupplied = extract_scalar(entry_element, @days_supplied_xpath)&.value
         medication_order.reason = extract_reason(entry_element)
+        medication_order.prescriber = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
         medication_order
       end
 
