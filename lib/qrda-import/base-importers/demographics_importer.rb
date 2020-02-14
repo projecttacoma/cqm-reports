@@ -15,17 +15,17 @@ module QRDA
         pcs = QDM::PatientCharacteristicSex.new
         code_element = patient_element.at_xpath('cda:administrativeGenderCode')
         pcs.dataElementCodes = [code_if_present(code_element)]
-        patient.qdmPatient.dataElements << pcs
+        patient.qdmPatient.dataElements << pcs unless pcs.dataElementCodes.compact.blank?
 
         pcr = QDM::PatientCharacteristicRace.new
         code_element = patient_element.at_xpath('cda:raceCode')
         pcr.dataElementCodes = [code_if_present(code_element)]
-        patient.qdmPatient.dataElements << pcr
+        patient.qdmPatient.dataElements << pcr unless pcr.dataElementCodes.compact.blank?
 
         pce = QDM::PatientCharacteristicEthnicity.new
         code_element = patient_element.at_xpath('cda:ethnicGroupCode')
         pce.dataElementCodes = [code_if_present(code_element)]
-        patient.qdmPatient.dataElements << pce
+        patient.qdmPatient.dataElements << pce unless pce.dataElementCodes.compact.blank?
       end
 
       def code_if_present(code_element)
