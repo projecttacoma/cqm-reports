@@ -34,6 +34,10 @@
             </manufacturedMaterial>
           </manufacturedProduct>
         </product>
+        {{#authorDatetime}}
+          <!-- QDM Attribute: Author dateTime -->
+          {{> qrda_templates/template_partials/_author}}
+        {{/authorDatetime}}
         {{#dispenser}}
           <!-- QDM Attribute: Dispenser -->
           <participant typeCode="DIST">
