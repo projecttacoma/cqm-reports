@@ -6,14 +6,8 @@
     <templateId root="2.16.840.1.113883.10.20.24.3.147" extension="2019-12-01"/>
     <id root="1.3.6.1.4.1.115" extension="{{object_id}}"/>
     <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
-    {{#prevalencePeriod}}
-    {{#completed_prevalence_period}}
     <statusCode code="completed" />
-    {{/completed_prevalence_period}}
-    {{^completed_prevalence_period}}
-    <statusCode code="active" />
-    {{/completed_prevalence_period}}
-    <!-- QDM Attribute: Prevalence Period -->
+    {{#prevalencePeriod}}
     {{{prevalence_period}}}
     {{/prevalencePeriod}}
     <value xsi:type="CD" code="419199007" displayName="Allergy to substance" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"/>

@@ -28,7 +28,7 @@ module QRDA
         procedure_performed.components = extract_components(entry_element)
         procedure_performed.reason = extract_reason(entry_element)
         procedure_performed.performer = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
-        procedure_performed.rank = entry_element.at_xpath(@rank_xpath)&.value&.strip.to_i
+        procedure_performed.rank = entry_element.at_xpath(@rank_xpath)&.value&.strip.to_i if entry_element.at_xpath(@rank_xpath)&.value
         procedure_performed
       end
 

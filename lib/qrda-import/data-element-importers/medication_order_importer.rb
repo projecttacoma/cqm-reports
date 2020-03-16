@@ -12,7 +12,7 @@ module QRDA
         @frequency_xpath = "./cda:effectiveTime[@operator='A']/cda:period"
         @refills_xpath = "./cda:repeatNumber"
         @route_xpath = "./cda:routeCode"
-        @setting_xpath = "./cda:participant/cda:participantRole/cda:code"
+        @setting_xpath = "./cda:participant[@typeCode='LOC']/cda:participantRole/cda:code"
         @prescriber_id_xpath = "./cda:author/cda:assignedAuthor/cda:id"
         @days_supplied_xpath = "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.157']/cda:quantity"
         @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"

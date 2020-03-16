@@ -47,6 +47,10 @@ module Qrda
           "<birthTime #{value_or_null_flavor(self['birthDatetime'])}/>"
         end
 
+        def has_result_date_time
+          !self['resultDatetime'].nil?
+        end
+
         def result_date_time
           "<effectiveTime #{value_or_null_flavor(self['resultDatetime'])}/>"
         end

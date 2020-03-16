@@ -13,6 +13,7 @@
     {{^completed_prevalence_period}}
     <statusCode code="active" />
     {{/completed_prevalence_period}}
+    <!-- QDM Attribute: Prevalence Period -->
     {{{prevalence_period}}}
     {{/prevalencePeriod}}
     <entryRelationship typeCode="SUBJ">
@@ -25,13 +26,8 @@
         <code code="75325-1" codeSystem="2.16.840.1.113883.6.1">
           <translation code="418799008" displayName="Symptom" codeSystem="2.16.840.1.113883.6.96"/>
         </code>
-        {{#prevalencePeriod}}
-        {{#completed_prevalence_period}}
         <statusCode code="completed" />
-        {{/completed_prevalence_period}}
-        {{^completed_prevalence_period}}
-        <statusCode code="active" />
-        {{/completed_prevalence_period}}
+        {{#prevalencePeriod}}
         <!-- QDM Attribute: Prevalence Period -->
         {{{prevalence_period}}}
         {{/prevalencePeriod}}
