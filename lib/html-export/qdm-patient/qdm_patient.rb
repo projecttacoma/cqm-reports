@@ -1,6 +1,7 @@
 require 'mustache'
 class QdmPatient < Mustache
   include Qrda::Export::Helper::PatientViewHelper
+  include HQMF::Util::EntityHelper
 
   self.template_path = __dir__
 
@@ -24,6 +25,22 @@ class QdmPatient < Mustache
 
   def unit_string
     "#{self['value']} #{self['unit']}"
+  end
+
+  def entity_string
+    if care_partner_entity?
+      "Care partner #{self['id']} with relationship #{self['relationship'].code_code_system_string}"
+    elsif organization_entity?
+      "Organization #{self['id']} with type #{self['type'].code_code_system_string}"
+    elsif patient_entity?
+      "Patient #{self['id']}"
+    elsif practitioner_entity?
+      "Practitioner #{self['id']} with role #{self['role'].code_code_system_string}, \\
+      specialty #{self['specialty'].code_code_system_string}, \\
+      and qualification #{self['qualification'].code_code_system_string}"
+    else
+      "Entity #{self['id']}"
+    end
   end
 
   def code_code_system_string

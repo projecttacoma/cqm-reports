@@ -15,8 +15,13 @@
 		<div class="div-table-head--no-border"><span class="criteria-heading">Anatomical Location Site:</span>  {{{code_code_system_string}}}</div>
 	</div>
 {{/anatomicalLocationSite}}
+{{#category}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Category:</span>  {{{code_code_system_string}}}</div>
+	</div>
+{{/category}}
 {{#components}}
-	{{#code}}	
+	{{#code}}
 		<div class="div-head-row">
 			<div class="div-table-head--no-border"><span class="criteria-heading">Component Code:</span>  {{{code_code_system_string}}}</div>
 		</div>
@@ -27,6 +32,11 @@
 		</div>
 	{{/result}}
 {{/components}}
+{{#daysSupplied}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Days Supplied:</span>  {{{daysSupplied}}}</div>
+	</div>
+{{/daysSupplied}}
 {{#diagnoses}}
 	<div class="div-head-row">
 		<div class="div-table-head--no-border"><span class="criteria-heading">Diagnosis:</span>  {{{code_code_system_string}}}</div>
@@ -37,6 +47,16 @@
 		<div class="div-table-head--no-border"><span class="criteria-heading">Discharge Disposition:</span>  {{{code_code_system_string}}}</div>
 	</div>
 {{/dischargeDisposition}}
+{{#dispenser}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Dispenser:</span>  {{{entity_string}}}</div>
+	</div>
+{{/dispenser}}
+{{#dosage}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Dosage:</span>  {{{unit_string}}}</div>
+	</div>
+{{/dosage}}
 {{#facilityLocation}}
 	<div class="div-head-row">
 		<div class="div-table-head--no-border"><span class="criteria-heading">Facility Location:</span>  {{{code_code_system_string}}}</div>
@@ -57,6 +77,16 @@
 		<div class="div-table-head--no-border"><span class="criteria-heading">Length Of Stay:</span>  {{{unit_string}}}</div>
 	</div>
 {{/lengthOfStay}}
+{{#medium}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Medium:</span>  {{{code_code_system_string}}}</div>
+	</div>
+{{/medium}}
+{{#method}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Method:</span>  {{{code_code_system_string}}}</div>
+	</div>
+{{/method}}
 {{#negationRationale}}
 	<div class="div-head-row">
 		<div class="div-table-head--no-border"><span class="criteria-heading">Negation Reason:</span>  {{{code_code_system_string}}}</div>
@@ -67,26 +97,106 @@
 		<div class="div-table-head--no-border"><span class="criteria-heading">Ordinality:</span>  {{{code_code_system_string}}}</div>
 	</div>
 {{/ordinality}}
+{{#participant}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Participant:</span>  {{{entity_string}}}</div>
+	</div>
+{{/participant}}
+{{#performer}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Performer:</span>  {{{entity_string}}}</div>
+	</div>
+{{/performer}}
+{{#prescriber}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Prescriber:</span>  {{{entity_string}}}</div>
+	</div>
+{{/prescriber}}
 {{#principalDiagnosis}}
 	<div class="div-head-row">
 		<div class="div-table-head--no-border"><span class="criteria-heading">Principal Diagnosis:</span>  {{{code_code_system_string}}}</div>
 	</div>
 {{/principalDiagnosis}}
+{{#priority}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Priority:</span>  {{{code_code_system_string}}}</div>
+	</div>
+{{/priority}}
+{{#rank}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Rank:</span>  {{{rank}}}</div>
+	</div>
+{{/rank}}
 {{#reason}}
 	<div class="div-head-row">
 		<div class="div-table-head--no-border"><span class="criteria-heading">Reason:</span>  {{{code_code_system_string}}}</div>
 	</div>
 {{/reason}}
+{{#recipient}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Recipient:</span>  {{{entity_string}}}</div>
+	</div>
+{{/recipient}}
+{{#recorder}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Recorder:</span>  {{{entity_string}}}</div>
+	</div>
+{{/recorder}}
+{{#referenceRange}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Reference Range Start:</span>  {{{low}}}</div>
+	</div>
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Reference Range End:</span>  {{{high}}}</div>
+	</div>
+{{/referenceRange}}
+{{#refills}}
+<!-- TODO: type integer ok? (also for rank and daysSupplied) -->
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Refills:</span>  {{{refills}}}</div>
+	</div>
+{{/refills}}
+{{#relatedTo}}
+<!-- TODO: array of string? -->
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Related To:</span>  {{{relatedTo}}}</div>
+	</div>
+{{/relatedTo}}
+{{#relationship}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Relationship:</span>  {{{code_code_system_string}}}</div>
+	</div>
+{{/relationship}}
+{{#requester}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Requester:</span>  {{{entity_string}}}</div>
+	</div>
+{{/requester}}
 {{#route}}
 	<div class="div-head-row">
 		<div class="div-table-head--no-border"><span class="criteria-heading">Route:</span>  {{{code_code_system_string}}}</div>
 	</div>
 {{/route}}
+{{#sender}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Sender:</span>  {{{entity_string}}}</div>
+	</div>
+{{/sender}}
+{{#setting}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Setting:</span>  {{{code_code_system_string}}}</div>
+	</div>
+{{/setting}}
 {{#severity}}
 	<div class="div-head-row">
 		<div class="div-table-head--no-border"><span class="criteria-heading">Severity:</span>  {{{code_code_system_string}}}</div>
 	</div>
 {{/severity}}
+{{#supply}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Supply:</span>  {{{unit_string}}}</div>
+	</div>
+{{/supply}}
 {{#status}}
 	<div class="div-head-row">
 		<div class="div-table-head--no-border"><span class="criteria-heading">Status:</span>  {{{code_code_system_string}}}</div>
@@ -102,5 +212,11 @@
 		<div class="div-table-head--no-border"><span class="criteria-heading">Result:</span>  {{{result_string}}}</div>
 	</div>
 {{/result}}
+{{#targetOutcome}}
+<!-- TODO: type any? -->
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Target Outcome:</span>  {{{targetOutcome}}}</div>
+	</div>
+{{/targetOutcome}}
 </div>
 </div>

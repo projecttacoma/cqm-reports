@@ -10,6 +10,11 @@
 		</div>
 	{{/end_time?}}
 {{/relevantPeriod}}
+{{#relevantDatetime}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Relevant Date/Time:</span>  {{{relevantDatetime}}}</div>
+	</div>
+{{/relevantDatetime}}
 {{#prevalencePeriod}}
 	<div class="div-head-row">
 	    <div class="div-table-head--no-border"><span class="criteria-heading">Prevalence Period Start:</span>  {{{low}}}</div>
@@ -20,6 +25,16 @@
 		</div>
 	{{/end_time?}}
 {{/prevalencePeriod}}
+{{#participationPeriod}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Participation Period Start:</span>  {{{low}}}</div>
+	</div>
+	{{#end_time?}}
+		<div class="div-head-row">
+			<div class="div-table-head--no-border"><span class="criteria-heading">Participation Period End:</span>  {{{high}}}</div>
+		</div>
+	{{/end_time?}}
+{{/participationPeriod}}
 {{#authorDatetime}}
 	<div class="div-head-row">
 		<div class="div-table-head--no-border"><span class="criteria-heading">Author Date/Time:</span>  {{{authorDatetime}}}</div>
@@ -40,5 +55,21 @@
 		<div class="div-table-head--no-border"><span class="criteria-heading">Incision Date/Time:</span>  {{{incisionDatetime}}}</div>
 	</div>
 {{/incisionDatetime}}
+{{#receivedDatetime}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Received Date/Time:</span>  {{{receivedDatetime}}}</div>
+	</div>
+{{/receivedDatetime}}
+{{#sentDatetime}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Sent Date/Time:</span>  {{{sentDatetime}}}</div>
+	</div>
+{{/sentDatetime}}
+{{#statusDate}}
+<!-- TODO: statusDate is a date??? why isn't it a dateTime? -->
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Status Date:</span>  {{{statusDate}}}</div>
+	</div>
+{{/statusDate}}
 </div>
 </div>
