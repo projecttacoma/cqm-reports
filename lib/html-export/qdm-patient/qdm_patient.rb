@@ -24,6 +24,7 @@ class QdmPatient < Mustache
   end
 
   def unit_string
+    return "#{self['value']} " unless self['unit']
     "#{self['value']} #{self['unit']}"
   end
 
@@ -52,7 +53,7 @@ class QdmPatient < Mustache
   end
 
   def result_string
-    return unit_string if self['unit']
+    return unit_string if self['value']
     return code_code_system_string if self['code']
 
     ''
