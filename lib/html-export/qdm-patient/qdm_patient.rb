@@ -18,6 +18,7 @@ class QdmPatient < Mustache
   def data_elements
     de_hash = {}
     @qdmPatient.dataElements.each do |data_element|
+      data_element['methodCode'] = data_element['method'] if data_element['method']
       de_hash[data_element._type] ? de_hash[data_element._type][:element_list] << data_element : de_hash[data_element._type] = { title: data_element._type, element_list: [data_element] }
     end
     JSON.parse(de_hash.values.to_json)
@@ -30,22 +31,34 @@ class QdmPatient < Mustache
 
   def entity_string
     if care_partner_entity?
-      "Care partner #{self['id']} with relationship #{self['relationship'].code_code_system_string}"
+      "Care partner #{identifier_for_element(self['identifier'])} with relationship #{code_for_element(self['relationship'])}"
     elsif organization_entity?
-      "Organization #{self['id']} with type #{self['type'].code_code_system_string}"
+      "Organization #{identifier_for_element(self['identifier'])} with type #{code_for_element(self['type'])}"
     elsif patient_entity?
-      "Patient #{self['id']}"
+      "Patient #{identifier_for_element(self['identifier'])}"
     elsif practitioner_entity?
-      "Practitioner #{self['id']} with role #{self['role'].code_code_system_string}, \\
-      specialty #{self['specialty'].code_code_system_string}, \\
-      and qualification #{self['qualification'].code_code_system_string}"
+      "Practitioner #{identifier_for_element(self['identifier'])} with role #{code_for_element(self['role'])}, \\
+      specialty #{code_for_element(self['specialty'])}, \\
+      and qualification #{code_for_element(self['qualification'])}"
     else
-      "Entity #{self['id']}"
+      "Entity #{identifier_for_element(self['identifier'])}"
     end
   end
 
+  def identifier_string
+    identifier_for_element(self)
+  end
+
+  def identifier_for_element(identifier)
+    "#{identifier['value']} (#{identifier['namingSystem']})"
+  end
+
   def code_code_system_string
-    "#{self['code']} (#{HQMF::Util::CodeSystemHelper.code_system_for(self['system'])})"
+    code_for_element(self)
+  end
+
+  def code_for_element(element)
+    "#{element['code']} (#{HQMF::Util::CodeSystemHelper.code_system_for(element['system'])})"
   end
 
   def code_system_name

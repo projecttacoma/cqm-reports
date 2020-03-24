@@ -15,6 +15,11 @@
 		<div class="div-table-head--no-border"><span class="criteria-heading">Anatomical Location Site:</span>  {{{code_code_system_string}}}</div>
 	</div>
 {{/anatomicalLocationSite}}
+{{#cause}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Cause:</span>  {{{code_code_system_string}}}</div>
+	</div>
+{{/cause}}
 {{#category}}
 	<div class="div-head-row">
 		<div class="div-table-head--no-border"><span class="criteria-heading">Category:</span>  {{{code_code_system_string}}}</div>
@@ -72,21 +77,31 @@
 		<div class="div-table-head--no-border"><span class="criteria-heading">Frequency:</span>  {{{code_code_system_string}}}</div>
 	</div>
 {{/frequency}}
+{{#identifier}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Identifier:</span>  {{{identifier_string}}}</div>
+	</div>
+{{/identifier}}
 {{#lengthOfStay}}
 	<div class="div-head-row">
 		<div class="div-table-head--no-border"><span class="criteria-heading">Length Of Stay:</span>  {{{unit_string}}}</div>
 	</div>
 {{/lengthOfStay}}
+{{#linkedPatientId}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Linked Patient Id:</span>  {{{linkedPatientId}}}</div>
+	</div>
+{{/linkedPatientId}}
 {{#medium}}
 	<div class="div-head-row">
 		<div class="div-table-head--no-border"><span class="criteria-heading">Medium:</span>  {{{code_code_system_string}}}</div>
 	</div>
 {{/medium}}
-{{#method}}
+{{#methodCode}}
 	<div class="div-head-row">
 		<div class="div-table-head--no-border"><span class="criteria-heading">Method:</span>  {{{code_code_system_string}}}</div>
 	</div>
-{{/method}}
+{{/methodCode}}
 {{#negationRationale}}
 	<div class="div-head-row">
 		<div class="div-table-head--no-border"><span class="criteria-heading">Negation Reason:</span>  {{{code_code_system_string}}}</div>
@@ -151,13 +166,12 @@
 	</div>
 {{/referenceRange}}
 {{#refills}}
-<!-- TODO: type integer ok? (also for rank and daysSupplied) -->
 	<div class="div-head-row">
 		<div class="div-table-head--no-border"><span class="criteria-heading">Refills:</span>  {{{refills}}}</div>
 	</div>
 {{/refills}}
 {{#relatedTo}}
-<!-- TODO: array of string? -->
+{{! TODO: relatedTo is an array of strings, which are ids of dataElements, and not very useful to the user}}
 	<div class="div-head-row">
 		<div class="div-table-head--no-border"><span class="criteria-heading">Related To:</span>  {{{relatedTo}}}</div>
 	</div>
@@ -212,11 +226,5 @@
 		<div class="div-table-head--no-border"><span class="criteria-heading">Result:</span>  {{{result_string}}}</div>
 	</div>
 {{/result}}
-{{#targetOutcome}}
-<!-- TODO: type any? -->
-	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Target Outcome:</span>  {{{targetOutcome}}}</div>
-	</div>
-{{/targetOutcome}}
 </div>
 </div>

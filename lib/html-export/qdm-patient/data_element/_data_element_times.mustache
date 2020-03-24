@@ -65,11 +65,15 @@
 		<div class="div-table-head--no-border"><span class="criteria-heading">Sent Date/Time:</span>  {{{sentDatetime}}}</div>
 	</div>
 {{/sentDatetime}}
-{{#statusDate}}
-<!-- TODO: statusDate is a date??? why isn't it a dateTime? -->
+{{#birthDatetime}}
 	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Status Date:</span>  {{{statusDate}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Birth Date/Time:</span>  {{{birthDatetime}}}</div>
 	</div>
-{{/statusDate}}
+{{/birthDatetime}}
+{{#expiredDatetime}}
+	<div class="div-head-row">
+		<div class="div-table-head--no-border"><span class="criteria-heading">Expired Date/Time:</span>  {{{expiredDatetime}}}</div>
+	</div>
+{{/expiredDatetime}}
 </div>
 </div>
