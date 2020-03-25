@@ -31,17 +31,20 @@ class QdmPatient < Mustache
 
   def entity_string
     if care_partner_entity?
-      "Care partner #{identifier_for_element(self['identifier'])} with relationship #{code_for_element(self['relationship'])}"
+      "</br>&nbsp; Care Partner: #{identifier_for_element(self['identifier'])}
+      </br>&nbsp; Care Partner Relationship: #{code_for_element(self['relationship'])}"
     elsif organization_entity?
-      "Organization #{identifier_for_element(self['identifier'])} with type #{code_for_element(self['type'])}"
+      "</br>&nbsp; Organization: #{identifier_for_element(self['identifier'])}
+      </br>&nbsp; Organization Type: #{code_for_element(self['type'])}"
     elsif patient_entity?
-      "Patient #{identifier_for_element(self['identifier'])}"
+      "</br>&nbsp; Patient: #{identifier_for_element(self['identifier'])}"
     elsif practitioner_entity?
-      "Practitioner #{identifier_for_element(self['identifier'])} with role #{code_for_element(self['role'])}, \\
-      specialty #{code_for_element(self['specialty'])}, \\
-      and qualification #{code_for_element(self['qualification'])}"
+      "</br>&nbsp; Practitioner: #{identifier_for_element(self['identifier'])}
+      </br>&nbsp; Practitioner Role: #{code_for_element(self['role'])},
+      </br>&nbsp; Practitioner Specialty: #{code_for_element(self['specialty'])},
+      </br>&nbsp; Practitioner Qualification: #{code_for_element(self['qualification'])}"
     else
-      "Entity #{identifier_for_element(self['identifier'])}"
+      "</br>&nbsp; Entity: #{identifier_for_element(self['identifier'])}"
     end
   end
 
@@ -72,8 +75,8 @@ class QdmPatient < Mustache
     ''
   end
 
-  def facility_string
-    "#{self['code']['code']} (#{self['code']['codeSystem']})"
+  def nested_code_string
+    code_for_element(self['code'])
   end
 
   def end_time?

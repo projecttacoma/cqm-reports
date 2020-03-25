@@ -44,7 +44,7 @@
 {{/daysSupplied}}
 {{#diagnoses}}
 	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Diagnosis:</span>  {{{code_code_system_string}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Diagnosis:</span>  {{{nested_code_string}}}</div>
 	</div>
 {{/diagnoses}}
 {{#dischargeDisposition}}
@@ -64,12 +64,12 @@
 {{/dosage}}
 {{#facilityLocation}}
 	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Facility Location:</span>  {{{code_code_system_string}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Facility Location:</span>  {{{nested_code_string}}}</div>
 	</div>
 {{/facilityLocation}}
 {{#facilityLocations}}
 	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Facility:</span>  {{{facility_string}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Facility:</span>  {{{nested_code_string}}}</div>
 	</div>
 {{/facilityLocations}}
 {{#frequency}}
