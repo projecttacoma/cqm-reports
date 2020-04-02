@@ -8,6 +8,11 @@ Metrics/AbcSize:
     - 'test/unit/qrda/patient_round_trip_test.rb'
     - 'lib/qrda-import/patient_importer.rb'
 
+Metrics/ModuleLength:
+  Max: 100
+  Exclude:
+    - 'lib/qrda-export/helper/date_helper.rb'
+
 Metrics/ClassLength:
   Max: 110
   Exclude:

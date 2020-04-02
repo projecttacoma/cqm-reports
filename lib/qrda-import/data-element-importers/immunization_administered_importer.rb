@@ -5,7 +5,7 @@ module QRDA
         super(entry_finder)
         @id_xpath = './cda:id'
         @code_xpath = "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code"
-        @author_datetime_xpath = "./cda:effectiveTime"
+        @author_datetime_xpath = "./cda:author/cda:time"
         @relevant_date_time_xpath = './cda:effectiveTime'
         @dosage_xpath = "./cda:doseQuantity"
         @route_xpath = "./cda:routeCode"

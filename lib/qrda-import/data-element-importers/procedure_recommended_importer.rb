@@ -17,7 +17,7 @@ module QRDA
         procedure_recommended.anatomicalLocationSite = code_if_present(entry_element.at_xpath(@anatomical_location_site_xpath))
         procedure_recommended.reason = extract_reason(entry_element)
         procedure_recommended.requester = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
-        procedure_recommended.rank = entry_element.at_xpath(@rank_xpath)&.value&.strip.to_i
+        procedure_recommended.rank = entry_element.at_xpath(@rank_xpath)&.value&.strip.to_i if entry_element.at_xpath(@rank_xpath)&.value
         procedure_recommended
       end
 
