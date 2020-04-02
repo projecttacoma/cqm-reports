@@ -4,8 +4,8 @@ class Qrda1R5 < Mustache
   include Qrda::Export::Helper::ViewHelper
   include Qrda::Export::Helper::Cat1ViewHelper
   include Qrda::Export::Helper::PatientViewHelper
-  include Qrda::Export::Helper::EntityHelper
   include Qrda::Export::Helper::FrequencyHelper
+  include HQMF::Util::EntityHelper
 
   self.template_path = __dir__
 
@@ -174,7 +174,7 @@ class Qrda1R5 < Mustache
   def physical_exam_order
     JSON.parse(@qdmPatient.get_data_elements('physical_exam', 'order').to_json)
   end
-  
+
   def physical_exam_performed
     JSON.parse(@qdmPatient.get_data_elements('physical_exam', 'performed').to_json)
   end
@@ -218,7 +218,7 @@ class Qrda1R5 < Mustache
   def substance_recommended
     JSON.parse(@qdmPatient.get_data_elements('substance', 'recommended').to_json)
   end
-  
+
   def symptom
     JSON.parse(@qdmPatient.get_data_elements('symptom', nil).to_json)
   end
