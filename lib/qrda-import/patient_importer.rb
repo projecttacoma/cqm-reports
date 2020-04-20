@@ -110,12 +110,9 @@ module QRDA
 
           relations_to_add = []
           data_element.relatedTo.each do |related_to|
-            relations_to_add << entry_id_map["#{related_to.value}_#{related_to.namingSystem}"]
+            relations_to_add += entry_id_map["#{related_to.value}_#{related_to.namingSystem}"]
           end
-          data_element.relatedTo.destroy
-          relations_to_add.each do |relation_to_add|
-            data_element.relatedTo << relation_to_add
-          end
+          data_element.relatedTo = relations_to_add.map(&:to_s)
         end
       end
 

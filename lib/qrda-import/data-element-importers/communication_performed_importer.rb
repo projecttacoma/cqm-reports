@@ -22,7 +22,7 @@ module QRDA
         communication_performed.receivedDatetime = extract_time(entry_element, @received_datetime_xpath)
         communication_performed.sender = extract_entity(entry_element, "./cda:participant[@typeCode='AUT']")
         communication_performed.recipient = extract_entity(entry_element, "./cda:participant[@typeCode='IRCP']")
-        # communication_performed.relatedTo = extract_related_to(entry_element)
+        communication_performed.relatedTo = extract_related_to(entry_element)
         communication_performed
       end
     end
