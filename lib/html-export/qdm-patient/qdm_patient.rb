@@ -72,7 +72,7 @@ class QdmPatient < Mustache
     return unit_string if self['value']
     return code_code_system_string if self['code']
 
-    ''
+    self['result']
   end
 
   def nested_code_string
