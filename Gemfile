@@ -17,7 +17,7 @@ group :development do
 end
 
 group :test do
-  gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', branch: 'randomize_generation'
+  gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', branch: 'master'
   gem 'factory_girl', '~> 4.1.0'
   gem 'tailor', '~> 1.1.2'
   gem 'cane', '~> 2.3.0'
