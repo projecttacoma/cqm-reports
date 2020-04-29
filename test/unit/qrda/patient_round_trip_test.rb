@@ -155,7 +155,7 @@ module QRDA
 
       def test_exhaustive_patient_roundtrip
         puts "\n========================= QRDA ROUNDTRIP ========================="
-        cqm_patients = QDM::PatientGeneration.generate_exhastive_data_element_patients(true)
+        cqm_patients = QDM::PatientGeneration.generate_exhaustive_data_element_patients(true)
         add_different_frequency_codes_to_medication(cqm_patients.find { |patient| patient.familyName.include? 'MedicationDispensed' })
         successful_count = 0
         cqm_patients.each do |cqm_patient| 
@@ -213,7 +213,7 @@ module QRDA
       def test_exhaustive_qrda_validation
         skip_types = %w[Entity PatientEntity CarePartner Practitioner Organization CareGoal DiagnosisComponent]
         puts "\n========================= QRDA VALIDATION ========================="
-        cqm_patients = QDM::PatientGeneration.generate_exhastive_data_element_patients(true)
+        cqm_patients = QDM::PatientGeneration.generate_exhaustive_data_element_patients(true)
         add_different_frequency_codes_to_medication(cqm_patients.find { |patient| patient.familyName.include? 'MedicationDispensed' })
         validator = CqmValidators::Cat1R52.instance
         cda_validator = CqmValidators::CDA.instance
