@@ -1,13 +1,17 @@
 <recordTarget>
   <patientRole>
     <id extension="{{mrn}}" root="1.3.6.1.4.1.115" />
+    {{#patient_addresses}}
     <addr use="HP">
-      <streetAddressLine>202 Burlington Rd.</streetAddressLine>
-      <city>Bedford</city>
-      <state>MA</state>
-      <postalCode>01730</postalCode>
-      <country>US</country>
+      {{#street}}
+        <streetAddressLine>{{.}}</streetAddressLine>
+      {{/street}}
+      <city>{{city}}</city>
+      <state>{{state}}</state>
+      <postalCode>{{zip}}</postalCode>
+      <country>{{country}}</country>
     </addr>
+    {{/patient_addresses}}
     <telecom use="WP" value="tel:+1-781-271-3000"/>
     <patient>
       {{#patient}}
