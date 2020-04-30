@@ -15,6 +15,7 @@ class Qrda1R5 < Mustache
     @measures = measures
     @provider = options[:provider]
     @patient_address_option = options[:patient_addresses]
+    @patient_telecom_option = options[:patient_telecoms]
     @performance_period_start = options[:start_time]
     @performance_period_end = options[:end_time]
     @submission_program = options[:submission_program]
@@ -22,6 +23,10 @@ class Qrda1R5 < Mustache
 
   def patient_addresses
     JSON.parse(@patient_address_option.to_json)
+  end
+
+  def patient_telecoms
+    JSON.parse(@patient_telecom_option.to_json)
   end
 
   def patient_characteristic_payer
