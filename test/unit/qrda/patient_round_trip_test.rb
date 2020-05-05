@@ -11,6 +11,19 @@ module QRDA
       def setup
         create_test_measures_collection
         @importer = Cat1::PatientImporter.instance
+        address = CQM::Address.new(
+          use: 'HP',
+          street: ['202 Burlington Rd.'],
+          city: 'Bedford',
+          state: 'MA',
+          zip: '01730',
+          country: 'US'
+        )
+        telecom = CQM::Telecom.new(
+          use: 'HP',
+          value: '555-555-2003 x1234'
+        )
+        @options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31), patient_addresses: [address], patient_telecoms: [telecom] }
       end
 
       def create_test_measures_collection
@@ -26,7 +39,7 @@ module QRDA
 
       def generate_doc(patient, options = nil)
         measures = CQM::Measure.all
-        options ||= { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31) }
+        options ||= @options
         rawxml = Qrda1R5.new(patient, measures, options).render
         xml = Tempfile.new(['test_patient', '.xml'])
         xml.write rawxml
@@ -65,8 +78,7 @@ module QRDA
                                                                               dataElementCodes: [QDM::BaseTypeGeneration.generate_code_field])
         cqm_patient.qdmPatient.dataElements << QDM::CommunicationPerformed.new(relevantPeriod: QDM::Interval.new(nil, Time.now),
                                                                                dataElementCodes: [QDM::BaseTypeGeneration.generate_code_field])
-        options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31) }
-        doc = generate_doc(cqm_patient, options)
+        doc = generate_doc(cqm_patient, @options)
         imported_patient = @importer.parse_cat1(doc)
         # Both high and low values are nil
         assert_equal nil, imported_patient.qdmPatient.encounters.first.relevantPeriod.low
@@ -140,15 +152,14 @@ module QRDA
         dt.dataElementCodes = [QDM::Code.new('1.2.3.4', '1.2.3.4.5.6.7.8.9.10')]
         qdm_patient.dataElements << dt
         cqm_patient.qdmPatient = qdm_patient
-        options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31) }
-        doc = generate_doc(cqm_patient, options)
+        doc = generate_doc(cqm_patient, @options)
         assert_equal 1, doc.xpath('//cda:code[@nullFlavor="NA" and @sdtc:valueSet="1.2.3.4"]').size
       end
 
       def test_provider_roundtrip
         cqm_patient = generate_shell_patient('provider')
         provider = generate_provider
-        options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31), provider: provider }
+        options = @options.merge(provider: provider)
         doc = generate_doc(cqm_patient, options)
         assert_equal provider.specialty, doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:code/@code').value
         assert_equal provider.familyName, doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:assignedPerson/cda:name/cda:family').text
@@ -165,8 +176,7 @@ module QRDA
 
       def test_no_provider_roundtrip
         cqm_patient = generate_shell_patient('provider')
-        options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31) }
-        doc = generate_doc(cqm_patient, options)
+        doc = generate_doc(cqm_patient, @options)
         assert_equal '282N00000X', doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:code/@code').value
         assert_equal 'Carroll', doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:assignedPerson/cda:name/cda:family').text
         assert_equal 'Daryl', doc.at_xpath('cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:assignedPerson/cda:name/cda:given').text
