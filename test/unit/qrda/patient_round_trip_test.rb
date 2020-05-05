@@ -21,7 +21,7 @@ module QRDA
         )
         telecom = CQM::Telecom.new(
           use: 'HP',
-          value: '555-555-2003 x1234'
+          value: '555-555-2003'
         )
         @options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31), patient_addresses: [address], patient_telecoms: [telecom] }
       end

@@ -21,10 +21,22 @@ class Qrda1R5 < Mustache
   end
 
   def patient_addresses
+    @patient_address_option ||= [CQM::Address.new(
+      use: 'HP',
+      street: ['202 Burlington Rd.'],
+      city: 'Bedford',
+      state: 'MA',
+      zip: '01730',
+      country: 'US'
+    )]
     JSON.parse(@patient_address_option.to_json)
   end
 
   def patient_telecoms
+    @patient_telecom_option ||= [CQM::Telecom.new(
+      use: 'HP',
+      value: '555-555-2003'
+    )]
     JSON.parse(@patient_telecom_option.to_json)
   end
 
