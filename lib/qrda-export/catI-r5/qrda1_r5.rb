@@ -13,9 +13,31 @@ class Qrda1R5 < Mustache
     @qdmPatient = patient.qdmPatient
     @measures = measures
     @provider = options[:provider]
+    @patient_address_option = options[:patient_addresses]
+    @patient_telecom_option = options[:patient_telecoms]
     @performance_period_start = options[:start_time]
     @performance_period_end = options[:end_time]
     @submission_program = options[:submission_program]
+  end
+
+  def patient_addresses
+    @patient_address_option ||= [CQM::Address.new(
+      use: 'HP',
+      street: ['202 Burlington Rd.'],
+      city: 'Bedford',
+      state: 'MA',
+      zip: '01730',
+      country: 'US'
+    )]
+    JSON.parse(@patient_address_option.to_json)
+  end
+
+  def patient_telecoms
+    @patient_telecom_option ||= [CQM::Telecom.new(
+      use: 'HP',
+      value: '555-555-2003'
+    )]
+    JSON.parse(@patient_telecom_option.to_json)
   end
 
   def patient_characteristic_payer
@@ -173,7 +195,7 @@ class Qrda1R5 < Mustache
   def physical_exam_order
     JSON.parse(@qdmPatient.get_data_elements('physical_exam', 'order').to_json)
   end
-  
+
   def physical_exam_performed
     JSON.parse(@qdmPatient.get_data_elements('physical_exam', 'performed').to_json)
   end
@@ -213,7 +235,7 @@ class Qrda1R5 < Mustache
   def substance_recommended
     JSON.parse(@qdmPatient.get_data_elements('substance', 'recommended').to_json)
   end
-  
+
   def symptom
     JSON.parse(@qdmPatient.get_data_elements('symptom', nil).to_json)
   end
