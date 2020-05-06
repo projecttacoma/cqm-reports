@@ -76,8 +76,8 @@ module QRDA
                                                                            dataElementCodes: [QDM::BaseTypeGeneration.generate_code_field])
         cqm_patient.qdmPatient.dataElements << QDM::InterventionPerformed.new(relevantPeriod: QDM::Interval.new(Time.now, Time.now),
                                                                               dataElementCodes: [QDM::BaseTypeGeneration.generate_code_field])
-        cqm_patient.qdmPatient.dataElements << QDM::CommunicationPerformed.new(relevantPeriod: QDM::Interval.new(nil, Time.now),
-                                                                               dataElementCodes: [QDM::BaseTypeGeneration.generate_code_field])
+        cqm_patient.qdmPatient.dataElements << QDM::AssessmentPerformed.new(relevantPeriod: QDM::Interval.new(nil, Time.now),
+                                                                            dataElementCodes: [QDM::BaseTypeGeneration.generate_code_field])
         doc = generate_doc(cqm_patient, @options)
         imported_patient = @importer.parse_cat1(doc)
         # Both high and low values are nil
@@ -90,8 +90,8 @@ module QRDA
         assert imported_patient.qdmPatient.interventions.first.relevantPeriod.low.is_a? DateTime
         assert imported_patient.qdmPatient.interventions.first.relevantPeriod.high.is_a? DateTime
         # Only low value is nil
-        assert_equal nil, imported_patient.qdmPatient.communications.first.relevantPeriod.low
-        assert imported_patient.qdmPatient.communications.first.relevantPeriod.high.is_a? DateTime    
+        assert_equal nil, imported_patient.qdmPatient.assessments.first.relevantPeriod.low
+        assert imported_patient.qdmPatient.assessments.first.relevantPeriod.high.is_a? DateTime    
       end
 
       def add_different_frequency_codes_to_medication(medication_test_patient)
