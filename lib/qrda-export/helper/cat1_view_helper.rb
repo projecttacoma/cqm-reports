@@ -67,6 +67,8 @@ module Qrda
                             result_value_as_string(self['result'][0])
                           elsif self['result'].is_a? Hash
                             result_value_as_string(self['result'])
+                          elsif self['result'].is_a? String
+                            "<value xsi:type=\"ST\">#{self['result']}</value>"
                           elsif !self['result'].nil?
                             "<value xsi:type=\"PQ\" value=\"#{self['result']}\" unit=\"1\"/>"
                           end

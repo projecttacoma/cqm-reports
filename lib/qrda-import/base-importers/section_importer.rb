@@ -158,7 +158,6 @@ module QRDA
 
       def extract_result_value(value_element)
         return unless value_element && !value_element['nullFlavor']
-
         value = value_element['value']
         if value.present?
           return value.strip.to_f if (value_element['unit'] == "1" || value_element['unit'].nil?)
@@ -166,6 +165,8 @@ module QRDA
           return QDM::Quantity.new(value.strip.to_f, value_element['unit'])
         elsif value_element['code'].present?
           return code_if_present(value_element)
+        elsif value_element.text.present?
+          return value_element.text
         end
       end
 
