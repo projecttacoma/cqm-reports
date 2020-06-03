@@ -3,7 +3,7 @@ module QRDA
     class EncounterRecommendedImporter < SectionImporter
       def initialize(entry_finder = QRDA::Cat1::EntryFinder.new("./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.134']"))
         super(entry_finder)
-        @id_xpath = './cda:id'
+        @id_xpath = './cda:entryRelationship/cda:encounter/cda:id'
         @code_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.24']/cda:code"
         @author_datetime_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.24']/cda:author/cda:time"
         @facility_locations_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.24']/cda:participant[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.100']"
