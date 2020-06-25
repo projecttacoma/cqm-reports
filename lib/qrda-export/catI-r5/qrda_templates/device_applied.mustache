@@ -8,16 +8,7 @@
     <code code="360030002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="application of device"/>
     <text>{{description}}</text>
     <statusCode code="completed"/>
-    {{#relevantDatetime}}
-      <!-- QDM Attribute: Relevant dateTime -->
-      {{{relevant_date_time_value}}}
-    {{/relevantDatetime}}
-    {{^relevantDatetime}}
-      {{#relevantPeriod}}
-        <!-- QDM Attribute: Relevant Period -->
-        {{{relevant_period}}}
-      {{/relevantPeriod}}
-    {{/relevantDatetime}}
+    {{{relevant_date_period_or_null_flavor}}}
     {{#anatomicalLocationSite}}
       <!-- QDM Attribute: Anatomical Location Site -->
       {{> qrda_templates/template_partials/_anatomical_location_site}}

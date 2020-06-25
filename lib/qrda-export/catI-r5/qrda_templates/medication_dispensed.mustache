@@ -22,6 +22,9 @@
             <!-- QDM Attribute: Relevant Period -->
             {{{medication_duration_effective_time}}}
           {{/relevantPeriod}}
+          {{^relevantPeriod}}
+            <effectiveTime xsi:type="IVL_TS" nullFlavor="UNK"/>
+          {{/relevantPeriod}}
         {{/relevantDatetime}}
         <product>
           <manufacturedProduct classCode="MANU">
