@@ -79,7 +79,7 @@ module QRDA
         cqm_patient.qdmPatient.dataElements << QDM::AssessmentPerformed.new(relevantPeriod: QDM::Interval.new(nil, Time.now),
                                                                             dataElementCodes: [QDM::BaseTypeGeneration.generate_code_field])
         doc = generate_doc(cqm_patient, @options)
-        imported_patient = @importer.parse_cat1(doc)
+        imported_patient, warnings = @importer.parse_cat1(doc)
         # Both high and low values are nil
         assert_equal nil, imported_patient.qdmPatient.encounters.first.relevantPeriod.low
         assert_equal nil, imported_patient.qdmPatient.encounters.first.relevantPeriod.high
@@ -210,7 +210,7 @@ module QRDA
           end
           # Import patient from QRDA
           begin
-            imported_patient = @importer.parse_cat1(exported_qrda)
+            imported_patient, warnings = @importer.parse_cat1(exported_qrda)
           rescue StandardError => e
             puts "\e[31mError importing QRDA for datatype #{datatype_name}: #{e.message}\e[0m"
           end
