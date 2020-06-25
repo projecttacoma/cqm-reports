@@ -1,7 +1,7 @@
 module QRDA
   module Cat1
     class SectionImporter
-      attr_accessor :check_for_usable, :status_xpath, :code_xpath
+      attr_accessor :check_for_usable, :status_xpath, :code_xpath, :warnings
 
       def initialize(entry_finder)
         @entry_finder = entry_finder
@@ -9,6 +9,7 @@ module QRDA
         @entry_id_map = {}
         @check_for_usable = true
         @entry_class = QDM::DataElement
+        @warnings = []
       end
 
       # Traverses an HL7 CDA document passed in and creates an Array of Entry
@@ -79,6 +80,9 @@ module QRDA
       end
 
       def code_if_present(code_element)
+        if code_element && code_element['code'].nil? && code_element['sdtc:valueSet'].nil?
+          @warnings << "Code element contains nullFlavor code and no valueset"
+        end
         return unless code_element && code_element['code'] && code_element['codeSystem']
         QDM::Code.new(code_element['code'], code_element['codeSystem'])
       end
@@ -110,6 +114,14 @@ module QRDA
         if parent_element.at_xpath("#{interval_xpath}/cda:center")
           low_time = Time.parse(parent_element.at_xpath("#{interval_xpath}/cda:center")['value'])
           high_time = Time.parse(parent_element.at_xpath("#{interval_xpath}/cda:center")['value'])
+        end
+        if low_time && high_time && low_time > high_time
+          # pass warning: current code continues as expected, but adds warning
+          # TODO: add more information as needed
+          @warnings << "Interval with low time after high time"
+        end
+        if low_time.nil? && high_time.nil?
+          @warnings << "Interval with nullFlavor low time and nullFlavor high time"
         end
         QDM::Interval.new(low_time, high_time).shift_dates(0)
       end
