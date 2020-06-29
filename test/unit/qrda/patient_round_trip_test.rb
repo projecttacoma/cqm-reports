@@ -79,7 +79,7 @@ module QRDA
         cqm_patient.qdmPatient.dataElements << QDM::AssessmentPerformed.new(relevantPeriod: QDM::Interval.new(nil, Time.now),
                                                                             dataElementCodes: [QDM::BaseTypeGeneration.generate_code_field])
         doc = generate_doc(cqm_patient, @options)
-        imported_patient, warnings = @importer.parse_cat1(doc)
+        imported_patient, _warnings = @importer.parse_cat1(doc)
         # Both high and low values are nil
         assert_equal nil, imported_patient.qdmPatient.encounters.first.relevantPeriod.low
         assert_equal nil, imported_patient.qdmPatient.encounters.first.relevantPeriod.high
@@ -91,7 +91,7 @@ module QRDA
         assert imported_patient.qdmPatient.interventions.first.relevantPeriod.high.is_a? DateTime
         # Only low value is nil
         assert_equal nil, imported_patient.qdmPatient.assessments.first.relevantPeriod.low
-        assert imported_patient.qdmPatient.assessments.first.relevantPeriod.high.is_a? DateTime    
+        assert imported_patient.qdmPatient.assessments.first.relevantPeriod.high.is_a? DateTime
       end
 
       def add_different_frequency_codes_to_medication(medication_test_patient)
@@ -195,7 +195,7 @@ module QRDA
         cqm_patients = QDM::PatientGeneration.generate_exhaustive_data_element_patients(true)
         add_different_frequency_codes_to_medication(cqm_patients.find { |patient| patient.familyName.include? 'MedicationDispensed' })
         successful_count = 0
-        cqm_patients.each do |cqm_patient| 
+        cqm_patients.each do |cqm_patient|
           datatype_name = cqm_patient.givenNames[0]
           cqm_patient.qdmPatient.dataElements.each do |data_element|
             if (!data_element['negationRationale'].nil? && !data_element['reason'].nil?)
@@ -210,14 +210,14 @@ module QRDA
           end
           # Import patient from QRDA
           begin
-            imported_patient, warnings = @importer.parse_cat1(exported_qrda)
+            imported_patient, _warnings = @importer.parse_cat1(exported_qrda)
           rescue StandardError => e
             puts "\e[31mError importing QRDA for datatype #{datatype_name}: #{e.message}\e[0m"
           end
           # Re-export QRDA from imported patient
           begin
             # Roundtrip does not preserv extendedData
-            imported_patient.qdmPatient.extendedData = cqm_patient.qdmPatient.extendedData      
+            imported_patient.qdmPatient.extendedData = cqm_patient.qdmPatient.extendedData
             re_exported_qrda = generate_doc(imported_patient)
           rescue StandardError => e
             puts "\e[31mError Re-importing QRDA for datatype #{datatype_name}: #{e.message}\e[0m"
