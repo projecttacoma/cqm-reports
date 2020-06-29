@@ -178,6 +178,7 @@ module QRDA
         elsif value_element['code'].present?
           return code_if_present(value_element)
         elsif value_element.text.present?
+          @warnings << "Value with string type found. When possible, it's best practice to use a coded value or scalar."
           return value_element.text
         end
       end
