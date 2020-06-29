@@ -68,7 +68,7 @@ module QRDA
         import_data_elements(patient, doc, entry_id_map, warnings)
         normalize_references(patient, entry_id_map)
         get_demographics(patient, doc)
-        return patient, warnings
+        [patient, warnings]
       end
 
       def import_data_elements(patient, doc, entry_id_map, warnings)
@@ -109,7 +109,7 @@ module QRDA
           patient.qdmPatient.dataElements << new_data_elements
           entry_id_map.merge!(id_map)
           warnings.concat(importer.warnings)
-          #reset warnings after they're captured so that the importer can be re-used
+          # reset warnings after they're captured so that the importer can be re-used
           importer.warnings = []
         end
       end
