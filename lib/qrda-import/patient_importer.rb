@@ -71,7 +71,7 @@ module QRDA
         [patient, warnings]
       end
 
-      def import_data_elements(patient, doc, entry_id_map, warnings)
+      def import_data_elements(patient, doc, entry_id_map, warnings = [])
         context = doc.xpath("/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.24.2.1']")
         nrh = NarrativeReferenceHandler.new
         nrh.build_id_map(doc)
@@ -93,7 +93,7 @@ module QRDA
             unique_element_keys << key_elements_for_determining_encounter_uniqueness(data_element)
 
             # Loop through all other data elements with the same id
-            elem_ids[1,elem_ids.length].each do |dup_id|                
+            elem_ids[1,elem_ids.length].each do |dup_id|
               dup_element = data_elements.find { |de| de.id == dup_id }
               dup_element_keys = key_elements_for_determining_encounter_uniqueness(dup_element)
               # See if a previously selected data element shared all of the keys files
