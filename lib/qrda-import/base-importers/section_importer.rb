@@ -80,9 +80,6 @@ module QRDA
       end
 
       def code_if_present(code_element)
-        if code_element && code_element['code'].nil? && code_element['sdtc:valueSet'].nil?
-          @warnings << "Code element contains nullFlavor code and no valueset"
-        end
         return unless code_element && code_element['code'] && code_element['codeSystem']
         QDM::Code.new(code_element['code'], code_element['codeSystem'])
       end
@@ -118,11 +115,14 @@ module QRDA
         end
         if low_time && high_time && low_time > high_time
           # pass warning: current code continues as expected, but adds warning
-          # TODO: add more information as needed
-          @warnings << "Interval with low time after high time"
+          id_attr = parent_element.at_xpath(".//cda:id").attributes
+          qrda_type = @entry_class.to_s.split("::")[1]
+          @warnings << "Interval with low time after high time. Located in element with QRDA type: #{qrda_type} and id: #{id_attr['root'].value}(root), #{id_attr['extension'].value if id_attr['extension']}(extension)."
         end
         if low_time.nil? && high_time.nil?
-          @warnings << "Interval with nullFlavor low time and nullFlavor high time"
+          id_attr = parent_element.at_xpath(".//cda:id").attributes
+          qrda_type = @entry_class.to_s.split("::")[1]
+          @warnings << "Interval with nullFlavor low time and nullFlavor high time. Located in element with QRDA type: #{qrda_type} and id: #{id_attr['root'].value}(root), #{id_attr['extension'].value if id_attr['extension']}(extension)."
         end
         QDM::Interval.new(low_time, high_time).shift_dates(0)
       end
@@ -179,7 +179,9 @@ module QRDA
         elsif value_element['code'].present?
           return code_if_present(value_element)
         elsif value_element.text.present?
-          @warnings << "Value with string type found. When possible, it's best practice to use a coded value or scalar."
+          id_attr = value_element.parent.at_xpath(".//cda:id").attributes
+          qrda_type = @entry_class.to_s.split("::")[1]
+          @warnings << "Value with string type found. When possible, it's best practice to use a coded value or scalar. Located in element with QRDA type: #{qrda_type} and id: #{id_attr['root'].value}(root), #{id_attr['extension'].value if id_attr['extension']}(extension)."
           return value_element.text
         end
       end
@@ -207,8 +209,16 @@ module QRDA
       def extract_negated_code(parent_element, entry)
         code_elements = parent_element.xpath(@code_xpath)
         code_elements.each do |code_element|
-          if code_element['nullFlavor'] == 'NA' && code_element['sdtc:valueSet']
-            entry.dataElementCodes = [{ code: code_element['sdtc:valueSet'], system: '1.2.3.4.5.6.7.8.9.10' }]
+          if code_element['nullFlavor'] == 'NA'
+            if code_element['sdtc:valueSet']
+              entry.dataElementCodes = [{ code: code_element['sdtc:valueSet'], system: '1.2.3.4.5.6.7.8.9.10' }]
+            else
+              # negated code is nullFlavored with no valueset
+              entry.dataElementCodes = [{ code: "NA", system: '1.2.3.4.5.6.7.8.9.10' }]
+              id_attr = parent_element.at_xpath(".//cda:id").attributes
+              qrda_type = @entry_class.to_s.split("::")[1]
+              @warnings << "Negated code element contains nullFlavor code but no valueset. Located in element with QRDA type: #{qrda_type} and id: #{id_attr['root'].value}(root), #{id_attr['extension'].value if id_attr['extension']}(extension)."
+            end
           end
         end
       end
