@@ -117,12 +117,12 @@ module QRDA
           # pass warning: current code continues as expected, but adds warning
           id_attr = parent_element.at_xpath(".//cda:id").attributes
           qrda_type = @entry_class.to_s.split("::")[1]
-          @warnings << "Interval with low time after high time. Located in element with QRDA type: #{qrda_type} and id: #{id_attr['root'].value}(root), #{id_attr['extension'].value if id_attr['extension']}(extension)."
+          @warnings << "Interval with low time after high time. Located in element with QRDA type: #{qrda_type} and id: #{id_attr['root']&.value}(root), #{id_attr['extension']&.value}(extension)."
         end
         if low_time.nil? && high_time.nil?
           id_attr = parent_element.at_xpath(".//cda:id").attributes
           qrda_type = @entry_class.to_s.split("::")[1]
-          @warnings << "Interval with nullFlavor low time and nullFlavor high time. Located in element with QRDA type: #{qrda_type} and id: #{id_attr['root'].value}(root), #{id_attr['extension'].value if id_attr['extension']}(extension)."
+          @warnings << "Interval with nullFlavor low time and nullFlavor high time. Located in element with QRDA type: #{qrda_type} and id: #{id_attr['root']&.value}(root), #{id_attr['extension']&.value if id_attr['extension']}(extension)."
         end
         QDM::Interval.new(low_time, high_time).shift_dates(0)
       end
@@ -181,7 +181,7 @@ module QRDA
         elsif value_element.text.present?
           id_attr = value_element.parent.at_xpath(".//cda:id").attributes
           qrda_type = @entry_class.to_s.split("::")[1]
-          @warnings << "Value with string type found. When possible, it's best practice to use a coded value or scalar. Located in element with QRDA type: #{qrda_type} and id: #{id_attr['root'].value}(root), #{id_attr['extension'].value if id_attr['extension']}(extension)."
+          @warnings << "Value with string type found. When possible, it's best practice to use a coded value or scalar. Located in element with QRDA type: #{qrda_type} and id: #{id_attr['root']&.value}(root), #{id_attr['extension']&.value}(extension)."
           return value_element.text
         end
       end
@@ -217,7 +217,7 @@ module QRDA
               entry.dataElementCodes = [{ code: "NA", system: '1.2.3.4.5.6.7.8.9.10' }]
               id_attr = parent_element.at_xpath(".//cda:id").attributes
               qrda_type = @entry_class.to_s.split("::")[1]
-              @warnings << "Negated code element contains nullFlavor code but no valueset. Located in element with QRDA type: #{qrda_type} and id: #{id_attr['root'].value}(root), #{id_attr['extension'].value if id_attr['extension']}(extension)."
+              @warnings << "Negated code element contains nullFlavor code but no valueset. Located in element with QRDA type: #{qrda_type} and id: #{id_attr['root']&.value}(root), #{id_attr['extension']&.value}(extension)."
             end
           end
         end
