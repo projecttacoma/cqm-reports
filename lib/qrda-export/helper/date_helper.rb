@@ -96,18 +96,14 @@ module Qrda
           "</effectiveTime>"
         end
 
-        def relevant_period_as_value
-          "<effectiveTime #{value_or_null_flavor(self['relevantPeriod']['low'])}/>"
-        end
-
-        def relevant_date_time_low
-          "<effectiveTime>"\
-          "<low #{value_or_null_flavor(self['relevantDatetime'])}/>"\
-          "</effectiveTime>"
-        end
-
         def relevant_date_time_value
           "<effectiveTime #{value_or_null_flavor(self['relevantDatetime'])}/>"
+        end
+
+        def relevant_date_period_or_null_flavor
+          return relevant_period if self['relevantPeriod']
+          return relevant_date_time_value if self['relevantDatetime']
+          "<effectiveTime nullFlavor='UNK'/>"
         end
 
         def medication_duration_effective_time

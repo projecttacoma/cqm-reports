@@ -291,7 +291,7 @@ module QRDA
         # 2) MedicationOrder - participantRole
         # 3) CommunicationPerformed - Reason
         # 4) RelatedPerson - typeCode
-        known_issues = 4
+        known_issues = 0
         assert_equal 0, cqm_patients.count - successful_count - known_issues
       end
     end

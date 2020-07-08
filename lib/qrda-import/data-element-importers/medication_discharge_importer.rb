@@ -3,7 +3,7 @@ module QRDA
     class MedicationDischargeImporter < SectionImporter
       def initialize(entry_finder = QRDA::Cat1::EntryFinder.new("./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.105']"))
         super(entry_finder)
-        @id_xpath = './cda:id'
+        @id_xpath = './cda:entryRelationship/cda:substanceAdministration/cda:id'
         @code_xpath = "./cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code"
         @author_datetime_xpath = "./cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:author/cda:time"
         @refills_xpath = "./cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:repeatNumber"

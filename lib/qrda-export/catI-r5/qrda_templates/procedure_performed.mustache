@@ -8,16 +8,7 @@
     {{> _codes}}
     <text>{{description}}</text>
     <statusCode code="completed"/>
-    {{#relevantDatetime}}
-      <!-- QDM Attribute: Relevant dateTime -->
-      {{{relevant_date_time_value}}}
-    {{/relevantDatetime}}
-    {{^relevantDatetime}}
-      {{#relevantPeriod}}
-        <!-- QDM Attribute: Relevant Period -->
-        {{{relevant_period}}}
-      {{/relevantPeriod}}
-    {{/relevantDatetime}}
+    {{{relevant_date_period_or_null_flavor}}}
     {{#method}}
       <!-- QDM Attribute: Method -->
       {{> qrda_templates/template_partials/_method}}
