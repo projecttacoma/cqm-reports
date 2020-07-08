@@ -285,12 +285,6 @@ module QRDA
             puts "\e[31mException validating #{datatype_name}: #{e.message}\e[0m"
           end
         end
-        # TODO: Updating to new schematron (when available) should fix these
-        # known QRDA schematron issues
-        # 1) SubstanceRecommended - effectiveTime
-        # 2) MedicationOrder - participantRole
-        # 3) CommunicationPerformed - Reason
-        # 4) RelatedPerson - typeCode
         known_issues = 0
         assert_equal 0, cqm_patients.count - successful_count - known_issues
       end
