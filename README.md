@@ -24,7 +24,7 @@ Importing QRDA
 A QRDA document can be imported into a CQM::Patient (defined in [cqm-models](https://github.com/projecttacoma/cqm-models)) using the following commands.
 
         doc = Nokogiri::XML(file)
-        patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+        patient, warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
 
 Exporting QRDA Category I
 ==========

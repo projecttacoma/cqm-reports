@@ -1,7 +1,7 @@
 module QRDA
   module Cat1
     class SectionImporter
-      attr_accessor :check_for_usable, :status_xpath, :code_xpath
+      attr_accessor :check_for_usable, :status_xpath, :code_xpath, :warnings
 
       def initialize(entry_finder)
         @entry_finder = entry_finder
@@ -9,6 +9,7 @@ module QRDA
         @entry_id_map = {}
         @check_for_usable = true
         @entry_class = QDM::DataElement
+        @warnings = []
       end
 
       # Traverses an HL7 CDA document passed in and creates an Array of Entry
@@ -112,6 +113,19 @@ module QRDA
           low_time = Time.parse(parent_element.at_xpath("#{interval_xpath}/cda:center")['value'])
           high_time = Time.parse(parent_element.at_xpath("#{interval_xpath}/cda:center")['value'])
         end
+        if low_time && high_time && low_time > high_time
+          # pass warning: current code continues as expected, but adds warning
+          id_attr = parent_element.at_xpath(".//cda:id").attributes
+          qrda_type = @entry_class.to_s.split("::")[1]
+          @warnings << ValidationError.new(message: "Interval with low time after high time. Located in element with QRDA type: #{qrda_type} and id: #{id_attr['root']&.value}(root), #{id_attr['extension']&.value}(extension).",
+                                           location: parent_element.path)
+        end
+        if low_time.nil? && high_time.nil?
+          id_attr = parent_element.at_xpath(".//cda:id").attributes
+          qrda_type = @entry_class.to_s.split("::")[1]
+          @warnings << ValidationError.new(message: "Interval with nullFlavor low time and nullFlavor high time. Located in element with QRDA type: #{qrda_type} and id: #{id_attr['root']&.value}(root), #{id_attr['extension']&.value if id_attr['extension']}(extension).",
+                                           location: parent_element.path)
+        end
         QDM::Interval.new(low_time, high_time).shift_dates(0)
       end
 
@@ -167,6 +181,10 @@ module QRDA
         elsif value_element['code'].present?
           return code_if_present(value_element)
         elsif value_element.text.present?
+          id_attr = value_element.parent.at_xpath(".//cda:id").attributes
+          qrda_type = @entry_class.to_s.split("::")[1]
+          @warnings << ValidationError.new(message: "Value with string type found. When possible, it's best practice to use a coded value or scalar. Located in element with QRDA type: #{qrda_type} and id: #{id_attr['root']&.value}(root), #{id_attr['extension']&.value}(extension).",
+                                           location: value_element.path)
           return value_element.text
         end
       end
@@ -194,8 +212,17 @@ module QRDA
       def extract_negated_code(parent_element, entry)
         code_elements = parent_element.xpath(@code_xpath)
         code_elements.each do |code_element|
-          if code_element['nullFlavor'] == 'NA' && code_element['sdtc:valueSet']
-            entry.dataElementCodes = [{ code: code_element['sdtc:valueSet'], system: '1.2.3.4.5.6.7.8.9.10' }]
+          if code_element['nullFlavor'] == 'NA'
+            if code_element['sdtc:valueSet']
+              entry.dataElementCodes = [{ code: code_element['sdtc:valueSet'], system: '1.2.3.4.5.6.7.8.9.10' }]
+            else
+              # negated code is nullFlavored with no valueset
+              entry.dataElementCodes = [{ code: "NA", system: '1.2.3.4.5.6.7.8.9.10' }]
+              id_attr = parent_element.at_xpath(".//cda:id").attributes
+              qrda_type = @entry_class.to_s.split("::")[1]
+              @warnings << ValidationError.new(message: "Negated code element contains nullFlavor code but no valueset. Located in element with QRDA type: #{qrda_type} and id: #{id_attr['root']&.value}(root), #{id_attr['extension']&.value}(extension).",
+                                               location: parent_element.path)
+            end
           end
         end
       end

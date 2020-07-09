@@ -110,7 +110,6 @@ Layout/TrailingWhitespace:
     - 'lib/ext/data_element.rb'
     - 'lib/qrda-export/catI-r5/qrda1_r5.rb'
     - 'lib/qrda-import/base-importers/section_importer.rb'
-    - 'lib/qrda-import/entry_package.rb'
     - 'lib/qrda-import/narrative_reference_handler.rb'
     - 'lib/qrda-import/patient_importer.rb'
     - 'test/unit/qrda/data_element_test.rb'
