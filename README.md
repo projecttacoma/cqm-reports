@@ -18,6 +18,33 @@ Starting with version **2.0.0** released on 6/20/2019, cqm-reports versioning ha
 
 For the versions available, see [tags on this repository](https://github.com/projecttacoma/cqm-validators/tags).
 
+=======
+Importing QRDA
+==========
+
+A QRDA document can be imported into a CQM::Patient (defined in [cqm-models](https://github.com/projecttacoma/cqm-models)) using the following commands.
+
+        doc = Nokogiri::XML(file)
+        patient, warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+
+Exporting QRDA Category I
+==========
+
+Exporting a QRDA document from a CQM::Patient (defined in [cqm-models](https://github.com/projecttacoma/cqm-models)) using the following command.
+
+        Qrda1R5.new(patient, measures, options).render
+* patient is a [CQM::Patient](https://github.com/projecttacoma/cqm-models/blob/master/app/models/cqm/patient.rb)
+* measures is an array of [CQM::Measure](https://github.com/projecttacoma/cqm-models/blob/master/app/models/cqm/measure.rb)
+* options is a hash that can be used to pass in:
+  * provider
+  * patient_addresses
+  * patient_telecoms
+  * start_time
+  * end_time
+  * submission_program 
+
+QRDA export requires the [mustache](https://github.com/mustache/mustache) gem 
+
 ## License
 
 Copyright 2019 The MITRE Corporation
