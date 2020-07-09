@@ -18,7 +18,6 @@ require_relative 'html-export/qdm-patient/qdm_patient.rb'
 require_relative 'qrda-export/catI-r5/qrda1_r5.rb'
 require_relative 'qrda-export/catIII-r2-1/qrda3_r21.rb'
 
-require_relative 'qrda-import/entry_package.rb'
 require_relative 'qrda-import/cda_identifier.rb'
 require_relative 'qrda-import/narrative_reference_handler.rb'
 require_relative 'qrda-import/entry_finder.rb'

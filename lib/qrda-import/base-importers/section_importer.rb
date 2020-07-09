@@ -1,7 +1,7 @@
 module QRDA
   module Cat1
     class SectionImporter
-      attr_accessor :check_for_usable, :status_xpath, :code_xpath
+      attr_accessor :check_for_usable, :status_xpath, :code_xpath, :warnings, :codes_modifiers
 
       def initialize(entry_finder)
         @entry_finder = entry_finder
@@ -9,6 +9,8 @@ module QRDA
         @entry_id_map = {}
         @check_for_usable = true
         @entry_class = QDM::DataElement
+        @warnings = []
+        @codes_modifiers = {}
       end
 
       # Traverses an HL7 CDA document passed in and creates an Array of Entry
@@ -41,7 +43,7 @@ module QRDA
         # This is the id found in the QRDA file
         entry_qrda_id = extract_id(entry_element, @id_xpath)
         # Create a hash to map all of entry.ids to the same QRDA ids. This will be used to merge QRDA entries
-        # that represent the same event. 
+        # that represent the same event.
         @entry_id_map["#{entry_qrda_id.value}_#{entry_qrda_id.namingSystem}"] ||= []
         @entry_id_map["#{entry_qrda_id.value}_#{entry_qrda_id.namingSystem}"] << entry.id
         entry.dataElementCodes = extract_codes(entry_element, @code_xpath)
@@ -108,6 +110,21 @@ module QRDA
           low_time = Time.parse(parent_element.at_xpath("#{interval_xpath}/cda:center")['value'])
           high_time = Time.parse(parent_element.at_xpath("#{interval_xpath}/cda:center")['value'])
         end
+        if low_time && high_time && low_time > high_time
+          # pass warning: current code continues as expected, but adds warning
+          id_attr = parent_element.at_xpath(".//cda:id")&.attributes
+          id_str = id_attr ? "and id: #{id_attr['root']&.value}(root), #{id_attr['extension']&.value}(extension)" : ""
+          qrda_type = @entry_class.to_s.split("::")[1]
+          @warnings << ValidationError.new(message: "Interval with low time after high time. Located in element with QRDA type: #{qrda_type} #{id_str}",
+                                           location: parent_element.path)
+        end
+        if low_time.nil? && high_time.nil?
+          id_attr = parent_element.at_xpath(".//cda:id")&.attributes
+          id_str = id_attr ? "and id: #{id_attr['root']&.value}(root), #{id_attr['extension']&.value}(extension)" : ""
+          qrda_type = @entry_class.to_s.split("::")[1]
+          @warnings << ValidationError.new(message: "Interval with nullFlavor low time and nullFlavor high time. Located in element with QRDA type: #{qrda_type} #{id_str}",
+                                           location: parent_element.path)
+        end
         QDM::Interval.new(low_time, high_time).shift_dates(0)
       end
 
@@ -150,7 +167,7 @@ module QRDA
         parent_element.xpath(@result_xpath).each do |elem|
           result << extract_result_value(elem)
         end
-        result.size > 1 ? result : result.first 
+        result.size > 1 ? result : result.first
       end
 
       def extract_result_value(value_element)
@@ -163,6 +180,11 @@ module QRDA
         elsif value_element['code'].present?
           return code_if_present(value_element)
         elsif value_element.text.present?
+          id_attr = value_element.parent.at_xpath(".//cda:id")&.attributes
+          id_str = id_attr ? "and id: #{id_attr['root']&.value}(root), #{id_attr['extension']&.value}(extension)" : ""
+          qrda_type = @entry_class.to_s.split("::")[1]
+          @warnings << ValidationError.new(message: "Value with string type found. When possible, it's best practice to use a coded value or scalar. Located in element with QRDA type: #{qrda_type} #{id_str}",
+                                           location: value_element.path)
           return value_element.text
         end
       end
@@ -173,16 +195,16 @@ module QRDA
         negation_indicator = parent_element['negationInd']
         # Return and do not set reason attribute if the entry is negated
         return nil if negation_indicator.eql?('true')
-        
-        reason_element.blank? ? nil : code_if_present(reason_element.first) 
+
+        reason_element.blank? ? nil : code_if_present(reason_element.first)
       end
 
       def extract_negation(parent_element, entry)
         negation_element = parent_element.xpath("./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value")
         negation_indicator = parent_element['negationInd']
         # Return and do not set negationRationale attribute if the entry is not negated
-        return unless negation_indicator.eql?('true') 
-        
+        return unless negation_indicator.eql?('true')
+
         entry.negationRationale = code_if_present(negation_element.first) unless negation_element.blank?
         extract_negated_code(parent_element, entry)
       end
@@ -190,8 +212,18 @@ module QRDA
       def extract_negated_code(parent_element, entry)
         code_elements = parent_element.xpath(@code_xpath)
         code_elements.each do |code_element|
-          if code_element['nullFlavor'] == 'NA' && code_element['sdtc:valueSet']
-            entry.dataElementCodes = [{ code: code_element['sdtc:valueSet'], codeSystemOid: '1.2.3.4.5.6.7.8.9.10' }]
+          if code_element['nullFlavor'] == 'NA'
+            if code_element['sdtc:valueSet']
+              entry.dataElementCodes = [{ code: code_element['sdtc:valueSet'], codeSystemOid: '1.2.3.4.5.6.7.8.9.10' }]
+            else
+              # negated code is nullFlavored with no valueset
+              entry.dataElementCodes = [{ code: "NA", codeSystemOid: '1.2.3.4.5.6.7.8.9.10' }]
+              id_attr = parent_element.at_xpath(".//cda:id")&.attributes
+              id_str = id_attr ? "and id: #{id_attr['root']&.value}(root), #{id_attr['extension']&.value}(extension)" : ""
+              qrda_type = @entry_class.to_s.split("::")[1]
+              @warnings << ValidationError.new(message: "Negated code element contains nullFlavor code but no valueset. Located in element with QRDA type: #{qrda_type} #{id_str}.",
+                                               location: parent_element.path)
+            end
           end
         end
       end

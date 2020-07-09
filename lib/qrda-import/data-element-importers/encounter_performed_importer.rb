@@ -26,10 +26,20 @@ module QRDA
           los = encounter_performed.relevantPeriod.high - encounter_performed.relevantPeriod.low
           encounter_performed.lengthOfStay = QDM::Quantity.new(los.to_i, 'd')
         end
+        extract_modifier_code(encounter_performed, entry_element)
         encounter_performed
       end
 
       private
+
+      def extract_modifier_code(encounter_performed, entry_element)
+        code_element = entry_element.at_xpath(@code_xpath)
+        return unless code_element
+
+        qualifier_name = code_element.at_xpath('./cda:qualifier/cda:name')
+        qualifier_value = code_element.at_xpath('./cda:qualifier/cda:value')
+        codes_modifiers[encounter_performed.id] = { name: code_if_present(qualifier_name), value: code_if_present(qualifier_value), xpath_location: entry_element.path } if qualifier_value || qualifier_name
+      end
 
       def extract_diagnoses(parent_element)
         diagnosis_elements = parent_element.xpath(@diagnosis_xpath)
