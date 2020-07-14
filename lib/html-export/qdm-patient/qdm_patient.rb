@@ -25,9 +25,9 @@ class QdmPatient < Mustache
     address_str = ""
     @patient_addresses.each do |address|
       # create formatted address
-      address_str+="<address>"
-      address['street'].each{ |street| address_str += "#{street}<br>" }
-      address_str+= "#{address['city']}, #{address['state']} #{address['zip']}<br> #{address['country']} </address>"
+      address_str += "<address>"
+      address['street'].each { |street| address_str += "#{street}<br>" }
+      address_str += "#{address['city']}, #{address['state']} #{address['zip']}<br> #{address['country']} </address>"
     end
     address_str
   end
@@ -56,6 +56,7 @@ class QdmPatient < Mustache
 
   def unit_string
     return "#{self['value']} " if !self['unit'] || self['unit'] == '1'
+
     "#{self['value']} #{self['unit']}"
   end
 
