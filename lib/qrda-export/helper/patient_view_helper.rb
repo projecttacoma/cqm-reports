@@ -40,6 +40,36 @@ module Qrda
         def given_name
           self['givenNames'].join(' ')
         end
+
+        def gender
+          gender_element = self.patient.qdmPatient.dataElements.find{|de| de._type == "QDM::PatientCharacteristicSex"}
+          gender_element.dataElementCodes.first.code
+        end
+
+        def birthdate
+          self.patient.qdmPatient.birthDatetime
+        end
+
+        def expiration
+          dateTime = self.patient.qdmPatient.dataElements.find{ |de| de._type == "QDM::PatientCharacteristicExpired" }&.expiredDatetime
+          dateTime ||= "None"
+        end
+
+        def race
+          race_element = self.patient.qdmPatient.dataElements.find{ |de| de._type == "QDM::PatientCharacteristicRace" }
+          race_element.dataElementCodes.first.code
+        end
+
+        def ethnic_group
+          ethnic_element = self.patient.qdmPatient.dataElements.find{ |de| de._type == "QDM::PatientCharacteristicEthnicity" }
+          ethnic_element.dataElementCodes.first.code
+        end
+
+        def payer
+          payer_element = self.patient.qdmPatient.dataElements.find{ |de| de._type == "QDM::PatientCharacteristicPayer" }
+          payer_element.dataElementCodes.first.code
+        end
+
       end
     end
   end
