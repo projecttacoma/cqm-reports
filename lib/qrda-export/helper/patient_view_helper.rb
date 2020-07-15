@@ -54,8 +54,9 @@ module Qrda
         end
 
         def expiration
-          dateTime = patient.qdmPatient.dataElements.find { |de| de._type == "QDM::PatientCharacteristicExpired" }&.expiredDatetime
-          dateTime ||= "None"
+          expired = patient.qdmPatient.dataElements.find { |de| de._type == "QDM::PatientCharacteristicExpired" }
+          expired['expiredDatetime'] if expired
+          "None"
         end
 
         def race
