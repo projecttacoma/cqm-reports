@@ -9,6 +9,36 @@ class QdmPatient < Mustache
     @include_style = include_style
     @patient = patient
     @qdmPatient = patient.qdmPatient
+    @patient_addresses = patient['addresses']
+    @patient_telecoms = patient['telecoms']
+  end
+
+  def patient_addresses
+    @patient_addresses ||= [CQM::Address.new(
+      use: 'HP',
+      street: ['202 Burlington Rd.'],
+      city: 'Bedford',
+      state: 'MA',
+      zip: '01730',
+      country: 'US'
+    )]
+    address_str = ""
+    @patient_addresses.each do |address|
+      # create formatted address
+      address_str += "<address>"
+      address['street'].each { |street| address_str += "#{street}<br>" }
+      address_str += "#{address['city']}, #{address['state']} #{address['zip']}<br> #{address['country']} </address>"
+    end
+    address_str
+  end
+
+  def patient_telecoms
+    @patient_telecoms ||= [CQM::Telecom.new(
+      use: 'HP',
+      value: '555-555-2003'
+    )]
+    # create formatted telecoms
+    @patient_telecoms.map { |telecom| "(#{telecom['use']}) #{telecom['value']}" }.join("<br>")
   end
 
   def include_style?
