@@ -51,7 +51,9 @@ module Qrda
         end
 
         def birthdate
-          @qdmPatient.birthDatetime
+          birthdate_elements = @qdmPatient.dataElements.select { |de| de._type == "QDM::PatientCharacteristicBirthdate" }
+          return "None" if birthdate_elements.empty?
+          birthdate_elements.first['birthDatetime']
         end
 
         def expiration
