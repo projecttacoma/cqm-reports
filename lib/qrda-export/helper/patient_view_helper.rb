@@ -45,33 +45,37 @@ module Qrda
         end
 
         def gender
-          gender_element = patient.qdmPatient.dataElements.find { |de| de._type == "QDM::PatientCharacteristicSex" }
-          gender_element.dataElementCodes.first.code
+          gender_elements = @qdmPatient.dataElements.select { |de| de._type == "QDM::PatientCharacteristicSex" }
+          return if gender_elements.empty?
+          gender_elements.first.dataElementCodes.first['code']
         end
 
         def birthdate
-          patient.qdmPatient.birthDatetime
+          @qdmPatient.birthDatetime
         end
 
         def expiration
-          expired = patient.qdmPatient.dataElements.find { |de| de._type == "QDM::PatientCharacteristicExpired" }
-          expired['expiredDatetime'] if expired
-          "None"
+          expired_elements = @qdmPatient.dataElements.select { |de| de._type == "QDM::PatientCharacteristicExpired" }
+          return "None" if expired_elements.empty?
+          expired_elements.first['expiredDatetime']
         end
 
         def race
-          race_element = patient.qdmPatient.dataElements.find { |de| de._type == "QDM::PatientCharacteristicRace" }
-          race_element.dataElementCodes.first.code
+          race_elements = @qdmPatient.dataElements.select { |de| de._type == "QDM::PatientCharacteristicRace" }
+          return if race_elements.empty?
+          race_elements.first.dataElementCodes.first['code']
         end
 
         def ethnic_group
-          ethnic_element = patient.qdmPatient.dataElements.find { |de| de._type == "QDM::PatientCharacteristicEthnicity" }
-          ethnic_element.dataElementCodes.first.code
+          ethnic_elements = @qdmPatient.dataElements.select { |de| de._type == "QDM::PatientCharacteristicEthnicity" }
+          return if ethnic_elements.empty?
+          ethnic_elements.first.dataElementCodes.first['code']
         end
 
         def payer
-          payer_element = patient.qdmPatient.dataElements.find { |de| de._type == "QDM::PatientCharacteristicPayer" }
-          payer_element.dataElementCodes.first.code
+          payer_elements = @qdmPatient.dataElements.select { |de| de._type == "QDM::PatientCharacteristicPayer" }
+          return if payer_elements.empty?
+          payer_elements.first.dataElementCodes.first['code']
         end
       end
     end

@@ -9,8 +9,8 @@ class QdmPatient < Mustache
     @include_style = include_style
     @patient = patient
     @qdmPatient = patient.qdmPatient
-    @patient_addresses = patient.addresses
-    @patient_telecoms = patient.telecoms
+    @patient_addresses = patient['addresses']
+    @patient_telecoms = patient['telecoms']
   end
 
   def patient_addresses
