@@ -56,7 +56,6 @@ class QdmPatient < Mustache
 
   def unit_string
     return "#{self['value']} " if !self['unit'] || self['unit'] == '1'
-
     "#{self['value']} #{self['unit']}"
   end
 
