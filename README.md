@@ -11,6 +11,7 @@ Starting with version **2.0.0** released on 6/20/2019, cqm-reports versioning ha
   | X | QRDA Cat 1 | QRDA Cat 3 |
   | --- | --- | --- |
   | 2 | R1 STU5.1 | R1 STU2.1 |
+  | 3 | R1 STU5.2 | R1 STU2.1 |
 
 * **Y** indicates major changes (incompatible API changes)
 
