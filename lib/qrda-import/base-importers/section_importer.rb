@@ -1,7 +1,7 @@
 module QRDA
   module Cat1
     class SectionImporter
-      attr_accessor :check_for_usable, :status_xpath, :code_xpath, :warnings
+      attr_accessor :check_for_usable, :status_xpath, :code_xpath, :warnings, :codes
 
       def initialize(entry_finder)
         @entry_finder = entry_finder
@@ -10,6 +10,7 @@ module QRDA
         @check_for_usable = true
         @entry_class = QDM::DataElement
         @warnings = []
+        @codes = Set.new
       end
 
       # Traverses an HL7 CDA document passed in and creates an Array of Entry
@@ -81,6 +82,7 @@ module QRDA
 
       def code_if_present(code_element)
         return unless code_element && code_element['code'] && code_element['codeSystem']
+        @codes.add("#{code_element['code']}:#{code_element['codeSystem']}")
         QDM::Code.new(code_element['code'], code_element['codeSystem'])
       end
 
@@ -145,6 +147,7 @@ module QRDA
         # If a Direct Reference Code isn't found, return nil
         return nil unless key
         # If a Direct Reference Code is found, return that code
+        @codes.add("#{key}:#{value[:code_system]}")
         QDM::Code.new(key, value[:code_system])
       end
 
