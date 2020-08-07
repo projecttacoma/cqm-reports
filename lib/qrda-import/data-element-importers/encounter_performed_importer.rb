@@ -21,7 +21,7 @@ module QRDA
         encounter_performed.facilityLocations = extract_facility_locations(entry_element)
         encounter_performed.diagnoses = extract_diagnoses(entry_element)
         if encounter_performed&.relevantPeriod&.low && encounter_performed&.relevantPeriod&.high
-          los = encounter_performed.relevantPeriod.high - encounter_performed.relevantPeriod.low
+          los = encounter_performed.relevantPeriod.high.to_date - encounter_performed.relevantPeriod.low.to_date
           encounter_performed.lengthOfStay = QDM::Quantity.new(los.to_i, 'd')
         end
         encounter_performed.participant = extract_entity(entry_element, "./cda:entryRelationship/cda:encounter//cda:participant[@typeCode='PRF']")
