@@ -72,7 +72,7 @@ module QRDA
         [patient, warnings, codes]
       end
 
-      def import_data_elements(patient, doc, entry_id_map, codes = [], warnings = [])
+      def import_data_elements(patient, doc, entry_id_map, codes = Set.new, warnings = [])
         context = doc.xpath("/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.24.2.1']")
         nrh = NarrativeReferenceHandler.new
         nrh.build_id_map(doc)
