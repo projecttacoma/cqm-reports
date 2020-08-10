@@ -106,24 +106,11 @@ class QdmPatient < Mustache
     ""
   end
 
-  def demographic_code_description(type)
+  def demographic_code_description(code)
     # only have code, don't need code system
-    code = case type
-    when 'race'
-        race
-      when 'ethnic_group'
-        ethnic_group
-      when 'gender'
-        gender
-      when 'payer'
-        payer
-      else
-        ""
-    end
-
     has_descriptions = code && @patient.respond_to?(:code_description_hash) && !@patient.code_description_hash.empty?
     if has_descriptions
-      key = @patient.code_description_hash.keys.detect{ |k| k.starts_with?("#{code}:") }
+      key = @patient.code_description_hash.keys.detect { |k| k.starts_with?("#{send(code)}:") }
       return " - #{@patient.code_description_hash[key]}"
     end
     ""
