@@ -106,6 +106,29 @@ class QdmPatient < Mustache
     ""
   end
 
+  def demographic_code_description(type)
+    # only have code, don't need code system
+    code = case type
+    when 'race'
+        race
+      when 'ethnic_group'
+        ethnic_group
+      when 'gender'
+        gender
+      when 'payer'
+        payer
+      else
+        ""
+    end
+
+    has_descriptions = code && @patient.respond_to?(:code_description_hash) && !@patient.code_description_hash.empty?
+    if has_descriptions
+      key = @patient.code_description_hash.keys.detect{ |k| k.starts_with?("#{code}:") }
+      return " - #{@patient.code_description_hash[key]}"
+    end
+    ""
+  end
+
   def result_string
     return unit_string if self['value']
     return code_code_system_string if self['code']

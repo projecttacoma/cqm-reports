@@ -18,7 +18,7 @@
           <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Patient</span></div>
           <div class="div-table-head">{{given_name}} {{familyName}}</div>
           <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Sex</span></div>
-          <div class="div-table-head">{{{gender}}}</div>
+          <div class="div-table-head">{{{gender}}}{{#demographic_code_description}}gender{{/demographic_code_description}}</div>
         </div>
         <div class="div-head-row patient_narr_tr panel panel-default patient-details">
           <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Date of birth</span></div>
@@ -28,13 +28,13 @@
         </div>
         <div class="div-head-row patient_narr_tr panel panel-default patient-details">
           <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Race</span></div>
-          <div class="div-table-head">{{{race}}}</div>
+          <div class="div-table-head">{{{race}}}{{#demographic_code_description}}race{{/demographic_code_description}}</div>
           <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Ethnicity</span></div>
-          <div class="div-table-head">{{{ethnic_group}}}</div>
+          <div class="div-table-head">{{{ethnic_group}}}{{#demographic_code_description}}ethnic_group{{/demographic_code_description}}</div>
         </div>
         <div class="div-head-row patient_narr_tr panel panel-default patient-details">
           <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Insurance Providers</span></div>
-          <div class="div-table-head">{{{payer}}}</div>
+          <div class="div-table-head">{{{payer}}}{{#demographic_code_description}}payer{{/demographic_code_description}}</div>
           <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Patient IDs</span></div>
           <div class="div-table-head">{{{mrn}}} Cypress</div>
         </div>
