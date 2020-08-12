@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     {{#patient}}
-    <title>Cypress Certification Patient Test Record: {{{given_name}}} {{familyName}}</title>
+    <title>Cypress Certification Patient Test Record: {{given_name}} {{familyName}}</title>
     {{/patient}}
     {{#include_style?}}
       {{> _header_css}}
@@ -11,12 +11,12 @@
   </head>
   <body>
     {{#patient}}
-    <h1 class="h1center">Cypress Certification Patient Test Record: {{{given_name}}} {{familyName}}</h1>
+    <h1 class="h1center">Cypress Certification Patient Test Record: {{given_name}} {{familyName}}</h1>
     <div class="div-table">
       <div class="div-table-body">
         <div class="div-head-row patient_narr_tr panel panel-default patient-details">
           <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Patient</span></div>
-          <div class="div-table-head">{{{given_name}}} {{familyName}}</div>
+          <div class="div-table-head">{{given_name}} {{familyName}}</div>
           <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Sex</span></div>
           <div class="div-table-head">{{{gender}}}</div>
         </div>
@@ -31,7 +31,7 @@
           <div class="div-table-head">{{{race}}}</div>
           <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Ethnicity</span></div>
           <div class="div-table-head">{{{ethnic_group}}}</div>
-        </div>  
+        </div>
         <div class="div-head-row patient_narr_tr panel panel-default patient-details">
           <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Insurance Providers</span></div>
           <div class="div-table-head">{{{payer}}}</div>
