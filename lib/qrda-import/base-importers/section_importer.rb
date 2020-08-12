@@ -214,10 +214,10 @@ module QRDA
         code_elements.each do |code_element|
           if code_element['nullFlavor'] == 'NA'
             if code_element['sdtc:valueSet']
-              entry.dataElementCodes = [{ code: code_element['sdtc:valueSet'], system: '1.2.3.4.5.6.7.8.9.10' }]
+              entry.dataElementCodes = [{ code: code_element['sdtc:valueSet'], codeSystemOid: '1.2.3.4.5.6.7.8.9.10' }]
             else
               # negated code is nullFlavored with no valueset
-              entry.dataElementCodes = [{ code: "NA", system: '1.2.3.4.5.6.7.8.9.10' }]
+              entry.dataElementCodes = [{ code: "NA", codeSystemOid: '1.2.3.4.5.6.7.8.9.10' }]
               id_attr = parent_element.at_xpath(".//cda:id")&.attributes
               id_str = id_attr ? "and id: #{id_attr['root']&.value}(root), #{id_attr['extension']&.value}(extension)" : ""
               qrda_type = @entry_class.to_s.split("::")[1]
