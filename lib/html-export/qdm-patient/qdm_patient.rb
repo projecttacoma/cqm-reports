@@ -101,7 +101,7 @@ class QdmPatient < Mustache
   def code_description(element = self)
     has_descriptions = @patient.respond_to?(:code_description_hash) && !@patient.code_description_hash.empty?
     # mongo keys cannot contain '.', so replace all '.', key example: '21112-8:2_16_840_1_113883_6_1'
-    return " - #{@patient.code_description_hash["#{element['code']}:#{element['system'].tr('.', '_')}"]}" if has_descriptions
+    return " - #{@patient.code_description_hash["#{element['code']}:#{element['system']}".tr('.', '_')]}" if has_descriptions
     # no code description available
     ""
   end
