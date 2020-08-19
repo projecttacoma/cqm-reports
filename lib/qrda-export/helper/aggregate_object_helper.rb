@@ -105,18 +105,18 @@ module Qrda
         end
 
         def add_entry(cache_entry, population_sets)
-          population_set = population_sets.where(population_set_id: cache_entry.pop_set_hash[:population_set_id]).first
+          population_set = population_sets.where(population_set_id: cache_entry.population_set_hash[:population_set_id]).first
           entry_populations = []
           %w[IPP DENOM NUMER NUMEX DENEX DENEXCEP MSRPOPL MSRPOPLEX OBSERV].each do |pop_code|
             next unless population_set.populations[pop_code] || pop_code == 'OBSERV'
 
             population = create_population_from_population_set(pop_code, population_set, cache_entry)
-            if cache_entry.pop_set_hash[:stratification_id]
-              strat_id = population_set.stratifications.where(stratification_id: cache_entry.pop_set_hash[:stratification_id]).first&.hqmf_id
+            if cache_entry.population_set_hash[:stratification_id]
+              strat_id = population_set.stratifications.where(stratification_id: cache_entry.population_set_hash[:stratification_id]).first&.hqmf_id
               population.add_stratification(strat_id,cache_entry[pop_code])
             else
               population.value = cache_entry[pop_code]
-              population.supplemental_data = cache_entry.supplemental_data[pop_code]
+              population.supplemental_data = cache_entry.supplemental_information.select { |si| si[:population] == pop_code }
             end
             entry_populations << population if population
           end
@@ -133,7 +133,7 @@ module Qrda
                        elsif pop_code != 'STRAT'
                          populations.find { |pop| pop.id == population_set.populations[pop_code]&.hqmf_id }
                        end
-          return population unless population.nil? && !cache_entry.pop_set_hash[:stratification_id]
+          return population unless population.nil? && !cache_entry[:stratification_id]
           population = Population.new
           population.type = pop_code
           population.id = if pop_code == 'OBSERV'

@@ -22,11 +22,9 @@
     {{#stratifications}}
       {{> _stratification}}
     {{/stratifications}}
-    {{#supplemental_data}}
-      {{#population_supplemental_data}}
-        {{> _supplemental_data}}
-      {{/population_supplemental_data}}
-    {{/supplemental_data}}
+    {{#population_supplemental_data}}
+      {{> _supplemental_data}}
+    {{/population_supplemental_data}}
     {{#msrpopl?}}
       {{#population_observation}}
         {{> _continuous_variable_value}}

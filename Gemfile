@@ -6,6 +6,8 @@ gem 'mongoid', '~> 6.4.2'
 
 gem 'protected_attributes_continued'
 
+gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators', branch: 'aggregate_result_model'
+
 group :development, :test do
   gem 'bundler-audit'
   gem 'rubocop', '~> 0.52.1', require: false

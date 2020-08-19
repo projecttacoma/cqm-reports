@@ -13,12 +13,10 @@ class Qrda3R21 < Mustache
     @measures = measures
     @measure_result_hash = {}
     @measures.each do |measure|
-      @measure_result_hash[measure.hqmf_id] = { population_sets: measure.population_sets, hqmf_id: measure.hqmf_id, hqmf_set_id: measure.hqmf_set_id, description: measure.description, measure_data: [], aggregate_count: [] }
+      @measure_result_hash[measure.hqmf_id] = { population_sets: measure.population_sets, hqmf_id: measure.hqmf_id, hqmf_set_id: measure.hqmf_set_id, description: measure.description, aggregate_count: [] }
     end
-    @aggregate_results.each do |hqmf_id, measure_aggregate_result|
-      measure_aggregate_result.each do |_key, aggregate_result|
-        @measure_result_hash[hqmf_id].measure_data << aggregate_result
-      end
+    @aggregate_results.each do |measure_aggregate_result|
+      @measure_result_hash[@measures.find(measure_aggregate_result.measure_id).hqmf_id][:measure_data] = measure_aggregate_result
     end
     @measure_result_hash.each do |key, hash|
       @measure_result_hash[key][:aggregate_count] = agg_results(key, hash.measure_data, hash.population_sets)
@@ -29,10 +27,10 @@ class Qrda3R21 < Mustache
     @submission_program = options[:submission_program]
   end
 
-  def agg_results(measure_id, cache_entries, population_sets)
+  def agg_results(measure_id, aggregate_result, population_sets)
     aggregate_count = Qrda::Export::Helper::AggregateCount.new(measure_id)
-    cache_entries.each do |cache_entry|
-      aggregate_count.add_entry(cache_entry, population_sets)
+    aggregate_result.population_set_results.each do |population_set_result|
+      aggregate_count.add_entry(population_set_result, population_sets)
     end
     aggregate_count
   end
@@ -130,11 +128,9 @@ class Qrda3R21 < Mustache
 
   def reformat_supplemental_data(supplemental_data)
     supplemental_data_array = []
-    supplemental_data.each do |supplemental_data_key, counts|
-      counts.each do |key, value|
-        supplemental_data_count = { code: key, value: value, type: supplemental_data_key }
-        supplemental_data_array << supplemental_data_count
-      end
+    supplemental_data.sort_by { |sd| sd['key'] }.each do |supplemental_data_entry|
+      supplemental_data_count = { code: supplemental_data_entry['code'], value: supplemental_data_entry['patient_count'], type: supplemental_data_entry['key'] }
+      supplemental_data_array << supplemental_data_count
     end
     supplemental_data_array
   end
