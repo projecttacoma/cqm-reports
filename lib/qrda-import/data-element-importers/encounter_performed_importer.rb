@@ -38,7 +38,7 @@ module QRDA
 
         qualifier_name = code_element.at_xpath('./cda:qualifier/cda:name')
         qualifier_value = code_element.at_xpath('./cda:qualifier/cda:value')
-        codes_modifiers[encounter_performed.id] = { name: code_if_present(qualifier_name), value: code_if_present(qualifier_value), xpath_location: entry_element.path } if qualifier_value
+        codes_modifiers[encounter_performed.id] = { name: code_if_present(qualifier_name), value: code_if_present(qualifier_value), xpath_location: entry_element.path } if qualifier_value || qualifier_name
       end
 
       def extract_diagnoses(parent_element)
