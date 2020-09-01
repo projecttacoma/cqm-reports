@@ -16,7 +16,7 @@ module QRDA
 
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         immunization_order = super
-        immunization_order.activeDatetime = extract_interval(entry_element, @active_datetime_xpath).low
+        immunization_order.activeDatetime = extract_interval(entry_element, @active_datetime_xpath)&.low
         immunization_order.dosage = extract_scalar(entry_element, @dosage_xpath)
         immunization_order.supply = extract_scalar(entry_element, @supply_xpath)
         immunization_order.route = code_if_present(entry_element.at_xpath(@route_xpath))
