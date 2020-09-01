@@ -118,8 +118,8 @@ module QRDA
 
       def key_elements_for_determining_encounter_uniqueness(encounter)
         codes = encounter.codes.collect { |dec| "#{dec.code}_#{dec.codeSystemOid}" }.sort.to_s
-        admission_date_time = encounter.relevantPeriod.low.to_s
-        discharge_date_time = encounter.relevantPeriod.high.to_s
+        admission_date_time = encounter&.relevantPeriod&.low.to_s
+        discharge_date_time = encounter&.relevantPeriod&.high.to_s
         "#{codes}#{admission_date_time}#{discharge_date_time}"
       end
 

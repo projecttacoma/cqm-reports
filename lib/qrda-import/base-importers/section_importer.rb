@@ -92,6 +92,7 @@ module QRDA
       end
 
       def extract_interval(parent_element, interval_xpath)
+        return nil unless parent_element.at_xpath(interval_xpath)
         if parent_element.at_xpath("#{interval_xpath}/@value")
           low_time = DateTime.parse(parent_element.at_xpath(interval_xpath)['value'])
           high_time = DateTime.parse(parent_element.at_xpath(interval_xpath)['value'])

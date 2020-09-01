@@ -20,7 +20,7 @@ module QRDA
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         diagnostic_study_performed = super
         diagnostic_study_performed.resultDatetime = extract_time(entry_element, @result_datetime_xpath)
-        diagnostic_study_performed.resultDatetime ||= extract_interval(entry_element, @result_datetime_xpath).low
+        diagnostic_study_performed.resultDatetime ||= extract_interval(entry_element, @result_datetime_xpath)&.low
         diagnostic_study_performed.status = code_if_present(entry_element.at_xpath(@status_xpath))
         diagnostic_study_performed.method = code_if_present(entry_element.at_xpath(@method_xpath))
         diagnostic_study_performed.facilityLocation = extract_facility_locations(entry_element)[0]
