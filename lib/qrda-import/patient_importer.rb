@@ -59,20 +59,21 @@ module QRDA
         @data_element_importers << SubstanceOrderImporter.new
         @data_element_importers << SubstanceRecommendedImporter.new
         @data_element_importers << SymptomImporter.new
-      end
+      end 
 
       def parse_cat1(doc)
         patient = CQM::Patient.new
         warnings = []
         codes = Set.new
+        codes_modifiers = {}
         entry_id_map = {}
-        import_data_elements(patient, doc, entry_id_map, codes, warnings)
+        import_data_elements(patient, doc, entry_id_map, codes, codes_modifiers, warnings)
         normalize_references(patient, entry_id_map)
         get_demographics(patient, doc, codes)
-        [patient, warnings, codes]
+        [patient, warnings, codes, codes_modifiers]
       end
 
-      def import_data_elements(patient, doc, entry_id_map, codes = Set.new, warnings = [])
+      def import_data_elements(patient, doc, entry_id_map, codes = Set.new, codes_modifiers = {}, warnings = [])
         context = doc.xpath("/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.24.2.1']")
         nrh = NarrativeReferenceHandler.new
         nrh.build_id_map(doc)
@@ -111,8 +112,10 @@ module QRDA
           entry_id_map.merge!(id_map)
           warnings.concat(importer.warnings)
           codes.merge(importer.codes)
+          codes_modifiers.merge!(importer.codes_modifiers)
           # reset warnings and codes after they're captured so that the importer can be re-used
           importer.warnings = []
+          importer.codes_modifiers = {}
           importer.codes = Set.new
         end
       end

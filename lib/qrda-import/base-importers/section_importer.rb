@@ -1,7 +1,7 @@
 module QRDA
   module Cat1
     class SectionImporter
-      attr_accessor :check_for_usable, :status_xpath, :code_xpath, :warnings, :codes
+      attr_accessor :check_for_usable, :status_xpath, :code_xpath, :warnings, :codes, :codes_modifiers
 
       def initialize(entry_finder)
         @entry_finder = entry_finder
@@ -11,6 +11,7 @@ module QRDA
         @entry_class = QDM::DataElement
         @warnings = []
         @codes = Set.new
+        @codes_modifiers = {}
       end
 
       # Traverses an HL7 CDA document passed in and creates an Array of Entry
