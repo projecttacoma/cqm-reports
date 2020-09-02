@@ -12,69 +12,71 @@ module QRDA
       def initialize
         # This differs from other HDS patient importers in that sections can have multiple importers
         @data_element_importers = []
-        @data_element_importers << generate_importer(AdverseEventImporter)
-        @data_element_importers << generate_importer(AllergyIntoleranceImporter)
-        @data_element_importers << generate_importer(AssessmentOrderImporter)
-        @data_element_importers << generate_importer(AssessmentPerformedImporter)
-        @data_element_importers << generate_importer(AssessmentRecommendedImporter)
-        @data_element_importers << generate_importer(CommunicationPerformedImporter)
-        @data_element_importers << generate_importer(DeviceAppliedImporter)
-        @data_element_importers << generate_importer(DeviceOrderImporter)
-        @data_element_importers << generate_importer(DeviceRecommendedImporter)
-        @data_element_importers << generate_importer(DiagnosisImporter)
-        @data_element_importers << generate_importer(DiagnosticStudyOrderImporter)
-        @data_element_importers << generate_importer(DiagnosticStudyPerformedImporter)
-        @data_element_importers << generate_importer(DiagnosticStudyRecommendedImporter)
-        @data_element_importers << generate_importer(EncounterOrderImporter)
-        @data_element_importers << generate_importer(EncounterPerformedImporter)
-        @data_element_importers << generate_importer(EncounterRecommendedImporter)
-        @data_element_importers << generate_importer(FamilyHistoryImporter)
-        @data_element_importers << generate_importer(ImmunizationAdministeredImporter)
-        @data_element_importers << generate_importer(ImmunizationOrderImporter)
-        @data_element_importers << generate_importer(InterventionOrderImporter)
-        @data_element_importers << generate_importer(InterventionPerformedImporter)
-        @data_element_importers << generate_importer(InterventionRecommendedImporter)
-        @data_element_importers << generate_importer(LaboratoryTestOrderImporter)
-        @data_element_importers << generate_importer(LaboratoryTestPerformedImporter)
-        @data_element_importers << generate_importer(LaboratoryTestRecommendedImporter)
-        @data_element_importers << generate_importer(MedicationActiveImporter)
-        @data_element_importers << generate_importer(MedicationAdministeredImporter)
-        @data_element_importers << generate_importer(MedicationDischargeImporter)
-        @data_element_importers << generate_importer(MedicationDispensedImporter)
-        @data_element_importers << generate_importer(MedicationOrderImporter)
-        @data_element_importers << generate_importer(PatientCareExperienceImporter)
-        @data_element_importers << generate_importer(PatientCharacteristicClinicalTrialParticipantImporter)
-        @data_element_importers << generate_importer(PatientCharacteristicExpiredImporter)
-        @data_element_importers << generate_importer(PatientCharacteristicPayerImporter)
-        @data_element_importers << generate_importer(PhysicalExamOrderImporter)
-        @data_element_importers << generate_importer(PhysicalExamPerformedImporter)
-        @data_element_importers << generate_importer(PhysicalExamRecommendedImporter)
-        @data_element_importers << generate_importer(ProcedureOrderImporter)
-        @data_element_importers << generate_importer(ProcedurePerformedImporter)
-        @data_element_importers << generate_importer(ProcedureRecommendedImporter)
-        @data_element_importers << generate_importer(ProviderCareExperienceImporter)
-        @data_element_importers << generate_importer(ProviderCharacteristicImporter)
-        @data_element_importers << generate_importer(SubstanceAdministeredImporter)
-        @data_element_importers << generate_importer(SubstanceOrderImporter)
-        @data_element_importers << generate_importer(SubstanceRecommendedImporter)
-        @data_element_importers << generate_importer(SymptomImporter)
+        @data_element_importers << AdverseEventImporter.new
+        @data_element_importers << AllergyIntoleranceImporter.new
+        @data_element_importers << AssessmentOrderImporter.new
+        @data_element_importers << AssessmentPerformedImporter.new
+        @data_element_importers << AssessmentRecommendedImporter.new
+        @data_element_importers << CommunicationPerformedImporter.new
+        @data_element_importers << DeviceAppliedImporter.new
+        @data_element_importers << DeviceOrderImporter.new
+        @data_element_importers << DeviceRecommendedImporter.new
+        @data_element_importers << DiagnosisImporter.new
+        @data_element_importers << DiagnosticStudyOrderImporter.new
+        @data_element_importers << DiagnosticStudyPerformedImporter.new
+        @data_element_importers << DiagnosticStudyRecommendedImporter.new
+        @data_element_importers << EncounterOrderImporter.new
+        @data_element_importers << EncounterPerformedImporter.new
+        @data_element_importers << EncounterRecommendedImporter.new
+        @data_element_importers << FamilyHistoryImporter.new
+        @data_element_importers << ImmunizationAdministeredImporter.new
+        @data_element_importers << ImmunizationOrderImporter.new
+        @data_element_importers << InterventionOrderImporter.new
+        @data_element_importers << InterventionPerformedImporter.new
+        @data_element_importers << InterventionRecommendedImporter.new
+        @data_element_importers << LaboratoryTestOrderImporter.new
+        @data_element_importers << LaboratoryTestPerformedImporter.new
+        @data_element_importers << LaboratoryTestRecommendedImporter.new
+        @data_element_importers << MedicationActiveImporter.new
+        @data_element_importers << MedicationAdministeredImporter.new
+        @data_element_importers << MedicationDischargeImporter.new
+        @data_element_importers << MedicationDispensedImporter.new
+        @data_element_importers << MedicationOrderImporter.new
+        @data_element_importers << PatientCareExperienceImporter.new
+        @data_element_importers << PatientCharacteristicClinicalTrialParticipantImporter.new
+        @data_element_importers << PatientCharacteristicExpiredImporter.new
+        @data_element_importers << PatientCharacteristicPayerImporter.new
+        @data_element_importers << PhysicalExamOrderImporter.new
+        @data_element_importers << PhysicalExamPerformedImporter.new
+        @data_element_importers << PhysicalExamRecommendedImporter.new
+        @data_element_importers << ProcedureOrderImporter.new
+        @data_element_importers << ProcedurePerformedImporter.new
+        @data_element_importers << ProcedureRecommendedImporter.new
+        @data_element_importers << ProviderCareExperienceImporter.new
+        @data_element_importers << ProviderCharacteristicImporter.new
+        @data_element_importers << SubstanceAdministeredImporter.new
+        @data_element_importers << SubstanceOrderImporter.new
+        @data_element_importers << SubstanceRecommendedImporter.new
+        @data_element_importers << SymptomImporter.new
       end 
 
       def parse_cat1(doc)
         patient = CQM::Patient.new
+        warnings = []
+        codes_modifiers = {}
         entry_id_map = {}
-        import_data_elements(patient, doc, entry_id_map)
+        import_data_elements(patient, doc, entry_id_map, codes_modifiers, warnings)
         normalize_references(patient, entry_id_map)
         get_demographics(patient, doc)
-        patient
+        [patient, warnings, codes_modifiers]
       end
 
-      def import_data_elements(patient, doc, entry_id_map)
+      def import_data_elements(patient, doc, entry_id_map, codes_modifiers, warnings = [])
         context = doc.xpath("/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.24.2.1']")
         nrh = NarrativeReferenceHandler.new
         nrh.build_id_map(doc)
-        @data_element_importers.each do |entry_package|
-          data_elements, id_map = entry_package.package_entries(context, nrh)
+        @data_element_importers.each do |importer|
+          data_elements, id_map = importer.create_entries(context, nrh)
           new_data_elements = []
 
           id_map.each_value do |elem_ids|
@@ -91,7 +93,7 @@ module QRDA
             unique_element_keys << key_elements_for_determining_encounter_uniqueness(data_element)
 
             # Loop through all other data elements with the same id
-            elem_ids[1,elem_ids.length].each do |dup_id|                
+            elem_ids[1,elem_ids.length].each do |dup_id|
               dup_element = data_elements.find { |de| de.id == dup_id }
               dup_element_keys = key_elements_for_determining_encounter_uniqueness(dup_element)
               # See if a previously selected data element shared all of the keys files
@@ -106,13 +108,18 @@ module QRDA
 
           patient.qdmPatient.dataElements << new_data_elements
           entry_id_map.merge!(id_map)
+          warnings.concat(importer.warnings)
+          codes_modifiers.merge!(importer.codes_modifiers)
+          # reset warnings after they're captured so that the importer can be re-used
+          importer.warnings = []
+          importer.codes_modifiers = {}
         end
       end
 
       def key_elements_for_determining_encounter_uniqueness(encounter)
         codes = encounter.codes.collect { |dec| "#{dec.code}_#{dec.codeSystemOid}" }.sort.to_s
-        admission_date_time = encounter.relevantPeriod.low.to_s
-        discharge_date_time = encounter.relevantPeriod.high.to_s
+        admission_date_time = encounter&.relevantPeriod&.low.to_s
+        discharge_date_time = encounter&.relevantPeriod&.high.to_s
         "#{codes}#{admission_date_time}#{discharge_date_time}"
       end
 
@@ -137,12 +144,6 @@ module QRDA
             data_element.relatedTo << relation_to_add
           end
         end
-      end
-
-      private
-
-      def generate_importer(importer_class)
-        EntryPackage.new(importer_class.new)
       end
     end
   end

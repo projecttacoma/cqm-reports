@@ -28,6 +28,5 @@ group :test do
   gem 'minitest', '~> 5.3'
   gem 'minitest-reporters'
   gem 'awesome_print', :require => 'ap'
-  gem 'cqm-validators'
   gem 'nokogiri-diff'
 end
