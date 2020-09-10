@@ -94,7 +94,9 @@ module QRDA
       end
 
       def extract_interval(parent_element, interval_xpath)
-        return nil unless parent_element.at_xpath(interval_xpath)
+        # nil if the time interval does not exist
+        return nil unless time_interval_exists(parent_element, interval_xpath)
+
         if parent_element.at_xpath("#{interval_xpath}/@value")
           low_time = DateTime.parse(parent_element.at_xpath(interval_xpath)['value'])
           high_time = DateTime.parse(parent_element.at_xpath(interval_xpath)['value'])
@@ -129,6 +131,14 @@ module QRDA
                                            location: parent_element.path)
         end
         QDM::Interval.new(low_time, high_time).shift_dates(0)
+      end
+
+      def time_interval_exists(parent_element, interval_xpath)
+        # false if the time interval does not exist
+        return false unless parent_element.at_xpath(interval_xpath)
+        # false if the time element exists but has a null Flavor
+        return false if parent_element.at_xpath(interval_xpath)['nullFlavor']
+        true
       end
 
       def extract_time(parent_element, datetime_xpath)
