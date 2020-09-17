@@ -81,6 +81,29 @@ module QRDA
         @importer.import_data_elements(@patient, doc, @map)
         assert_equal 2, @patient.qdmPatient.dataElements.length
       end
+
+      def test_import_with_code
+        doc = Nokogiri::XML(File.read('test/fixtures/qrda/single_encounter.xml'))
+        doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+        doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+        codes = Set.new
+        @importer.import_data_elements(@patient, doc, @map, codes)
+        # check for fixture entry's code 99203
+        assert_equal codes.first, "99203:2.16.840.1.113883.6.12"
+      end
+
+      def test_demographics_import_with_code
+        doc = Nokogiri::XML(File.read('test/fixtures/qrda/single_encounter.xml'))
+        doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+        doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+        codes = Set.new
+        # check demographic codes captured
+        @importer.get_demographics(@patient, doc, codes)
+        assert codes.include?("21112-8:2.16.840.1.113883.6.1"), "Should find birthdate code"
+        assert codes.include?("F:2.16.840.1.113883.5.1"), "Should find gender code"
+        assert codes.include?("2106-3:2.16.840.1.113883.6.238"), "Should find race code"
+        assert codes.include?("2186-5:2.16.840.1.113883.6.238"), "Should find ethnicity code"
+      end
     end
   end
 end
