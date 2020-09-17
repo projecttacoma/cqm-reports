@@ -15,6 +15,11 @@ module QRDA
         doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
         @importer.import_data_elements(@patient, doc, @map)
+
+        encounter = @patient.qdmPatient.encounters.first
+        # lengthOfStay needs to be calculated as day boundary crossings.  The fixture encounter is 23 hours, but crosses the day boundary.
+        assert_equal 1, encounter.lengthOfStay.value
+
         assert_equal 1, @patient.qdmPatient.dataElements.length
       end
 
