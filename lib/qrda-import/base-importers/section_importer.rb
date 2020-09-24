@@ -271,7 +271,7 @@ module QRDA
           participant_element = facility_location_element.at_xpath("./cda:participantRole[@classCode='SDLOC']/cda:code")
           facility_location.code = code_if_present(participant_element)
           facility_location.locationPeriod = extract_interval(facility_location_element, './cda:time')
-          facility_locations << facility_location
+          facility_locations << facility_location if facility_location.code
         end
         facility_locations
       end
