@@ -42,8 +42,10 @@ module HTML
         check_loaded_patient(QDM::PatientGeneration.generate_loaded_datatype("QDM::#{qt}", true), "negationRationale", qt) if dt.typed_attributes.keys.include?("negationRationale")
         # iterate through all relevant attributes for each data type, except negationRationale (checked above)
         dt.typed_attributes.keys.each do |field|
-          next if %w[_id dataElementCodes description codeListId id _type type qdmTitle hqmfOid qrdaOid qdmCategory qdmVersion qdmStatus negationRationale targetOutcome].include? field
-          # TODO: test targetOutcome (in Care Goal, not currently exported)
+          next if %w[_id dataElementCodes description codeListId id _type type qdmTitle hqmfOid qrdaOid qdmCategory qdmVersion qdmStatus negationRationale targetOutcome statusDate linkedPatientId relatedTo].include? field
+          # TODO: test targetOutcome (in Care Goal, not currently exported); relatedTo not generated
+          # Other untested fields: statusDate linkedPatientId
+
           check_loaded_patient(dt, field, qt)
         end
       end
@@ -51,7 +53,7 @@ module HTML
 
     def check_loaded_patient(dt, field, qt)
       # create new qdm patient clone for dt/attribute combo
-      qdm_patient = qdm_patient_for_attribute(dt, field, @qdm_patient)
+      qdm_patient = qdm_patient_for_attribute(dt, @qdm_patient)
       @cqm_patient.qdmPatient = qdm_patient
 
       html = QdmPatient.new(@cqm_patient, true).render
@@ -65,49 +67,53 @@ module HTML
       if attr.respond_to?(:strftime)
         # timey object
         formatted_date = attr.localtime.strftime('%FT%T')
-        assert html.include?(formatted_date), "html should include date/time value #{formatted_date} for #{field} in #{dt._type}"
+        assert html.include?(formatted_date), html_assertion_msg("date/time", formatted_date, field, dt)
       elsif attr.is_a?(Array)
         # components, relatedTo (irrelevant), facilityLocations, diagnoses (all code or nested code)
         attr.each do |attr_elem|
           top_code = get_key_or_field(attr_elem, 'code')
           if top_code.is_a?(Hash)
             # nested code
-            assert html.include?(top_code[:code]), "html should include nested code value #{top_code[:code]} for #{field} in #{dt._type}"
+            assert html.include?(top_code[:code]), html_assertion_msg("nested code", top_code[:code], field, dt)
           else
             # code
-            assert html.include?(top_code), "html should include code value #{top_code} for #{field} in #{dt._type}"
+            assert html.include?(top_code), html_assertion_msg("code", top_code, field, dt)
           end
         end
       elsif attr.is_a?(Integer) || attr.is_a?(String) || attr.is_a?(Float)
-        assert html.include?(attr.to_s), "html should include text value #{attr} for #{field} in #{dt._type}"
+        assert html.include?(attr.to_s), html_assertion_msg("text", attr, field, dt)
         # qrdaOid
       elsif key_or_field?(attr, :low)
         # interval (may or may not include high)
         formatted_date = attr.low.strftime('%FT%T')
-        assert html.include?(formatted_date), "html should include low value #{formatted_date} for #{field} in #{dt._type}"
+        assert html.include?(formatted_date), html_assertion_msg("low", formatted_date, field, dt)
 
       elsif key_or_field?(attr, :code)
         # must come after value to match result logic
         top_code = get_key_or_field(attr, :code)
         if top_code.is_a?(QDM::Code)
           # nested code
-          assert html.include?(top_code.code), "html should include nested code value #{top_code.code} for #{field} in #{dt._type}"
+          assert html.include?(top_code.code), html_assertion_msg("nested code", top_code.code, field, dt)
         else
           # code
-          assert html.include?(top_code), "html should include code value #{top_code} for #{field} in #{dt._type}"
+          assert html.include?(top_code), html_assertion_msg("code", top_code, field, dt)
         end
       elsif key_or_field?(attr, 'identifier')
         # entity
-        assert html.include?(attr.identifier.value), "html should include identifier value #{attr.identifier.value} for #{field} in #{dt._type}"
+        assert html.include?(attr.identifier.value), html_assertion_msg("identifier", attr.identifier.value, field, dt)
       elsif key_or_field?(attr, :value)
         value = get_key_or_field(attr, :value)
         # value for basic identifier, result, or quantity (may or may not include unit)
         # must come before code to match result logic
-        assert html.include?(value.to_s), "html should include value #{value} for #{field} in #{dt._type}"
+        assert html.include?(value.to_s), html_assertion_msg("", value, field, dt)
       else
-        # simple to_s, unlikely to get here
-        assert html.include?(attr.to_s), "html should include text value #{attr} for #{field} in #{dt._type}"
+        # unlikely to get here
+        assert false, "No known match for #{field} in #{dt._type}"
       end
+    end
+
+    def html_assertion_msg(type, value, field, dt)
+      "html should include #{type} value #{value} for #{field} in #{dt._type}"
     end
 
     def key_or_field?(object, keyfield)
@@ -119,21 +125,18 @@ module HTML
       object.is_a?(Hash) ? object[keyfield] : object.send(keyfield)
     end
 
-    def qdm_patient_for_attribute(dt, field, src_qdm_patient)
+    def qdm_patient_for_attribute(dt, src_qdm_patient)
       # dt.reason = nil if ta[7] && dt.respond_to?(:reason)
-      reset_datatype_fields(dt, field)
+      reset_datatype_fields(dt)
 
       single_dt_qdm_patient = src_qdm_patient.clone
       single_dt_qdm_patient.dataElements << dt
       single_dt_qdm_patient
     end
 
-    def reset_datatype_fields(dt, field)
+    def reset_datatype_fields(dt)
       dt.prescriberId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if dt.respond_to?(:prescriberId)
       dt.dispenserId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if dt.respond_to?(:dispenserId)
-
-      dt.relevantDatetime = nil if dt.respond_to?(:relevantDatetime) && dt.respond_to?(:relevantPeriod) && field == 'relevantPeriod'
-      dt.relevantPeriod = nil if dt.respond_to?(:relevantDatetime) && dt.respond_to?(:relevantPeriod) && field == 'relevantDatetime'
     end
 
     def generate_shell_patient(type)
