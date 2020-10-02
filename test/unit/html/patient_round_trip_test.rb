@@ -65,48 +65,48 @@ module HTML
       if attr.respond_to?(:strftime)
         # timey object
         formatted_date = attr.localtime.strftime('%FT%T')
-        assert html.include?(formatted_date), "html should include date/time value #{formatted_date}"
+        assert html.include?(formatted_date), "html should include date/time value #{formatted_date} for #{field} in #{dt._type}"
       elsif attr.is_a?(Array)
         # components, relatedTo (irrelevant), facilityLocations, diagnoses (all code or nested code)
         attr.each do |attr_elem|
           top_code = get_key_or_field(attr_elem, 'code')
           if top_code.is_a?(Hash)
             # nested code
-            assert html.include?(top_code[:code]), "html should include nested code value #{top_code[:code]}"
+            assert html.include?(top_code[:code]), "html should include nested code value #{top_code[:code]} for #{field} in #{dt._type}"
           else
             # code
-            assert html.include?(top_code), "html should include code value #{top_code}"
+            assert html.include?(top_code), "html should include code value #{top_code} for #{field} in #{dt._type}"
           end
         end
       elsif attr.is_a?(Integer) || attr.is_a?(String) || attr.is_a?(Float)
-        assert html.include?(attr.to_s), "html should include text value #{attr}"
+        assert html.include?(attr.to_s), "html should include text value #{attr} for #{field} in #{dt._type}"
         # qrdaOid
       elsif key_or_field?(attr, :low)
         # interval (may or may not include high)
         formatted_date = attr.low.strftime('%FT%T')
-        assert html.include?(formatted_date), "html should include low value #{formatted_date}"
+        assert html.include?(formatted_date), "html should include low value #{formatted_date} for #{field} in #{dt._type}"
 
       elsif key_or_field?(attr, :code)
         # must come after value to match result logic
         top_code = get_key_or_field(attr, :code)
         if top_code.is_a?(QDM::Code)
           # nested code
-          assert html.include?(top_code.code), "html should include nested code value #{top_code.code}"
+          assert html.include?(top_code.code), "html should include nested code value #{top_code.code} for #{field} in #{dt._type}"
         else
           # code
-          assert html.include?(top_code), "html should include code value #{top_code}"
+          assert html.include?(top_code), "html should include code value #{top_code} for #{field} in #{dt._type}"
         end
       elsif key_or_field?(attr, 'identifier')
         # entity
-        assert html.include?(attr.identifier.value), "html should include identifier value #{attr.identifier.value}"
+        assert html.include?(attr.identifier.value), "html should include identifier value #{attr.identifier.value} for #{field} in #{dt._type}"
       elsif key_or_field?(attr, :value)
         value = get_key_or_field(attr, :value)
         # value for basic identifier, result, or quantity (may or may not include unit)
         # must come before code to match result logic
-        assert html.include?(value.to_s), "html should include value #{value}"
+        assert html.include?(value.to_s), "html should include value #{value} for #{field} in #{dt._type}"
       else
         # simple to_s, unlikely to get here
-        assert html.include?(attr.to_s), "html should include text value #{attr}"
+        assert html.include?(attr.to_s), "html should include text value #{attr} for #{field} in #{dt._type}"
       end
     end
 
