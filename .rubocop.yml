@@ -27,6 +27,10 @@ Metrics/MethodLength:
     - 'test/unit/qrda/patient_round_trip_test.rb'
     - 'lib/qrda-import/patient_importer.rb'
 
+Metrics/ParameterLists:
+  Exclude:
+    - 'lib/qrda-import/patient_importer.rb'
+
 Documentation:
   Enabled: false
 Style/DateTime:
