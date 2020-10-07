@@ -41,5 +41,9 @@
       <!-- QDM Attribute: Components -->
       {{> qrda_templates/template_partials/_component}}
     {{/components}}
+    {{#encounter_id}}
+      <!-- QDM Attribute: relatedTo -->
+      {{> qrda_templates/template_partials/_related_to}}
+    {{/encounter_id}}
     </observation>
 </entry>
