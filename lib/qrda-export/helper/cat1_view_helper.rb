@@ -14,6 +14,10 @@ module Qrda
           self[:dataElementCodes].size > 1
         end
 
+        def qualified_code?
+          !self[:qualifier_name].nil?
+        end
+
         def display_author_dispenser_id?
           self['qdmCategory'] == 'medication' && self['qdmStatus'] == 'dispensed'
         end

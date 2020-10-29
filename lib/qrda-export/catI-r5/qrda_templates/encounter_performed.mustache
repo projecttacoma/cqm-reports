@@ -11,7 +11,12 @@
         <templateId extension="2019-12-01" root="2.16.840.1.113883.10.20.24.3.23"/>
         <id extension="{{object_id}}" root="1.3.6.1.4.1.115"/>
         <!-- QDM Attribute: Code -->
-        {{> _codes}}
+        {{#qualified_code?}}
+          {{> _qualified_code}}
+        {{/qualified_code?}}
+        {{^qualified_code?}}
+          {{> _codes}}
+        {{/qualified_code?}}
         <text>{{description}}</text>
         <statusCode code="completed"/>
         {{#relevantPeriod}}
