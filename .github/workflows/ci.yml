@@ -1,0 +1,34 @@
+name: Continuous Integration
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        ruby-version: [2.3, 2.4, 2.5, 2.6]
+        mongodb-version: [4.0.18, 4.4]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Ruby ${{ matrix.ruby-version }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+    - name: Install dependencies
+      run: bundle install
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.3.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+    - name: Run audit
+      run: bundle exec bundle-audit check --update
+    - name: Run tests
+      run: bundle exec rake test
+    - name: Run rubocop
+      run: rubocop
