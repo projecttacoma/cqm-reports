@@ -101,7 +101,7 @@ module Qrda
         end
 
         def relevant_date_period_or_null_flavor
-          return relevant_period if self['relevantPeriod']
+          return relevant_period if self['relevantPeriod'] && (self['relevantPeriod']['low'] || self['relevantPeriod']['high'])
           return relevant_date_time_value if self['relevantDatetime']
           "<effectiveTime nullFlavor='UNK'/>"
         end
