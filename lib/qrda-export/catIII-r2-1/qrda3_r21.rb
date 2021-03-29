@@ -58,14 +58,11 @@ class Qrda3R21 < Mustache
   end
 
   def stratification_observation
-    observation = @measure_result_hash[self['measure_id']].aggregate_count.populations.find {|p| p.type == "OBSERV"}
-    stratification_observation = @measure_result_hash[self['measure_id']].aggregate_count.populations.find {|p| p.type == "OBSERV"}.stratifications.find {|s| s.id == self['id'] }
-    stratification_observation.id = observation.id
-    stratification_observation
+    self['observation']
   end
 
   def population_observation
-    @measure_result_hash[self['measure_id']].aggregate_count.populations.find {|p| p.type == "OBSERV"}
+    self['observation']
   end
 
   def supplemental_template_ids

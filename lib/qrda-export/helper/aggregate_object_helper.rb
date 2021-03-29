@@ -57,23 +57,24 @@ module Qrda
         end
       end
       class Population
-        attr_accessor :type, :value, :id, :stratifications, :supplemental_data
+        attr_accessor :type, :value, :id, :stratifications, :supplemental_data, :observation
 
         def initialize
           @stratifications = []
         end
 
-        def add_stratification(id,value)
-          stratifications << Stratification.new(id,value) unless stratifications.find {|st| st.id == id}
+        def add_stratification(id,value,observation)
+          stratifications << Stratification.new(id,value,observation) unless stratifications.find {|st| st.id == id}
         end
 
       end
 
       class Stratification
-        attr_accessor :id, :value
-        def initialize(id,value)
+        attr_accessor :id, :value, :observation
+        def initialize(id,value, observation)
           @id = id
           @value = value
+          @observation = observation
         end
 
       end
@@ -107,15 +108,17 @@ module Qrda
         def add_entry(cache_entry, population_sets)
           population_set = population_sets.where(population_set_id: cache_entry.pop_set_hash[:population_set_id]).first
           entry_populations = []
-          %w[IPP DENOM NUMER NUMEX DENEX DENEXCEP MSRPOPL MSRPOPLEX OBSERV].each do |pop_code|
-            next unless population_set.populations[pop_code] || pop_code == 'OBSERV'
+          %w[IPP DENOM NUMER NUMEX DENEX DENEXCEP MSRPOPL MSRPOPLEX].each do |pop_code|
+            next unless population_set.populations[pop_code]
 
             population = create_population_from_population_set(pop_code, population_set, cache_entry)
             if cache_entry.pop_set_hash[:stratification_id]
               strat_id = population_set.stratifications.where(stratification_id: cache_entry.pop_set_hash[:stratification_id]).first&.hqmf_id
-              population.add_stratification(strat_id,cache_entry[pop_code])
+              observation = cache_entry['observations'][pop_code] if cache_entry['observations'] && cache_entry['observations'][pop_code]
+              population.add_stratification(strat_id,cache_entry[pop_code], observation)
             else
               population.value = cache_entry[pop_code]
+              population.observation = cache_entry['observations'][pop_code] if cache_entry['observations'] && cache_entry['observations'][pop_code]
               population.supplemental_data = cache_entry.supplemental_data[pop_code]
             end
             entry_populations << population if population
@@ -128,19 +131,12 @@ module Qrda
         end
 
         def create_population_from_population_set(pop_code, population_set, cache_entry)
-          population = if pop_code == 'OBSERV'
-                         populations.find { |pop| pop.id == population_set.observations&.first&.hqmf_id }
-                       elsif pop_code != 'STRAT'
-                         populations.find { |pop| pop.id == population_set.populations[pop_code]&.hqmf_id }
-                       end
+          population = populations.find { |pop| pop.id == population_set.populations[pop_code]&.hqmf_id } if pop_code != 'STRAT'
           return population unless population.nil? && !cache_entry.pop_set_hash[:stratification_id]
+
           population = Population.new
           population.type = pop_code
-          population.id = if pop_code == 'OBSERV'
-                            population_set.observations&.first&.hqmf_id
-                          else
-                            population_set.populations[pop_code]&.hqmf_id
-                          end
+          population.id = population_set.populations[pop_code]&.hqmf_id
           populations << population
           population
         end
