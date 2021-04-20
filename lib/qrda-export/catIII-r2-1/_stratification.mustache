@@ -15,11 +15,9 @@
         <methodCode code="COUNT" displayName="Count" codeSystem="2.16.840.1.113883.5.84" codeSystemName="ObservationMethod"/>
       </observation>
     </entryRelationship>
-    {{#msrpopl?}}
-      {{#stratification_observation}}
-        {{> _continuous_variable_value}}
-      {{/stratification_observation}}
-    {{/msrpopl?}}
+    {{#stratification_observation}}
+      {{> _continuous_variable_value}}
+    {{/stratification_observation}}
     <reference typeCode="REFR">
       <externalObservation classCode="OBS" moodCode="EVN">
         <id root="{{id}}"/>

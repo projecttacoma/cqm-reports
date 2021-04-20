@@ -27,11 +27,9 @@
         {{> _supplemental_data}}
       {{/population_supplemental_data}}
     {{/supplemental_data}}
-    {{#msrpopl?}}
       {{#population_observation}}
         {{> _continuous_variable_value}}
       {{/population_observation}}
-    {{/msrpopl?}}
     <reference typeCode="REFR">
        <externalObservation classCode="OBS" moodCode="EVN">
           <id root="{{id}}"/>
