@@ -96,6 +96,7 @@ module HTML
           assert html.include?(top_code.code), html_assertion_msg("nested code", top_code.code, field, dt)
         else
           # code
+          byebug unless html.include?(top_code)
           assert html.include?(top_code), html_assertion_msg("code", top_code, field, dt)
         end
       elsif key_or_field?(attr, 'identifier')

@@ -18,7 +18,8 @@ module QRDA
         adverse_event.severity = code_if_present(entry_element.at_xpath(@severity_xpath))
         adverse_event.type = code_if_present(entry_element.at_xpath(@type_xpath))
         adverse_event.facilityLocation = extract_facility_locations(entry_element)[0]
-        adverse_event.recorder = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        entity = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        adverse_event.recorder.concat(entity) if entity
         adverse_event
       end
 

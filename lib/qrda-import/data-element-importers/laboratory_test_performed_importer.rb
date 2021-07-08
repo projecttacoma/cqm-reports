@@ -24,7 +24,8 @@ module QRDA
         laboratory_test_performed.resultDatetime = extract_time(entry_element, @result_datetime_xpath)
         laboratory_test_performed.components = extract_components(entry_element)
         laboratory_test_performed.reason = extract_reason(entry_element)
-        laboratory_test_performed.performer = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        entity = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        laboratory_test_performed.performer.concat(entity) if entity
         laboratory_test_performed
       end
 

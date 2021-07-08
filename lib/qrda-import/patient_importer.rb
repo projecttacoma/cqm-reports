@@ -88,6 +88,7 @@ module QRDA
             new_data_elements << data_element
 
             # Encounters require elements beyond id for uniqueness
+            byebug if data_element.nil?
             next unless data_element._type == 'QDM::EncounterPerformed'
             unique_element_keys = []
             # Add key_elements_for_determining_encounter_uniqueness to array, this is used to determine if other

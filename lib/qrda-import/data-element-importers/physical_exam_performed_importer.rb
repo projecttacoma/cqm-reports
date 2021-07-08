@@ -22,7 +22,8 @@ module QRDA
         physical_exam_performed.anatomicalLocationSite = code_if_present(entry_element.at_xpath(@anatomical_location_site_xpath))
         physical_exam_performed.components = extract_components(entry_element)
         physical_exam_performed.reason = extract_reason(entry_element)
-        physical_exam_performed.performer = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        entity = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        physical_exam_performed.performer.concat(entity) if entity
         physical_exam_performed
       end
 

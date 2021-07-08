@@ -17,7 +17,7 @@ group :development do
 end
 
 group :test do
-  gem 'cqm-models', '~> 3.0'
+  gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', branch: 'cypress_qdm_55_56'
   gem 'factory_girl', '~> 4.1.0'
   gem 'tailor', '~> 1.1.2'
   gem 'cane', '~> 2.3.0'

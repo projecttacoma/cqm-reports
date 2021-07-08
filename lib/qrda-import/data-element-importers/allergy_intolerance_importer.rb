@@ -16,7 +16,8 @@ module QRDA
         allergy_intolerance = super
         allergy_intolerance.severity = code_if_present(entry_element.at_xpath(@severity_xpath))
         allergy_intolerance.type = code_if_present(entry_element.at_xpath(@type_xpath))
-        allergy_intolerance.recorder = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        entity = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        allergy_intolerance.recorder.concat(entity) if entity
         allergy_intolerance
       end
 

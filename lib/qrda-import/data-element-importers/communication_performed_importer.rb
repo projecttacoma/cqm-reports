@@ -20,8 +20,10 @@ module QRDA
         communication_performed.medium = code_if_present(entry_element.at_xpath(@medium_xpath))
         communication_performed.sentDatetime = extract_time(entry_element, @sent_datetime_xpath)
         communication_performed.receivedDatetime = extract_time(entry_element, @received_datetime_xpath)
-        communication_performed.sender = extract_entity(entry_element, "./cda:participant[@typeCode='AUT']")
-        communication_performed.recipient = extract_entity(entry_element, "./cda:participant[@typeCode='IRCP']")
+        entity1 = extract_entity(entry_element, "./cda:participant[@typeCode='AUT']")
+        communication_performed.sender.concat(entity1) if entity1
+        entity2 = extract_entity(entry_element, "./cda:participant[@typeCode='IRCP']")
+        communication_performed.recipient.concat(entity2) if entity2
         communication_performed.relatedTo = extract_related_to(entry_element)
         communication_performed
       end

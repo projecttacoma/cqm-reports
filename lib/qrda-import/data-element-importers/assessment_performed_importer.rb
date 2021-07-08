@@ -20,7 +20,8 @@ module QRDA
         assessment_performed.method = code_if_present(entry_element.at_xpath(@method_xpath))
         assessment_performed.components = extract_components(entry_element)
         assessment_performed.reason = extract_reason(entry_element)
-        assessment_performed.performer = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        entity = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        assessment_performed.performer.concat(entity) if entity
         assessment_performed
       end
 

@@ -24,7 +24,8 @@ module QRDA
           los = encounter_performed.relevantPeriod.high.to_date - encounter_performed.relevantPeriod.low.to_date
           encounter_performed.lengthOfStay = QDM::Quantity.new(los.to_i, 'd')
         end
-        encounter_performed.participant = extract_entity(entry_element, "./cda:entryRelationship/cda:encounter//cda:participant[@typeCode='PRF']")
+        entity = extract_entity(entry_element, "./cda:entryRelationship/cda:encounter//cda:participant[@typeCode='PRF']")
+        encounter_performed.participant.concat(entity) if entity
         extract_modifier_code(encounter_performed, entry_element)
         encounter_performed
       end

@@ -29,7 +29,8 @@ module QRDA
         medication_order.setting = code_if_present(entry_element.at_xpath(@setting_xpath))
         medication_order.daysSupplied = extract_scalar(entry_element, @days_supplied_xpath)&.value
         medication_order.reason = extract_reason(entry_element)
-        medication_order.prescriber = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        entity = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        medication_order.prescriber.concat(entity) if entity
         medication_order
       end
 

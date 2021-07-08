@@ -17,6 +17,10 @@ module HQMF
       def patient_entity?
         self[:hqmfOid] == '2.16.840.1.113883.10.20.28.4.136'
       end
+
+      def location_entity?
+        self[:hqmfOid] == '2.16.840.1.113883.10.20.28.4.142'
+      end
     end
   end
 end

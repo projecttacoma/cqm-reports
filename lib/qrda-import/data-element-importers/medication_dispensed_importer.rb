@@ -25,8 +25,10 @@ module QRDA
         medication_dispensed.frequency = frequency_as_coded_value(entry_element, @frequency_xpath)
         medication_dispensed.daysSupplied = extract_scalar(entry_element, @days_supplied_xpath)&.value
         medication_dispensed.route = code_if_present(entry_element.at_xpath(@route_xpath))
-        medication_dispensed.prescriber = extract_entity(entry_element, "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.18']//cda:participant[@typeCode='PRF']")
-        medication_dispensed.dispenser = extract_entity(entry_element, "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.18']/cda:participant[@typeCode='DIST']")
+        entity1 = extract_entity(entry_element, "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.18']//cda:participant[@typeCode='PRF']")
+        medication_dispensed.prescriber.concat(entity1) if entity1
+        entity2 = extract_entity(entry_element, "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.18']/cda:participant[@typeCode='DIST']")
+        medication_dispensed.dispenser.concat(entity2) if entity2
         medication_dispensed
       end
 

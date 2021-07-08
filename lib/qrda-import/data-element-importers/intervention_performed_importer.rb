@@ -18,7 +18,8 @@ module QRDA
         intervention_performed = super
         intervention_performed.status = code_if_present(entry_element.at_xpath(@status_xpath))
         intervention_performed.reason = extract_reason(entry_element)
-        intervention_performed.performer = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        entity = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        intervention_performed.performer.concat(entity) if entity
         intervention_performed
       end
 

@@ -27,7 +27,8 @@ module QRDA
         diagnostic_study_performed.facilityLocation = extract_facility_locations(entry_element)[0]
         diagnostic_study_performed.components = extract_components(entry_element)
         diagnostic_study_performed.reason = extract_reason(entry_element)
-        diagnostic_study_performed.performer = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        entity = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        diagnostic_study_performed.performer.concat(entity) if entity
         diagnostic_study_performed
       end
 
