@@ -5,7 +5,7 @@ module QRDA
         super(entry_finder)
         @id_xpath = './cda:entryRelationship/cda:encounter/cda:id'
         @code_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.22']/cda:code"
-        @author_datetime_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.22']/cda:author/cda:time"
+        @author_datetime_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.22']/cda:author[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.155']/cda:time"
         @facility_locations_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.22']/cda:participant[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.100']"
         @reason_xpath = "./cda:entryRelationship/cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.22']/cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
         @priority_xpath = './cda:entryRelationship/cda:encounter/cda:priorityCode'

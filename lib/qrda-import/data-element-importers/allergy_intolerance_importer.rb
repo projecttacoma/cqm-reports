@@ -5,7 +5,7 @@ module QRDA
         super(entry_finder)
         @id_xpath = './cda:id'
         @code_xpath = "./cda:participant[@typeCode='CSM']/cda:participantRole/cda:playingEntity/cda:code"
-        @author_datetime_xpath = "./cda:author/cda:time"
+        @author_datetime_xpath = "./cda:author[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.155']/cda:time"
         @prevalence_period_xpath = "./cda:effectiveTime"
         @severity_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.8']/cda:value"
         @type_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9']/cda:value"

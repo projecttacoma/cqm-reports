@@ -6,7 +6,7 @@ module QRDA
         @id_xpath = './cda:id'
         @code_xpath = "./cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code"
         @active_datetime_xpath = "./cda:effectiveTime[@value]"
-        @author_datetime_xpath = "./cda:author/cda:time"
+        @author_datetime_xpath = "./cda:author[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.155']/cda:time"
         @dosage_xpath = "./cda:doseQuantity"
         @supply_xpath = "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.167']/cda:quantity"
         @route_xpath = "./cda:routeCode"
