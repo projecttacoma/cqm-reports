@@ -1,6 +1,8 @@
 module QRDA
   module Cat1
     class SectionImporter
+      require 'validation_error'
+
       attr_accessor :check_for_usable, :status_xpath, :code_xpath, :warnings, :codes, :codes_modifiers
 
       def initialize(entry_finder)
