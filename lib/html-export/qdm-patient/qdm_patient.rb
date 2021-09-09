@@ -127,6 +127,10 @@ class QdmPatient < Mustache
     code_for_element(self['code'])
   end
 
+  def diagnosis_rank_string
+    " (rank: #{self['rank']})" if self['rank']
+  end
+
   def end_time?
     self['high'] && DateTime.parse(self['high']).year < 3000
   end
