@@ -16,7 +16,8 @@ module QRDA
         procedure_order = super
         procedure_order.anatomicalLocationSite = code_if_present(entry_element.at_xpath(@anatomical_location_site_xpath))
         procedure_order.reason = extract_reason(entry_element)
-        procedure_order.requester = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        entity = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        procedure_order.requester.concat(entity) if entity
         procedure_order.rank = entry_element.at_xpath(@rank_xpath)&.value&.strip.to_i if entry_element.at_xpath(@rank_xpath)&.value
         procedure_order
       end

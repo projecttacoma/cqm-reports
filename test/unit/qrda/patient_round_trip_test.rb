@@ -248,7 +248,7 @@ module QRDA
       end
 
       def test_exhaustive_qrda_validation
-        skip_types = %w[Entity PatientEntity CarePartner Practitioner Organization CareGoal DiagnosisComponent]
+        skip_types = %w[Entity PatientEntity CarePartner Practitioner Organization CareGoal DiagnosisComponent Location]
         puts "\n========================= QRDA VALIDATION ========================="
         cqm_patients = QDM::PatientGeneration.generate_exhaustive_data_element_patients(true)
         add_different_frequency_codes_to_medication(cqm_patients.find { |patient| patient.familyName.include? 'MedicationDispensed' })

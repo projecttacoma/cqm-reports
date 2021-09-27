@@ -10,6 +10,10 @@ module HQMF
         self[:hqmfOid] == '2.16.840.1.113883.10.20.28.4.134'
       end
 
+      def location_entity?
+        self[:hqmfOid] == '2.16.840.1.113883.10.20.28.4.142'
+      end
+
       def organization_entity?
         self[:hqmfOid] == '2.16.840.1.113883.10.20.28.4.135'
       end

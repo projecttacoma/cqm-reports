@@ -17,7 +17,8 @@ module QRDA
         encounter_order.facilityLocation = extract_facility_locations(entry_element)[0]
         encounter_order.reason = extract_reason(entry_element)
         encounter_order.priority = code_if_present(entry_element.at_xpath(@priority_xpath))
-        encounter_order.requester = extract_entity(entry_element, "./cda:entryRelationship/cda:encounter//cda:participant[@typeCode='PRF']")
+        entity = extract_entity(entry_element, "./cda:entryRelationship/cda:encounter//cda:participant[@typeCode='PRF']")
+        encounter_order.requester.concat(entity) if entity
         encounter_order
       end
 

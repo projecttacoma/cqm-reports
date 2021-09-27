@@ -1,5 +1,5 @@
 require 'mustache'
-class Qrda3R21 < Mustache
+class Qrda3 < Mustache
   include Qrda::Export::Helper::DateHelper
   include Qrda::Export::Helper::ViewHelper
   include Qrda::Export::Helper::PatientViewHelper

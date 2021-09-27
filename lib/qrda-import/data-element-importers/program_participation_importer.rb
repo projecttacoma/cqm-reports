@@ -12,7 +12,6 @@ module QRDA
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         program_participation = super
         program_participation.participationPeriod = extract_interval(entry_element, @participation_period_xpath)
-        program_participation.recorder = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
         program_participation
       end
 

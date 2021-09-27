@@ -65,7 +65,10 @@ class QdmPatient < Mustache
       </br>&nbsp; Care Partner Relationship: #{code_for_element(self['relationship'])}"
     elsif organization_entity?
       "</br>&nbsp; Organization: #{identifier_for_element(self['identifier'])}
-      </br>&nbsp; Organization Type: #{code_for_element(self['type'])}"
+      </br>&nbsp; Organization Type: #{code_for_element(self['organizationType'])}"
+    elsif location_entity?
+      "</br>&nbsp; Location: #{identifier_for_element(self['identifier'])}
+      </br>&nbsp; Location Type: #{code_for_element(self['locationType'])}"
     elsif patient_entity?
       "</br>&nbsp; Patient: #{identifier_for_element(self['identifier'])}"
     elsif practitioner_entity?

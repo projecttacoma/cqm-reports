@@ -13,7 +13,8 @@ module QRDA
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         intervention_order = super
         intervention_order.reason = extract_reason(entry_element)
-        intervention_order.requester = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        entity = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        intervention_order.requester.concat(entity) if entity
         intervention_order
       end
 
