@@ -17,7 +17,8 @@ group :development do
 end
 
 group :test do
-  gem 'cqm-models', '~> 3.0'
+  gem 'cqm-models', '~> 4.0'
+  gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators', branch: '2022_au'
   gem 'factory_girl', '~> 4.1.0'
   gem 'tailor', '~> 1.1.2'
   gem 'cane', '~> 2.3.0'

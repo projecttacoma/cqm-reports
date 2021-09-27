@@ -18,7 +18,8 @@ module QRDA
         immunization_administered.dosage = extract_scalar(entry_element, @dosage_xpath)
         immunization_administered.route = code_if_present(entry_element.at_xpath(@route_xpath))
         immunization_administered.reason = extract_reason(entry_element)
-        immunization_administered.performer = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        entity = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        immunization_administered.performer.concat(entity) if entity
         immunization_administered
       end
 

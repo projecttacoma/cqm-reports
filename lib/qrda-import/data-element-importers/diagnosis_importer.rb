@@ -16,7 +16,8 @@ module QRDA
         diagnosis = super
         diagnosis.anatomicalLocationSite = code_if_present(entry_element.at_xpath(@anatomical_location_site_xpath))
         diagnosis.severity = code_if_present(entry_element.at_xpath(@severity_xpath))
-        diagnosis.recorder = extract_entity(entry_element, "./cda:entryRelationship/cda:observation//cda:participant[@typeCode='PRF']")
+        entity = extract_entity(entry_element, "./cda:entryRelationship/cda:observation//cda:participant[@typeCode='PRF']")
+        diagnosis.recorder.concat(entity) if entity
         diagnosis
       end
 
