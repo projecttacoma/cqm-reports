@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
 
   s.version = '4.0.0'
 
-  s.add_dependency 'cqm-models', '~> 4.0'
-  s.add_dependency 'cqm-validators', '~> 4.0'
+  s.add_dependency 'cqm-models', '> 3.0'
+  s.add_dependency 'cqm-validators', '> 3.0'
 
   s.add_dependency 'mustache'
 

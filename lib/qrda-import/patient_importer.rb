@@ -18,6 +18,7 @@ module QRDA
         @data_element_importers << AssessmentPerformedImporter.new
         @data_element_importers << AssessmentRecommendedImporter.new
         @data_element_importers << CommunicationPerformedImporter.new
+        @data_element_importers << DeviceAppliedImporter.new
         @data_element_importers << DeviceOrderImporter.new
         @data_element_importers << DeviceRecommendedImporter.new
         @data_element_importers << DiagnosisImporter.new
