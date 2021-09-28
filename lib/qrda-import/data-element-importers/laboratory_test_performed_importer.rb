@@ -14,6 +14,7 @@ module QRDA
         @result_datetime_xpath = "./cda:entryRelationship[@typeCode='REFR']/cda:observation/cda:effectiveTime"
         @components_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.149']"
         @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
+        @related_to_xpath = "./sdtc:inFulfillmentOf1/sdtc:actReference"
         @entry_class = QDM::LaboratoryTestPerformed
       end
 
@@ -25,6 +26,7 @@ module QRDA
         laboratory_test_performed.components = extract_components(entry_element)
         laboratory_test_performed.reason = extract_reason(entry_element)
         laboratory_test_performed.performer = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        laboratory_test_performed.relatedTo = extract_related_to(entry_element)
         laboratory_test_performed
       end
 

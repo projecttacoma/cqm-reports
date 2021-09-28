@@ -291,10 +291,12 @@ module QRDA
         patient_entity_element = parent_element.at_xpath(entity_xpath + "/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.161']")
         practitioner_entity_element = parent_element.at_xpath(entity_xpath + "/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.162']")
         organization_entity_element = parent_element.at_xpath(entity_xpath + "/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.163']")
+        location_entity_element = parent_element.at_xpath(entity_xpath + "/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.172']")
         return extract_care_partner_entity(care_partner_entity_element) if care_partner_entity_element
         return extract_patient_entity(patient_entity_element) if patient_entity_element
         return extract_practitioner_entity(practitioner_entity_element) if practitioner_entity_element
         return extract_organization_entity(organization_entity_element) if organization_entity_element
+        return extract_location_entity(location_entity_element) if location_entity_element
       end
 
       def extract_care_partner_entity(care_partner_entity_element)
@@ -322,8 +324,15 @@ module QRDA
       def extract_organization_entity(organization_entity_element)
         organization_entity = QDM::Organization.new
         organization_entity.identifier = extract_id(organization_entity_element, './cda:id')
-        organization_entity.type = code_if_present(organization_entity_element.at_xpath('./cda:playingEntity/cda:code'))
+        organization_entity.organizationType = code_if_present(organization_entity_element.at_xpath('./cda:playingEntity/cda:code'))
         organization_entity
+      end
+
+      def extract_location_entity(location_entity_element)
+        location_entity = QDM::Organization.new
+        location_entity.identifier = extract_id(location_entity_element, './cda:id')
+        location_entity.locationType = code_if_present(location_entity_element.at_xpath('./cda:playingEntity/cda:code'))
+        location_entity
       end
     end
   end

@@ -13,6 +13,7 @@ module QRDA
         @anatomical_location_site_xpath = "./cda:targetSiteCode"
         @components_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.149']"
         @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
+        @related_to_xpath = "./sdtc:inFulfillmentOf1/sdtc:actReference"
         @entry_class = QDM::PhysicalExamPerformed
       end
 
@@ -23,6 +24,7 @@ module QRDA
         physical_exam_performed.components = extract_components(entry_element)
         physical_exam_performed.reason = extract_reason(entry_element)
         physical_exam_performed.performer = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        physical_exam_performed.relatedTo = extract_related_to(entry_element)
         physical_exam_performed
       end
 

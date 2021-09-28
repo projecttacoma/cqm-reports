@@ -16,6 +16,7 @@ module QRDA
         @prescriber_id_xpath = "./cda:author/cda:assignedAuthor/cda:id"
         @days_supplied_xpath = "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.157']/cda:quantity"
         @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
+        @related_to_xpath = "./sdtc:inFulfillmentOf1/sdtc:actReference"
         @entry_class = QDM::MedicationOrder
       end
 
@@ -30,6 +31,7 @@ module QRDA
         medication_order.daysSupplied = extract_scalar(entry_element, @days_supplied_xpath)&.value
         medication_order.reason = extract_reason(entry_element)
         medication_order.prescriber = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        medication_order.relatedTo = extract_related_to(entry_element)
         medication_order
       end
 
