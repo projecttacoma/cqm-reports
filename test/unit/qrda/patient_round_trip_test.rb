@@ -285,8 +285,7 @@ module QRDA
             puts "\e[31mException validating #{datatype_name}: #{e.message}\e[0m"
           end
         end
-        # There is an error in the QRDA R5.3 schematron for CommunicationPerformed
-        known_issues = 1
+        known_issues = 0
         assert_equal 0, cqm_patients.count - successful_count - known_issues
       end
     end
