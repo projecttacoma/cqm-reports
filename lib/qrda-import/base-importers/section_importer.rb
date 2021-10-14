@@ -308,7 +308,6 @@ module QRDA
           care_partner_entity = QDM::CarePartner.new
           care_partner_entity.identifier = extract_id(care_partner_entity_element, './cda:id')
           care_partner_entity.relationship = code_if_present(care_partner_entity_element.at_xpath('./cda:playingEntity/cda:code'))
-          care_partner_entity
           entities << care_partner_entity
         end
       end
