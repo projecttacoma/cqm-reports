@@ -18,7 +18,6 @@ module QRDA
         @data_element_importers << AssessmentPerformedImporter.new
         @data_element_importers << AssessmentRecommendedImporter.new
         @data_element_importers << CommunicationPerformedImporter.new
-        @data_element_importers << DeviceAppliedImporter.new
         @data_element_importers << DeviceOrderImporter.new
         @data_element_importers << DeviceRecommendedImporter.new
         @data_element_importers << DiagnosisImporter.new
@@ -39,7 +38,6 @@ module QRDA
         @data_element_importers << LaboratoryTestRecommendedImporter.new
         @data_element_importers << MedicationActiveImporter.new
         @data_element_importers << MedicationAdministeredImporter.new
-        @data_element_importers << MedicationDischargeImporter.new
         @data_element_importers << MedicationDispensedImporter.new
         @data_element_importers << MedicationOrderImporter.new
         @data_element_importers << PatientCareExperienceImporter.new
@@ -62,6 +60,7 @@ module QRDA
       end 
 
       def parse_cat1(doc)
+        add_conditional_importers(doc)
         patient = CQM::Patient.new
         warnings = []
         codes = Set.new
@@ -133,6 +132,16 @@ module QRDA
 
         record.expired = true
         record.deathdate = DateTime.parse(entry_elements.at_xpath("./cda:effectiveTime/cda:low")['value']).to_i
+      end
+
+      def add_conditional_importers(doc)
+        if doc.at_xpath('/cda:ClinicalDocument/cda:templateId[@root="2.16.840.1.113883.10.20.24.1.2" and @extension="2021-08-01"]').nil?
+          # For imports prior to R53
+          @data_element_importers << DeviceAppliedR52Importer.new
+          @data_element_importers << MedicationDischargeR52Importer.new
+        else
+          @data_element_importers << MedicationDischargeImporter.new
+        end
       end
 
       def normalize_references(patient, entry_id_map)
