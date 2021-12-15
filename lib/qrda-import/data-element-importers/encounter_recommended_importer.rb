@@ -15,7 +15,8 @@ module QRDA
         encounter_recommended = super
         encounter_recommended.facilityLocation = extract_facility_locations(entry_element)[0]
         encounter_recommended.reason = extract_reason(entry_element)
-        encounter_recommended.requester = extract_entity(entry_element, "./cda:entryRelationship/cda:encounter//cda:participant[@typeCode='PRF']")
+        entity = extract_entity(entry_element, "./cda:entryRelationship/cda:encounter//cda:participant[@typeCode='PRF']")
+        encounter_recommended.requester.concat(entity) if entity
         encounter_recommended
       end
 

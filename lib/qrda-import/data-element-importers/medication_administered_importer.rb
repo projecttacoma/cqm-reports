@@ -21,7 +21,8 @@ module QRDA
         medication_administered.frequency = frequency_as_coded_value(entry_element, @frequency_xpath)
         medication_administered.route = code_if_present(entry_element.at_xpath(@route_xpath))
         medication_administered.reason = extract_reason(entry_element)
-        medication_administered.performer = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        entity = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        medication_administered.performer.concat(entity) if entity
         medication_administered
       end
 

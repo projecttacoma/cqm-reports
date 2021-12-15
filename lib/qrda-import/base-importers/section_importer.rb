@@ -1,6 +1,8 @@
 module QRDA
   module Cat1
     class SectionImporter
+      require 'validation_error'
+
       attr_accessor :check_for_usable, :status_xpath, :code_xpath, :warnings, :codes, :codes_modifiers
 
       def initialize(entry_finder)
@@ -287,43 +289,64 @@ module QRDA
       end
 
       def extract_entity(parent_element, entity_xpath)
-        care_partner_entity_element = parent_element.at_xpath(entity_xpath + "/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.160']")
-        patient_entity_element = parent_element.at_xpath(entity_xpath + "/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.161']")
-        practitioner_entity_element = parent_element.at_xpath(entity_xpath + "/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.162']")
-        organization_entity_element = parent_element.at_xpath(entity_xpath + "/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.163']")
-        return extract_care_partner_entity(care_partner_entity_element) if care_partner_entity_element
-        return extract_patient_entity(patient_entity_element) if patient_entity_element
-        return extract_practitioner_entity(practitioner_entity_element) if practitioner_entity_element
-        return extract_organization_entity(organization_entity_element) if organization_entity_element
+        entities = []
+        care_partner_entity_element = parent_element.xpath(entity_xpath + "/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.160']")
+        patient_entity_element = parent_element.xpath(entity_xpath + "/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.161']")
+        practitioner_entity_element = parent_element.xpath(entity_xpath + "/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.162']")
+        organization_entity_element = parent_element.xpath(entity_xpath + "/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.163']")
+        location_entity_element = parent_element.xpath(entity_xpath + "/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.172']")
+        extract_care_partner_entity(care_partner_entity_element, entities) if care_partner_entity_element
+        extract_patient_entity(patient_entity_element, entities) if patient_entity_element
+        extract_practitioner_entity(practitioner_entity_element, entities) if practitioner_entity_element
+        extract_organization_entity(organization_entity_element, entities) if organization_entity_element
+        extract_location_entity(location_entity_element, entities) if location_entity_element
+        entities.empty? ? nil : entities
       end
 
-      def extract_care_partner_entity(care_partner_entity_element)
-        care_partner_entity = QDM::CarePartner.new
-        care_partner_entity.identifier = extract_id(care_partner_entity_element, './cda:id')
-        care_partner_entity.relationship = code_if_present(care_partner_entity_element.at_xpath('./cda:playingEntity/cda:code'))
-        care_partner_entity
+      def extract_care_partner_entity(care_partner_entity_elements, entities)
+        care_partner_entity_elements&.each do |care_partner_entity_element|
+          care_partner_entity = QDM::CarePartner.new
+          care_partner_entity.identifier = extract_id(care_partner_entity_element, './cda:id')
+          care_partner_entity.relationship = code_if_present(care_partner_entity_element.at_xpath('./cda:playingEntity/cda:code'))
+          entities << care_partner_entity
+        end
       end
 
-      def extract_patient_entity(patient_entity_element)
-        patient_entity = QDM::PatientEntity.new
-        patient_entity.identifier = extract_id(patient_entity_element, './cda:id')
-        patient_entity
+      def extract_patient_entity(patient_entity_elements, entities)
+        patient_entity_elements&.each do |patient_entity_element|
+          patient_entity = QDM::PatientEntity.new
+          patient_entity.identifier = extract_id(patient_entity_element, './cda:id')
+          entities << patient_entity
+        end
       end
 
-      def extract_practitioner_entity(practitioner_entity_element)
-        practitioner_entity = QDM::Practitioner.new
-        practitioner_entity.identifier = extract_id(practitioner_entity_element, './cda:id')
-        practitioner_entity.role = code_if_present(practitioner_entity_element.at_xpath('./cda:code'))
-        practitioner_entity.specialty = code_if_present(practitioner_entity_element.at_xpath('./cda:playingEntity/cda:code'))
-        practitioner_entity.qualification = code_if_present(practitioner_entity_element.at_xpath('./cda:scopingEntity/cda:code'))
-        practitioner_entity
+      def extract_practitioner_entity(practitioner_entity_elements, entities)
+        practitioner_entity_elements&.each do |practitioner_entity_element|
+          practitioner_entity = QDM::Practitioner.new
+          practitioner_entity.identifier = extract_id(practitioner_entity_element, './cda:id')
+          practitioner_entity.role = code_if_present(practitioner_entity_element.at_xpath('./cda:code'))
+          practitioner_entity.specialty = code_if_present(practitioner_entity_element.at_xpath('./cda:playingEntity/cda:code'))
+          practitioner_entity.qualification = code_if_present(practitioner_entity_element.at_xpath('./cda:scopingEntity/cda:code'))
+          entities << practitioner_entity
+        end
       end
 
-      def extract_organization_entity(organization_entity_element)
-        organization_entity = QDM::Organization.new
-        organization_entity.identifier = extract_id(organization_entity_element, './cda:id')
-        organization_entity.type = code_if_present(organization_entity_element.at_xpath('./cda:playingEntity/cda:code'))
-        organization_entity
+      def extract_organization_entity(organization_entity_elements, entities)
+        organization_entity_elements&.each do |organization_entity_element|
+          organization_entity = QDM::Organization.new
+          organization_entity.identifier = extract_id(organization_entity_element, './cda:id')
+          organization_entity.organizationType = code_if_present(organization_entity_element.at_xpath('./cda:playingEntity/cda:code'))
+          entities << organization_entity
+        end
+      end
+
+      def extract_location_entity(location_entity_elements, entities)
+        location_entity_elements&.each do |location_entity_element|
+          location_entity = QDM::Location.new
+          location_entity.identifier = extract_id(location_entity_element, './cda:id')
+          location_entity.locationType = code_if_present(location_entity_element.at_xpath('./cda:playingEntity/cda:code'))
+          entities << location_entity
+        end
       end
     end
   end

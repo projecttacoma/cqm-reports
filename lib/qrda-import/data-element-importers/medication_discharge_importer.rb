@@ -24,8 +24,10 @@ module QRDA
         medication_discharge.frequency = frequency_as_coded_value(entry_element, @frequency_xpath)
         medication_discharge.daysSupplied = extract_scalar(entry_element, @days_supplied_xpath)&.value
         medication_discharge.route = code_if_present(entry_element.at_xpath(@route_xpath))
-        medication_discharge.prescriber = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
-        medication_discharge.recorder = extract_entity(entry_element, "./cda:participant[@typeCode='AUT']")
+        entity1 = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        medication_discharge.prescriber.concat(entity1) if entity1
+        entity2 = extract_entity(entry_element, "./cda:participant[@typeCode='AUT']")
+        medication_discharge.recorder.concat(entity2) if entity2
         medication_discharge
       end
 

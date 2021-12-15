@@ -21,7 +21,8 @@ module QRDA
         immunization_order.supply = extract_scalar(entry_element, @supply_xpath)
         immunization_order.route = code_if_present(entry_element.at_xpath(@route_xpath))
         immunization_order.reason = extract_reason(entry_element)
-        immunization_order.requester = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        entity = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
+        immunization_order.requester.concat(entity) if entity
         immunization_order
       end
 
