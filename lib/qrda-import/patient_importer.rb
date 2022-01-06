@@ -69,6 +69,7 @@ module QRDA
         import_data_elements(patient, doc, entry_id_map, codes, codes_modifiers, warnings)
         normalize_references(patient, entry_id_map)
         get_demographics(patient, doc, codes)
+        remove_conditional_importers(doc)
         [patient, warnings, codes, codes_modifiers]
       end
 
@@ -141,6 +142,16 @@ module QRDA
           @data_element_importers << MedicationDischargeR52Importer.new
         else
           @data_element_importers << MedicationDischargeImporter.new
+        end
+      end
+
+      def remove_conditional_importers(doc)
+        if doc.at_xpath('/cda:ClinicalDocument/cda:templateId[@root="2.16.840.1.113883.10.20.24.1.2" and @extension="2021-08-01"]').nil?
+          # For imports prior to R53
+          @data_element_importers.delete_if { |dei| dei.is_a?(QRDA::Cat1::DeviceAppliedR52Importer) }
+          @data_element_importers.delete_if { |dei| dei.is_a?(QRDA::Cat1::MedicationDischargeR52Importer) }
+        else
+          @data_element_importers.delete_if { |dei| dei.is_a?(QRDA::Cat1::MedicationDischargeImporter) }
         end
       end
 
