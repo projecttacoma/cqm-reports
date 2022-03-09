@@ -83,7 +83,7 @@ class QdmPatient < Mustache
   end
 
   def identifier_for_element(identifier)
-    "#{identifier['value']} (#{identifier['namingSystem']})"
+    identifier ? "#{identifier['value']} (#{identifier['namingSystem']})" : ''
   end
 
   def code_code_system_string
@@ -91,7 +91,7 @@ class QdmPatient < Mustache
   end
 
   def code_for_element(element)
-    "#{element['code']} (#{HQMF::Util::CodeSystemHelper.code_system_for(element['system'])})#{code_description(element)}"
+    element ? "#{element['code']} (#{HQMF::Util::CodeSystemHelper.code_system_for(element['system'])})#{code_description(element)}" : ''
   end
 
   def code_system_name
