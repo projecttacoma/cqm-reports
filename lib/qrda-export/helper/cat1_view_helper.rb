@@ -56,19 +56,23 @@ module Qrda
         end
 
         def dose_quantity_value
-          return "<doseQuantity value=\"#{value_as_float}\" unit=\"#{self['unit']}\"/>" if self['unit']
+          return "<doseQuantity value=\"#{value_as_float}\" unit=\"#{self['unit']}\"/>" if self['unit'] && self['unit'] != ''
           "<doseQuantity value=\"#{value_as_float}\" />"
         end
 
         def result_value
           return "<value xsi:type=\"CD\" nullFlavor=\"UNK\"/>" unless self['result']
-
           result_string = if self['result'].is_a? Array
                             result_value_as_string(self['result'][0])
                           elsif self['result'].is_a? Hash
                             result_value_as_string(self['result'])
                           elsif self['result'].is_a? String
-                            "<value xsi:type=\"ST\">#{self['result']}</value>"
+                            begin
+                              DateTime.parse self['result']
+                              "<value xsi:type=\"TS\" #{value_or_null_flavor(self['result'])}/>"
+                            rescue
+                              "<value xsi:type=\"ST\">#{self['result']}</value>"
+                            end
                           elsif !self['result'].nil?
                             "<value xsi:type=\"PQ\" value=\"#{self['result']}\" unit=\"1\"/>"
                           end
@@ -79,7 +83,7 @@ module Qrda
           return "<value xsi:type=\"CD\" nullFlavor=\"UNK\"/>" unless result
           oid = result['system'] || result['codeSystem']
           return "<value xsi:type=\"CD\" code=\"#{result['code']}\" codeSystem=\"#{oid}\" codeSystemName=\"#{HQMF::Util::CodeSystemHelper.code_system_for(oid)}\"/>" if result['code']
-          return "<value xsi:type=\"PQ\" value=\"#{result['value']}\" unit=\"#{result['unit']}\"/>" if result['unit']
+          return "<value xsi:type=\"PQ\" value=\"#{result['value']}\" unit=\"#{result['unit']}\"/>" if result['unit'] && result['unit'] != ''
         end
 
         def authordatetime_or_dispenserid?
