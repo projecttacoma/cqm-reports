@@ -1,8 +1,7 @@
 name: Continuous Integration
 on:
   pull_request:
-    branches:
-      - [master, cqm_reports_3_x]
+    branches: [master, cqm_reports_3_x]
 
 jobs:
   build:
