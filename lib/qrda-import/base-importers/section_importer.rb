@@ -77,7 +77,12 @@ module QRDA
           code_list << code_if_present(code_element)
           translations = code_element.xpath('cda:translation')
           translations.each do |translation|
-            code_list << code_if_present(translation)
+            translation_code = code_if_present(translation)
+            next unless translation_code
+
+            code_list << translation_code
+            @warnings << ValidationError.new(message: "Translation code #{translation_code.system}:#{translation_code.code} may not be used for eCQM calculation by a receiving system.  Ensure that the root code includes a code from the eCQM valueset.",
+                                             location: coded_element.path)
           end
         end
         code_list.compact
