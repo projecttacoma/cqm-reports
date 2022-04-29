@@ -1,6 +1,9 @@
 <recordTarget>
   <patientRole>
     <id extension="{{mrn}}" root="1.3.6.1.4.1.115" />
+    {{#medicare_beneficiary_identifier}}
+      <id extension="{{medicare_beneficiary_identifier}}" root="2.16.840.1.113883.4.927" />
+    {{/medicare_beneficiary_identifier}}
     {{#patient_addresses}}
       <addr use="{{use}}">
         {{#street}}
