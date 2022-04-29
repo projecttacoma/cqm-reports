@@ -22,6 +22,10 @@ module Qrda
         def submission_program
           @submission_program
         end
+
+        def medicare_beneficiary_identifier
+          @medicare_beneficiary_identifier
+        end
       end
     end
   end
