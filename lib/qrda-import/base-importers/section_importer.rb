@@ -198,6 +198,13 @@ module QRDA
         return unless value_element && !value_element['nullFlavor']
         value = value_element['value']
         if value.present?
+          if ['TS'].include? value_element.at_xpath("@xsi:type")&.value
+            begin
+              return DateTime.parse(value_element['value'])
+            rescue
+              return nil
+            end
+          end
           return value.strip.to_f if (value_element['unit'] == "1" || value_element['unit'].nil?)
 
           return QDM::Quantity.new(value.strip.to_f, value_element['unit'])
