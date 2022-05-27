@@ -200,7 +200,7 @@ module QRDA
               return nil
             end
           end
-          return value.strip.to_f if (value_element['unit'] == "1" || value_element['unit'].nil?)
+          return value.strip.to_f if unitless?(value_element)
 
           return QDM::Quantity.new(value.strip.to_f, value_element['unit'])
         elsif value_element['code'].present?
@@ -213,6 +213,12 @@ module QRDA
                                            location: value_element.path)
           return value_element.text
         end
+      end
+
+      def unitless?(value_element)
+        return true if value_element['unit'].nil?
+        return true if value_element['unit'] == '1'
+        return true if value_element['unit'][0] == '{' && value_element['unit'][-1] == '}'
       end
 
       def extract_reason(parent_element)
