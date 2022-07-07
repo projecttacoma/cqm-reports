@@ -8,7 +8,7 @@
   <!-- QRDA templateId -->
   <templateId extension="2016-02-01" root="2.16.840.1.113883.10.20.24.1.1"/>
   <!-- QDM-based QRDA templateId -->
-  <templateId extension="2016-02-01" root="2.16.840.1.113883.10.20.24.1.2"/>
+  <templateId extension="2021-08-01" root="2.16.840.1.113883.10.20.24.1.2"/>
   <!-- CMS QRDA templateId -->
   <templateId extension="2017-07-01" root="2.16.840.1.113883.10.20.24.1.3"/>
   <!-- This is the globally unique identifier for this QRDA document -->
