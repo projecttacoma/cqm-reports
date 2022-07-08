@@ -25,7 +25,6 @@ module QRDA
         @data_element_importers << DiagnosticStudyPerformedImporter.new
         @data_element_importers << DiagnosticStudyRecommendedImporter.new
         @data_element_importers << EncounterOrderImporter.new
-        @data_element_importers << EncounterPerformedImporter.new
         @data_element_importers << EncounterRecommendedImporter.new
         @data_element_importers << FamilyHistoryImporter.new
         @data_element_importers << ImmunizationAdministeredImporter.new
@@ -139,8 +138,10 @@ module QRDA
         if doc.at_xpath('/cda:ClinicalDocument/cda:templateId[@root="2.16.840.1.113883.10.20.24.1.2" and @extension="2021-08-01"]').nil?
           # For imports prior to R53
           @data_element_importers << DeviceAppliedR52Importer.new
+          @data_element_importers << EncounterPerformedR52Importer.new
           @data_element_importers << MedicationDischargeR52Importer.new
         else
+          @data_element_importers << EncounterPerformedImporter.new
           @data_element_importers << MedicationDischargeImporter.new
         end
       end
@@ -149,8 +150,10 @@ module QRDA
         if doc.at_xpath('/cda:ClinicalDocument/cda:templateId[@root="2.16.840.1.113883.10.20.24.1.2" and @extension="2021-08-01"]').nil?
           # For imports prior to R53
           @data_element_importers.delete_if { |dei| dei.is_a?(QRDA::Cat1::DeviceAppliedR52Importer) }
+          @data_element_importers.delete_if { |dei| dei.is_a?(QRDA::Cat1::EncounterPerformedR52Importer) }
           @data_element_importers.delete_if { |dei| dei.is_a?(QRDA::Cat1::MedicationDischargeR52Importer) }
         else
+          @data_element_importers.delete_if { |dei| dei.is_a?(QRDA::Cat1::EncounterPerformedImporter) }
           @data_element_importers.delete_if { |dei| dei.is_a?(QRDA::Cat1::MedicationDischargeImporter) }
         end
       end
