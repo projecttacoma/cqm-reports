@@ -127,8 +127,11 @@ class QdmPatient < Mustache
     code_for_element(self['code'])
   end
 
-  def diagnosis_rank_string
-    " (rank: #{self['rank']})" if self['rank']
+  def diagnosis_string
+    dx_string = ''
+    dx_string += "</br>&nbsp; rank: #{self['rank']}" if self['rank']
+    dx_string += "</br>&nbsp; presentOnAdmissionIndicator: #{self['presentOnAdmissionIndicator']['code']}" if self['presentOnAdmissionIndicator']
+    dx_string
   end
 
   def end_time?
