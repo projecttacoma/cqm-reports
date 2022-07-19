@@ -201,7 +201,7 @@ module QRDA
           if ['TS'].include? value_element.at_xpath("@xsi:type")&.value
             begin
               return DateTime.parse(value_element['value'])
-            rescue
+            rescue StandardError
               return nil
             end
           end

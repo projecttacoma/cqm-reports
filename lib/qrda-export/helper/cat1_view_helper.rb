@@ -70,7 +70,7 @@ module Qrda
                             begin
                               DateTime.parse self['result']
                               "<value xsi:type=\"TS\" #{value_or_null_flavor(self['result'])}/>"
-                            rescue
+                            rescue StandardError
                               "<value xsi:type=\"ST\">#{self['result']}</value>"
                             end
                           elsif !self['result'].nil?
