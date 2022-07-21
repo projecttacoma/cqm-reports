@@ -173,6 +173,7 @@ module QRDA
           relations_to_add = []
           data_element.relatedTo.each do |related_to|
             relation_to_add = entry_id_map["#{related_to['value']}***#{related_to['namingSystem']}"]
+            # Add the relation if it can be found, otherwise return a warning
             relations_to_add += relation_to_add unless relation_to_add.nil?
             if relation_to_add.nil?
               id_warning_str = "Related To Id: #{related_to['namingSystem']}(root), #{related_to['value']}(extension) cannot be found in QRDA file."
