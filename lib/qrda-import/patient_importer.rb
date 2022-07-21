@@ -66,7 +66,7 @@ module QRDA
         codes_modifiers = {}
         entry_id_map = {}
         import_data_elements(patient, doc, entry_id_map, codes, codes_modifiers, warnings)
-        normalize_references(patient, entry_id_map)
+        normalize_references(patient, entry_id_map, warnings)
         get_demographics(patient, doc, codes)
         remove_conditional_importers(doc)
         [patient, warnings, codes, codes_modifiers]
@@ -158,13 +158,18 @@ module QRDA
         end
       end
 
-      def normalize_references(patient, entry_id_map)
+      def normalize_references(patient, entry_id_map, warnings)
         patient.qdmPatient.dataElements.each do |data_element|
           next unless data_element.respond_to?(:relatedTo) && data_element.relatedTo
 
           relations_to_add = []
           data_element.relatedTo.each do |related_to|
-            relations_to_add += entry_id_map["#{related_to['value']}_#{related_to['namingSystem']}"]
+            relation_to_add = entry_id_map["#{related_to['value']}_#{related_to['namingSystem']}"]
+            relations_to_add += relation_to_add unless relation_to_add.nil?
+            if relation_to_add.nil?
+              id_warning_str = "Related To Id: #{related_to['namingSystem']}(root), #{related_to['value']}(extension) cannot be found in QRDA file."
+              warnings << ValidationError.new(message: id_warning_str)
+            end
           end
           data_element.relatedTo = relations_to_add.map(&:to_s)
         end
