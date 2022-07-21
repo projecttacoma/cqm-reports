@@ -80,9 +80,17 @@ module QRDA
           data_elements, id_map = importer.create_entries(context, nrh)
           new_data_elements = []
 
-          id_map.each_value do |elem_ids|
+          id_map.each_pair do |key, elem_ids|
             elem_id = elem_ids.first
             data_element = data_elements.find { |de| de.id == elem_id }
+
+            # If a data_element isn't returned, there was an issue parsing the template, provide a warning
+            if data_element.nil?
+              split_id = key.split('***')
+              warnings << ValidationError.new(message: "Error parsing template with Id: #{split_id[1]}(root), #{split_id[0]}(extension).")
+              next
+            end
+
             # Keep the first element with a shared ID
             new_data_elements << data_element
 
@@ -164,7 +172,7 @@ module QRDA
 
           relations_to_add = []
           data_element.relatedTo.each do |related_to|
-            relation_to_add = entry_id_map["#{related_to['value']}_#{related_to['namingSystem']}"]
+            relation_to_add = entry_id_map["#{related_to['value']}***#{related_to['namingSystem']}"]
             relations_to_add += relation_to_add unless relation_to_add.nil?
             if relation_to_add.nil?
               id_warning_str = "Related To Id: #{related_to['namingSystem']}(root), #{related_to['value']}(extension) cannot be found in QRDA file."
