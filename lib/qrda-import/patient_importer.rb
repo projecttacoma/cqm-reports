@@ -81,13 +81,15 @@ module QRDA
           new_data_elements = []
 
           id_map.each_pair do |key, elem_ids|
-            elem_id = elem_ids.first
+            split_id = key.split('***')
+            id_string = "#{split_id[1]}(root), #{split_id[0]}(extension)"
+            warnings << ValidationError.new(message: "Two or more entries share the Id: #{id_string}.") if elem_ids.length > 1
+            elem_id = elem_ids.last
             data_element = data_elements.find { |de| de.id == elem_id }
 
             # If a data_element isn't returned, there was an issue parsing the template, provide a warning
             if data_element.nil?
-              split_id = key.split('***')
-              warnings << ValidationError.new(message: "Error parsing template with Id: #{split_id[1]}(root), #{split_id[0]}(extension).")
+              warnings << ValidationError.new(message: "Error parsing template with Id: #{id_string}.")
               next
             end
 
@@ -102,7 +104,7 @@ module QRDA
             unique_element_keys << key_elements_for_determining_encounter_uniqueness(data_element)
 
             # Loop through all other data elements with the same id
-            elem_ids[1,elem_ids.length].each do |dup_id|
+            elem_ids[0,elem_ids.length - 1].each do |dup_id|
               dup_element = data_elements.find { |de| de.id == dup_id }
               dup_element_keys = key_elements_for_determining_encounter_uniqueness(dup_element)
               # See if a previously selected data element shared all of the keys files
