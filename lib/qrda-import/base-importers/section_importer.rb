@@ -47,8 +47,8 @@ module QRDA
         entry_qrda_id = extract_id(entry_element, @id_xpath)
         # Create a hash to map all of entry.ids to the same QRDA ids. This will be used to merge QRDA entries
         # that represent the same event.
-        @entry_id_map["#{entry_qrda_id.value}_#{entry_qrda_id.namingSystem}"] ||= []
-        @entry_id_map["#{entry_qrda_id.value}_#{entry_qrda_id.namingSystem}"] << entry.id
+        @entry_id_map["#{entry_qrda_id.value}***#{entry_qrda_id.namingSystem}"] ||= []
+        @entry_id_map["#{entry_qrda_id.value}***#{entry_qrda_id.namingSystem}"] << entry.id
         entry.dataElementCodes = extract_codes(entry_element, @code_xpath)
         extract_dates(entry_element, entry)
         if @result_xpath
