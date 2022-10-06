@@ -18,7 +18,7 @@ module QRDA
         device_applied.anatomicalLocationSite = code_if_present(entry_element.at_xpath(@anatomical_location_site_xpath))
         device_applied.reason = extract_reason(entry_element)
         entity = extract_entity(entry_element, "./cda:participant[@typeCode='PRF']")
-        device_applied.performer.concat(entity) if entity
+        device_applied.performer = entity.first if entity
         device_applied
       end
 
