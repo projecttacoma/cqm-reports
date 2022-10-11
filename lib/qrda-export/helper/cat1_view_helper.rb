@@ -91,7 +91,7 @@ module Qrda
           if i == f
             unit ? "<value xsi:type=\"PQ\" value=\"#{i}\" unit=\"#{unit}\"/>" : "<value xsi:type=\"INT\" value=\"#{i}\"/>"
           else
-            unit ? "<value xsi:type=\"PQ\" value=\"#{f}\" unit=\"#{unit}\"/>" : "<value xsi:type=\"PQ\" value=\"#{f}\" unit=\"1\"/>"
+            unit ? "<value xsi:type=\"PQ\" value=\"#{f}\" unit=\"#{unit}\"/>" : "<value xsi:type=\"REAL\" value=\"#{f}\"/>"
           end
         end
 
