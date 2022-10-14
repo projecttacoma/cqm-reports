@@ -74,7 +74,7 @@ module Qrda
                               "<value xsi:type=\"ST\">#{self['result']}</value>"
                             end
                           elsif !self['result'].nil?
-                            "<value xsi:type=\"PQ\" value=\"#{self['result']}\" unit=\"1\"/>"
+                            integer_or_pq(self['result'])
                           end
           result_string
         end
@@ -83,7 +83,16 @@ module Qrda
           return "<value xsi:type=\"CD\" nullFlavor=\"UNK\"/>" unless result
           oid = result['system'] || result['codeSystem']
           return "<value xsi:type=\"CD\" code=\"#{result['code']}\" codeSystem=\"#{oid}\" codeSystemName=\"#{HQMF::Util::CodeSystemHelper.code_system_for(oid)}\"/>" if result['code']
-          return "<value xsi:type=\"PQ\" value=\"#{result['value']}\" unit=\"#{result['unit']}\"/>" if result['unit'] && result['unit'] != ''
+          return integer_or_pq(result['value'], result['unit']) if result['unit'] && result['unit'] != ''
+        end
+
+        def integer_or_pq(number, unit = nil)
+          i, f = number.to_i, number.to_f
+          if i == f
+            unit ? "<value xsi:type=\"PQ\" value=\"#{i}\" unit=\"#{unit}\"/>" : "<value xsi:type=\"INT\" value=\"#{i}\"/>"
+          else
+            unit ? "<value xsi:type=\"PQ\" value=\"#{f}\" unit=\"#{unit}\"/>" : "<value xsi:type=\"REAL\" value=\"#{f}\"/>"
+          end
         end
 
         def authordatetime_or_dispenserid?
