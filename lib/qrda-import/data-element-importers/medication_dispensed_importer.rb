@@ -19,7 +19,7 @@ module QRDA
 
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         medication_dispensed = super
-        medication_dispensed.refills = extract_scalar(entry_element, @refills_xpath)&.value
+        medication_dispensed.refills = extract_refills(entry_element, @refills_xpath)
         medication_dispensed.dosage = extract_scalar(entry_element, @dosage_xpath)
         medication_dispensed.supply = extract_scalar(entry_element, @supply_xpath)
         medication_dispensed.frequency = frequency_as_coded_value(entry_element, @frequency_xpath)
