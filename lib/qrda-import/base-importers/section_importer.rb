@@ -278,7 +278,8 @@ module QRDA
         return unless repeat_number_element && repeat_number_element['value'].present?
 
         # Refills is the Repeat Number - 1
-        repeat_number_element['value'].to_f - 1
+        repeat_number = repeat_number_element['value'].to_i
+        repeat_number.positive? ? repeat_number - 1 : 0
       end
 
       def extract_components(parent_element)
