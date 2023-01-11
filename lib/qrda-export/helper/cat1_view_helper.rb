@@ -87,7 +87,8 @@ module Qrda
         end
 
         def integer_or_pq(number, unit = nil)
-          i, f = number.to_i, number.to_f
+          i = number.to_i
+          f = number.to_f
           if i == f
             unit ? "<value xsi:type=\"PQ\" value=\"#{i}\" unit=\"#{unit}\"/>" : "<value xsi:type=\"INT\" value=\"#{i}\"/>"
           else
