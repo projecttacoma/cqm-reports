@@ -16,6 +16,7 @@ Metrics/ModuleLength:
 Metrics/ClassLength:
   Max: 110
   Exclude:
+    - 'lib/html-export/qdm-patient/qdm_patient.rb'
     - 'lib/qrda-import/base-importers/section_importer.rb'   
     - 'lib/qrda-import/patient_importer.rb' 
     - 'lib/qrda-export/catI-r5/qrda1_r5.rb'

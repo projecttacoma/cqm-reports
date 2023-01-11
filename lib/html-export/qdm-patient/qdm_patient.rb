@@ -52,12 +52,13 @@ class QdmPatient < Mustache
   end
 
   def unit_string
-    return "#{trimed_value(self['value'])}" if !self['unit'] || self['unit'] == '1'
+    return trimed_value(self['value']).to_s if !self['unit'] || self['unit'] == '1'
     "#{trimed_value(self['value'])} #{self['unit']}"
   end
 
   def trimed_value(number)
-    i, f = number.to_i, number.to_f
+    i = number.to_i
+    f = number.to_f
     i == f ? i : f
   end
 
