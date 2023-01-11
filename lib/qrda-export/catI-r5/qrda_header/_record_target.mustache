@@ -4,6 +4,9 @@
     {{#medicare_beneficiary_identifier}}
       <id extension="{{medicare_beneficiary_identifier}}" root="2.16.840.1.113883.4.927" />
     {{/medicare_beneficiary_identifier}}
+    {{#hicn}}
+        <id extension="{{hicn}}" root="2.16.840.1.113883.4.572" />
+    {{/hicn}}
     {{#patient_addresses}}
       <addr use="{{use}}">
         {{#street}}
