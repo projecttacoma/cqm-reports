@@ -47,8 +47,8 @@ module QRDA
         entry_qrda_id = extract_id(entry_element, @id_xpath)
         # Create a hash to map all of entry.ids to the same QRDA ids. This will be used to merge QRDA entries
         # that represent the same event.
-        @entry_id_map["#{entry_qrda_id.value}_#{entry_qrda_id.namingSystem}"] ||= []
-        @entry_id_map["#{entry_qrda_id.value}_#{entry_qrda_id.namingSystem}"] << entry.id
+        @entry_id_map["#{entry_qrda_id.value}***#{entry_qrda_id.namingSystem}"] ||= []
+        @entry_id_map["#{entry_qrda_id.value}***#{entry_qrda_id.namingSystem}"] << entry.id
         entry.dataElementCodes = extract_codes(entry_element, @code_xpath)
         extract_dates(entry_element, entry)
         if @result_xpath
@@ -201,11 +201,11 @@ module QRDA
           if ['TS'].include? value_element.at_xpath("@xsi:type")&.value
             begin
               return DateTime.parse(value_element['value'])
-            rescue
+            rescue StandardError
               return nil
             end
           end
-          return value.strip.to_f if (value_element['unit'] == "1" || value_element['unit'].nil?)
+          return value.strip.to_f if unitless?(value_element)
 
           return QDM::Quantity.new(value.strip.to_f, value_element['unit'])
         elsif value_element['code'].present?
@@ -218,6 +218,12 @@ module QRDA
                                            location: value_element.path)
           return value_element.text
         end
+      end
+
+      def unitless?(value_element)
+        return true if value_element['unit'].nil?
+        return true if value_element['unit'] == '1'
+        return true if value_element['unit'][0] == '{' && value_element['unit'][-1] == '}'
       end
 
       def extract_reason(parent_element)

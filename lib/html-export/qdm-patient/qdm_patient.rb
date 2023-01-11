@@ -52,8 +52,14 @@ class QdmPatient < Mustache
   end
 
   def unit_string
-    return "#{self['value']} " if !self['unit'] || self['unit'] == '1'
-    "#{self['value']} #{self['unit']}"
+    return trimed_value(self['value']).to_s if !self['unit'] || self['unit'] == '1'
+    "#{trimed_value(self['value'])} #{self['unit']}"
+  end
+
+  def trimed_value(number)
+    i = number.to_i
+    f = number.to_f
+    i == f ? i : f
   end
 
   def entity_string
@@ -120,15 +126,18 @@ class QdmPatient < Mustache
     return unit_string if self['value']
     return code_code_system_string if self['code']
 
-    self['result']
+    trimed_value(self['result'])
   end
 
   def nested_code_string
     code_for_element(self['code'])
   end
 
-  def diagnosis_rank_string
-    " (rank: #{self['rank']})" if self['rank']
+  def diagnosis_string
+    dx_string = ''
+    dx_string += "</br>&nbsp; rank: #{self['rank']}" if self['rank']
+    dx_string += "</br>&nbsp; presentOnAdmissionIndicator: #{self['presentOnAdmissionIndicator']['code']}" if self['presentOnAdmissionIndicator']
+    dx_string
   end
 
   def end_time?
