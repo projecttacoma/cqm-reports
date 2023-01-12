@@ -25,7 +25,7 @@ module QRDA
         medication_order.dosage = extract_scalar(entry_element, @dosage_xpath)
         medication_order.supply = extract_scalar(entry_element, @supply_xpath)
         medication_order.frequency = frequency_as_coded_value(entry_element, @frequency_xpath)
-        medication_order.refills = extract_scalar(entry_element, @refills_xpath)&.value
+        medication_order.refills = extract_refills(entry_element, @refills_xpath)
         medication_order.route = code_if_present(entry_element.at_xpath(@route_xpath))
         medication_order.setting = code_if_present(entry_element.at_xpath(@setting_xpath))
         medication_order.daysSupplied = extract_scalar(entry_element, @days_supplied_xpath)&.value
