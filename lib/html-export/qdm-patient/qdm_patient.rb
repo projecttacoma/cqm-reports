@@ -10,6 +10,7 @@ class QdmPatient < Mustache
     @patient = patient
     @qdmPatient = patient.qdmPatient
     @patient_addresses = patient['addresses']
+    @patient_email = patient['email']
     @patient_telecoms = patient['telecoms']
   end
 
@@ -35,6 +36,7 @@ class QdmPatient < Mustache
   def patient_telecoms
     @patient_telecoms ||= [CQM::Telecom.new(use: 'HP', value: '555-555-2003')]
     # create formatted telecoms
+    @patient_telecoms << CQM::Telecom.new(use: 'HP', value: @patient_email) if @patient_email
     @patient_telecoms.map { |telecom| "(#{telecom['use']}) #{telecom['value']}" }.join("<br>")
   end
 
