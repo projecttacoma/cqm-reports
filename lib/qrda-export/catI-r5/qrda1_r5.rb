@@ -20,6 +20,7 @@ class Qrda1R5 < Mustache
     @performance_period_end = options[:end_time]
     @submission_program = options[:submission_program]
     @medicare_beneficiary_identifier = options[:medicare_beneficiary_identifier]
+    @hicn = options[:hicn]
   end
 
   def patient_addresses
