@@ -128,7 +128,13 @@ class QdmPatient < Mustache
     return unit_string if self['value']
     return code_code_system_string if self['code']
 
-    trimed_value(self['result'])
+    # Checks to see if the result is a DateTime value, String, or Numeric
+    begin
+      DateTime.parse(self['result'])
+    rescue ArgumentError, TypeError
+      # If the value is not numeric, just print out the result
+      self['result'].is_a?(Numeric) ? trimed_value(self['result']) : self['result']
+    end
   end
 
   def nested_code_string
