@@ -4,7 +4,7 @@ module Qrda
     module Helper
       module ViewHelper
         def measures
-          @measures.only(:hqmf_id, :hqmf_set_id, :description).as_json
+          @measures.as_json
         end
 
         def random_id
