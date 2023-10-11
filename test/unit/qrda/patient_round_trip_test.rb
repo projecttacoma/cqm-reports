@@ -5,7 +5,7 @@ require 'nokogiri/diff'
 
 module QRDA
   module Cat1
-    class PatientRoundTripTest < MiniTest::Test
+    class PatientRoundTripTest < Minitest::Test
       include QRDA::Cat1
 
       def setup

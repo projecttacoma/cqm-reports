@@ -3,7 +3,7 @@ require 'cqm/models'
 require 'byebug'
 
 module HTML
-  class PatientRoundTripTest < MiniTest::Test
+  class PatientRoundTripTest < Minitest::Test
     # include QRDA::Cat1
 
     def setup

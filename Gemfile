@@ -2,8 +2,6 @@ source 'https://rubygems.org'
 
 gemspec :development_group => :test
 
-gem 'mongoid', '~> 6.4.2'
-
 gem 'protected_attributes_continued'
 
 group :development, :test do
