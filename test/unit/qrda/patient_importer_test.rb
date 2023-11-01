@@ -3,7 +3,7 @@ require 'cqm/models'
 
 module QRDA
   module Cat1
-    class PatientImporterTest < MiniTest::Test
+    class PatientImporterTest < Minitest::Test
       def setup
         @importer = Cat1::PatientImporter.instance
         @patient = CQM::Patient.new

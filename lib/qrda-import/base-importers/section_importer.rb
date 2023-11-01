@@ -272,6 +272,15 @@ module QRDA
         QDM::Quantity.new(scalar_element['value'].to_f, scalar_element['unit'])
       end
 
+      def extract_refills(parent_element, repeat_number_xpath)
+        repeat_number_element = parent_element.at_xpath(repeat_number_xpath)
+        return unless repeat_number_element && repeat_number_element['value'].present?
+
+        # Refills is the Repeat Number - 1
+        repeat_number = repeat_number_element['value'].to_i
+        repeat_number.positive? ? repeat_number - 1 : 0
+      end
+
       def extract_components(parent_element)
         component_elements = parent_element.xpath(@components_xpath)
         components = []

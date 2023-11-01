@@ -55,6 +55,10 @@ module Qrda
           self['value'].to_f
         end
 
+        def refills_as_repeat_number
+          self['refills'] + 1
+        end
+
         def dose_quantity_value
           return "<doseQuantity value=\"#{value_as_float}\" unit=\"#{self['unit']}\"/>" if self['unit'] && self['unit'] != ''
           "<doseQuantity value=\"#{value_as_float}\" />"
