@@ -38,3 +38,5 @@ Style/DateTime:
   Enabled: false
 Performance/HashEachMethods:
   Enabled: false
+Layout/BlockAlignment:
+  Enabled: false
