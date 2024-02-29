@@ -18,7 +18,7 @@ module HQMF
         @id_map[version]
       end
 
-      def self.template_id_by_definition_and_status(definition, status, negation = false, version = "r1")
+      def self.template_id_by_definition_and_status(definition, status, negation, version)
         case version
         when "r1"
           kv_pair = template_id_map(version).find { |k, v| v['definition'] == definition &&
