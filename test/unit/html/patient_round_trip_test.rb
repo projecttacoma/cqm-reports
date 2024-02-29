@@ -35,7 +35,7 @@ module HTML
     end
 
     def test_all_html_attributes
-      qdm_types = YAML.safe_load(File.read(File.expand_path('../../../config/qdm_types.yml', __dir__)), [], [], true)
+      qdm_types = YAML.safe_load(File.read(File.expand_path('../../../config/qdm_types.yml', __dir__)), aliases: true)
       qdm_types.each do |qt|
         dt = QDM::PatientGeneration.generate_loaded_datatype("QDM::#{qt}")
         # check custom generated datatype for negationRationale field

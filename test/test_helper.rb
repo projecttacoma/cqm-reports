@@ -1,5 +1,4 @@
 require_relative './simplecov_init'
-require 'factory_girl'
 require 'erubis'
 require 'active_support'
 require 'mongoid'
@@ -22,7 +21,6 @@ require "minitest/reporters"
 require 'bundler/setup'
 
 Mongoid.load!('config/mongoid.yml', :test)
-FactoryGirl.find_definitions
 
 class Minitest::Test
   extend Minitest::Spec::DSL

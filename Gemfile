@@ -6,7 +6,7 @@ gem 'protected_attributes_continued'
 
 group :development, :test do
   gem 'bundler-audit'
-  gem 'rubocop', '~> 0.52.1', require: false
+  gem 'rubocop', '~> 0.93.0', require: false
 end
 
 group :development do
@@ -16,7 +16,6 @@ end
 
 group :test do
   gem 'cqm-models', '~> 4.0'
-  gem 'factory_girl', '~> 4.1.0'
   gem 'tailor', '~> 1.1.2'
   gem 'cane', '~> 2.3.0'
   gem 'codecov'
