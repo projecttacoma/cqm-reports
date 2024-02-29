@@ -16,7 +16,6 @@ end
 
 group :test do
   gem 'cqm-models', '~> 4.0'
-  gem 'factory_girl', '~> 4.1.0'
   gem 'tailor', '~> 1.1.2'
   gem 'cane', '~> 2.3.0'
   gem 'codecov'
