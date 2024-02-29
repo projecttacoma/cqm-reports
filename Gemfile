@@ -6,7 +6,7 @@ gem 'protected_attributes_continued'
 
 group :development, :test do
   gem 'bundler-audit'
-  gem 'rubocop', '~> 0.52.1', require: false
+  gem 'rubocop', '~> 0.93.0', require: false
 end
 
 group :development do

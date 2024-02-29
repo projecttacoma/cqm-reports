@@ -3,23 +3,23 @@ module Qrda
     module Helper
       module PopulationSelectors
         def numerator
-          populations.find {|pop| pop.type == 'NUMER'}
+          populations.find { |pop| pop.type == 'NUMER' }
         end
 
         def denominator
-          populations.find {|pop| pop.type == 'DENOM'}
+          populations.find { |pop| pop.type == 'DENOM' }
         end
 
         def denominator_exceptions
-          populations.find {|pop| pop.type == 'DENEXCEP'}
+          populations.find { |pop| pop.type == 'DENEXCEP' }
         end
 
         def denominator_exclusions
-          populations.find {|pop| pop.type == 'DENEX'}
+          populations.find { |pop| pop.type == 'DENEX' }
         end
 
         def population_count(population_type, population_id)
-          population = populations.find {|pop| pop.type == population_type && pop.id == population_id}
+          population = populations.find { |pop| pop.type == population_type && pop.id == population_id }
           if population
             population.value
           else
@@ -28,7 +28,7 @@ module Qrda
         end
 
         def population_id(population_type)
-          populations.find {|pop| pop.type == population_type}.id
+          populations.find { |pop| pop.type == population_type }.id
         end
 
         def method_missing(method, *args, &block)
@@ -64,7 +64,7 @@ module Qrda
         end
 
         def add_stratification(id,value,observation)
-          stratifications << Stratification.new(id,value,observation) unless stratifications.find {|st| st.id == id}
+          stratifications << Stratification.new(id,value,observation) unless stratifications.find { |st| st.id == id }
         end
 
       end
@@ -91,7 +91,7 @@ module Qrda
         end
 
         def is_cv?
-          populations.any? {|pop| pop.type == 'MSRPOPL'}
+          populations.any? { |pop| pop.type == 'MSRPOPL' }
         end
 
       end
@@ -123,7 +123,7 @@ module Qrda
             end
             entry_populations << population if population
           end
-          return if population_groups.find {|pg| pg.populations.collect(&:id).compact.sort == entry_populations.collect(&:id).compact.sort }
+          return if population_groups.find { |pg| pg.populations.collect(&:id).compact.sort == entry_populations.collect(&:id).compact.sort }
 
           pg = PopulationGroup.new
           pg.populations = entry_populations
@@ -142,7 +142,7 @@ module Qrda
         end
 
         def is_cv?
-          populations.any? {|pop| pop.type == 'MSRPOPL'}
+          populations.any? { |pop| pop.type == 'MSRPOPL' }
         end
       end
     end
