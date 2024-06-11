@@ -28,6 +28,7 @@ class Qrda3 < Mustache
     @performance_period_end = options[:end_time]
     @submission_program = options[:submission_program]
     @ry2022_submission = options[:ry2022_submission]
+    @ry2025_submission = options[:ry2025_submission]
   end
 
   def agg_results(measure_id, cache_entries, population_sets)
@@ -90,6 +91,10 @@ class Qrda3 < Mustache
 
   def ry2022_submission?
     @ry2022_submission
+  end
+
+  def ry2025_submission?
+    @ry2025_submission
   end
 
   def payer_code?
