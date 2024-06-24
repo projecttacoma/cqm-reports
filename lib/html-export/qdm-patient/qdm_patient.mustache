@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     {{#patient}}
-    <title>Cypress Certification Patient Test Record: {{given_name}} {{familyName}}</title>
+    <title>Patient Test Record: {{given_name}} {{familyName}}</title>
     {{/patient}}
     {{#include_style?}}
       {{> _header_css}}
@@ -11,7 +11,7 @@
   </head>
   <body>
     {{#patient}}
-    <h1 class="h1center">Cypress Certification Patient Test Record: {{given_name}} {{familyName}}</h1>
+    <h1 class="h1center">Patient Test Record: {{given_name}} {{familyName}}</h1>
     <div class="div-table">
       <div class="div-table-body">
         <div class="div-head-row patient_narr_tr panel panel-default patient-details">
@@ -36,7 +36,7 @@
           <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Insurance Providers</span></div>
           <div class="div-table-head">{{{payer}}}{{#demographic_code_description}}payer{{/demographic_code_description}}</div>
           <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Patient IDs</span></div>
-          <div class="div-table-head">{{{mrn}}} Cypress</div>
+          <div class="div-table-head">{{{mrn}}}</div>
         </div>
         <div class="div-head-row patient_narr_tr panel panel-default patient-details">
           <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Address</span></div>
