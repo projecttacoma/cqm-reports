@@ -5,4 +5,9 @@ SimpleCov.start do
   track_files 'lib/**/*.rb'
 end
 
-SimpleCov.formatter = SimpleCov::Formatter::Codecov
+if ENV['CI'] == 'true'
+  require 'simplecov-cobertura'
+  SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+else
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
+end

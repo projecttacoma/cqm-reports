@@ -31,3 +31,8 @@ jobs:
       run: bundle exec rake test
     - name: Run rubocop
       run: rubocop
+    - name: Upload code coverage to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        directory: coverage
+        name: codecov-integration
