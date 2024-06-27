@@ -20,6 +20,7 @@ group :test do
   gem 'cane', '~> 2.3.0'
   gem 'codecov'
   gem 'simplecov', :require => false
+  gem 'simplecov-cobertura'
   gem 'webmock'
   gem 'minitest', '~> 5.3'
   gem 'minitest-reporters'
