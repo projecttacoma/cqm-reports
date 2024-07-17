@@ -22,6 +22,11 @@ class Qrda1R5 < Mustache
     @submission_program = options[:submission_program]
     @medicare_beneficiary_identifier = options[:medicare_beneficiary_identifier]
     @hicn = options[:hicn]
+    @authoring_system = options[:authoring_system]
+  end
+
+  def authoring_system
+    @authoring_system || 'TestSystem'
   end
 
   def patient_addresses

@@ -29,6 +29,7 @@ class Qrda3 < Mustache
     @submission_program = options[:submission_program]
     @ry2022_submission = options[:ry2022_submission]
     @ry2025_submission = options[:ry2025_submission]
+    @authoring_system = options[:authoring_system]
   end
 
   def agg_results(measure_id, cache_entries, population_sets)
@@ -95,6 +96,10 @@ class Qrda3 < Mustache
 
   def ry2025_submission?
     @ry2025_submission
+  end
+
+  def authoring_system
+    @authoring_system || 'TestSystem'
   end
 
   def payer_code?
