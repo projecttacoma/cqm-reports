@@ -3,15 +3,15 @@ module QRDA
     class MedicationDischargeImporter < SectionImporter
       def initialize(entry_finder = QRDA::Cat1::EntryFinder.new("./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.105']"))
         super(entry_finder)
-        @id_xpath = './cda:entryRelationship/cda:substanceAdministration/cda:id'
-        @code_xpath = "./cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code"
-        @author_datetime_xpath = "./cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:author[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.155']/cda:time"
-        @refills_xpath = "./cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:repeatNumber"
-        @dosage_xpath = "./cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:doseQuantity"
-        @supply_xpath = "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.99']/cda:quantity"
-        @frequency_xpath = "./cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:effectiveTime[@operator='A']/cda:period"
-        @days_supplied_xpath = "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.157']/cda:quantity"
-        @route_xpath = "./cda:entryRelationship/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:routeCode"
+        @id_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:substanceAdministration/cda:id"
+        @code_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code"
+        @author_datetime_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:author[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.155']/cda:time"
+        @refills_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:repeatNumber"
+        @dosage_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:doseQuantity"
+        @supply_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.99']/cda:quantity"
+        @frequency_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:effectiveTime[@operator='A']/cda:period"
+        @days_supplied_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.157']/cda:quantity"
+        @route_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:routeCode"
 
         @entry_class = QDM::MedicationDischarge
       end

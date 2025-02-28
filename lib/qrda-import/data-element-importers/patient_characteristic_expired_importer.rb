@@ -6,7 +6,7 @@ module QRDA
         @id_xpath = './cda:id'
         @code_xpath = './cda:value'
         @expired_datetime_xpath = './cda:effectiveTime/cda:low'
-        @cause = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.4']/cda:value"
+        @cause = "./cda:entryRelationship[@typeCode='CAUS']/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.4']/cda:value"
         @entry_class = QDM::PatientCharacteristicExpired
       end
 

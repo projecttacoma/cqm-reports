@@ -8,7 +8,7 @@ module QRDA
         @active_datetime_xpath = "./cda:effectiveTime[@value]"
         @author_datetime_xpath = "./cda:author[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.155']/cda:time"
         @dosage_xpath = "./cda:doseQuantity"
-        @supply_xpath = "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.167']/cda:quantity"
+        @supply_xpath = "./cda:entryRelationship[@typeCode='REFR']/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.167']/cda:quantity"
         @route_xpath = "./cda:routeCode"
         @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
         @entry_class = QDM::ImmunizationOrder
