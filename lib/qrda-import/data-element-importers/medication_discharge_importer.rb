@@ -10,7 +10,7 @@ module QRDA
         @dosage_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:doseQuantity"
         @supply_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.99']/cda:quantity"
         @frequency_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:effectiveTime[@operator='A']/cda:period"
-        @days_supplied_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.157']/cda:quantity"
+        @days_supplied_xpath = "./cda:entryRelationship[@typeCode='REFR']/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.157']/cda:quantity"
         @route_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16']/cda:routeCode"
 
         @entry_class = QDM::MedicationDischarge
