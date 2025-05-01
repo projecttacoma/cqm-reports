@@ -106,6 +106,14 @@ class Qrda3 < Mustache
     self['type'] == 'PAYER'
   end
 
+  def gender_code?
+    self['type'] == 'SEX'
+  end
+
+  def other_gender_code?
+    !%w[M F].include?(self['code'])
+  end
+
   def supplemental_data_code
     case self['type']
     when 'RACE'
