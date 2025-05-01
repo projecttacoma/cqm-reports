@@ -3,10 +3,10 @@ module QRDA
     class DeviceRecommendedImporter < SectionImporter
       def initialize(entry_finder = QRDA::Cat1::EntryFinder.new("./cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.131']"))
         super(entry_finder)
-        @id_xpath = "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.10']/cda:id"
-        @code_xpath = "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.10']/cda:participant/cda:participantRole/cda:playingDevice/cda:code"
-        @author_datetime_xpath = "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.10']/cda:author[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.155']/cda:time"
-        @reason_xpath = "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.10']/cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
+        @id_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.10']/cda:id"
+        @code_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.10']/cda:participant/cda:participantRole/cda:playingDevice/cda:code"
+        @author_datetime_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.10']/cda:author[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.155']/cda:time"
+        @reason_xpath = "./cda:entryRelationship[@typeCode='SUBJ']/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.10']/cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
         @entry_class = QDM::DeviceRecommended
       end
 

@@ -8,7 +8,7 @@ module QRDA
         @relevant_period_xpath = "./cda:effectiveTime"
         @author_datetime_xpath = "./cda:author[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.155']/cda:time"
         @dosage_xpath = "./cda:doseQuantity"
-        @supply_xpath = "./cda:entryRelationship/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.99']/cda:quantity"
+        @supply_xpath = "./cda:entryRelationship[@typeCode='COMP']/cda:supply[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.99']/cda:quantity"
         @frequency_xpath = "./cda:effectiveTime[@operator='A']/cda:period"
         @refills_xpath = "./cda:repeatNumber"
         @route_xpath = "./cda:routeCode"

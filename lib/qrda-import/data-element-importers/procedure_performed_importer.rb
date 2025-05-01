@@ -9,13 +9,13 @@ module QRDA
         @relevant_date_time_xpath = './cda:effectiveTime'
         @author_datetime_xpath = "./cda:author[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.155']/cda:time"
         @method_xpath = './cda:methodCode'
-        @result_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.2']/cda:value"
-        @status_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.93']/cda:value"
+        @result_xpath = "./cda:entryRelationship[@typeCode='REFR']/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.2']/cda:value"
+        @status_xpath = "./cda:entryRelationship[@typeCode='REFR']/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.93']/cda:value"
         @anatomical_location_site_xpath = "./cda:targetSiteCode"
-        @incision_datetime_xpath = "./cda:entryRelationship/cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.89']/cda:effectiveTime"
-        @components_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.149']"
+        @incision_datetime_xpath = "./cda:entryRelationship[@typeCode='REFR']/cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.89']/cda:effectiveTime"
+        @components_xpath = "./cda:entryRelationship[@typeCode='REFR']/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.149']"
         @reason_xpath = "./cda:entryRelationship[@typeCode='RSON']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88']/cda:value"
-        @rank_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.166']/cda:value/@value"
+        @rank_xpath = "./cda:entryRelationship[@typeCode='REFR']/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.166']/cda:value/@value"
         @related_to_xpath = "./sdtc:inFulfillmentOf1/sdtc:actReference"
         @entry_class = QDM::ProcedurePerformed
       end

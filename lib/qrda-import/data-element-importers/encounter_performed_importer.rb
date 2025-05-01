@@ -10,8 +10,8 @@ module QRDA
         @admission_source_xpath = "./cda:participant/cda:participantRole[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.151']/cda:code"
         @discharge_disposition_xpath = "./sdtc:dischargeDispositionCode"
         @facility_locations_xpath = "./cda:participant[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.100']"
-        @clazz_xpath = "./cda:entryRelationship/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.171']/cda:code"
-        @diagnosis_xpath = "./cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.168']"
+        @clazz_xpath = "./cda:entryRelationship[@typeCode='REFR']/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.171']/cda:code"
+        @diagnosis_xpath = "./cda:entryRelationship[@typeCode='REFR']/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.168']"
         @related_to_xpath = "./sdtc:inFulfillmentOf1/sdtc:actReference"
         @entry_class = QDM::EncounterPerformed
       end
@@ -51,8 +51,8 @@ module QRDA
         diagnosis_elements.each do |diagnosis_element|
           diagnosis_component = QDM::DiagnosisComponent.new
           diagnosis_component.code = code_if_present(diagnosis_element.at_xpath('./cda:value'))
-          diagnosis_component.presentOnAdmissionIndicator = code_if_present(diagnosis_element.at_xpath("./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.169']/cda:value"))
-          diagnosis_component.rank = diagnosis_element.at_xpath("./cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.166']/cda:value/@value")&.value&.strip.to_i
+          diagnosis_component.presentOnAdmissionIndicator = code_if_present(diagnosis_element.at_xpath("./cda:entryRelationship[@typeCode='REFR']/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.169']/cda:value"))
+          diagnosis_component.rank = diagnosis_element.at_xpath("./cda:entryRelationship[@typeCode='REFR']/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.166']/cda:value/@value")&.value&.strip.to_i
           diagnosis_list << diagnosis_component
         end
         diagnosis_list.empty? ? nil : diagnosis_list
