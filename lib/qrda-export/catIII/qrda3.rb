@@ -69,6 +69,10 @@ class Qrda3 < Mustache
   end
 
   def supplemental_template_ids
+    if other_gender_code?
+      return [{ tid: '2.16.840.1.113883.10.20.27.3.6', extension: '2016-09-01' },
+              { tid: '2.16.840.1.113883.10.20.27.3.21', extension: '2025-05-01' }]
+    end
     case self['type']
     when 'RACE'
       [{ tid: '2.16.840.1.113883.10.20.27.3.8', extension: '2016-09-01' }]
