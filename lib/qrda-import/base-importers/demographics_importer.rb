@@ -30,9 +30,21 @@ module QRDA
       end
 
       def code_if_present(code_element, codes)
+        other_code = other_code_if_present(code_element, codes)
+        return other_code if other_code
         return unless code_element && code_element['code'] && code_element['codeSystem']
         codes.add("#{code_element['code']}:#{code_element['codeSystem']}")
         QDM::Code.new(code_element['code'], code_element['codeSystem'])
+      end
+
+      def other_code_if_present(code_element, codes)
+        return unless code_element['nullFlavor']
+        translations = code_element.xpath('cda:translation')
+        return if translations.blank?
+
+        translations.each do |translation|
+          return code_if_present(translation, codes)
+        end
       end
     end
   end

@@ -20,9 +20,14 @@ class Qrda1R5 < Mustache
     @performance_period_start = options[:start_time]
     @performance_period_end = options[:end_time]
     @submission_program = options[:submission_program]
+    @ry2026_submission = options[:ry2026_submission]
     @medicare_beneficiary_identifier = options[:medicare_beneficiary_identifier]
     @hicn = options[:hicn]
     @authoring_system = options[:authoring_system]
+  end
+
+  def ry2026_submission?
+    @ry2026_submission
   end
 
   def authoring_system

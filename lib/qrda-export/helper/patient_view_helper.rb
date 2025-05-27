@@ -44,6 +44,12 @@ module Qrda
           self['givenNames'].join(' ')
         end
 
+        def onc_gender_code?
+          gender_elements = @qdmPatient.dataElements.select { |de| de._type == "QDM::PatientCharacteristicSex" }
+          return false if gender_elements.empty?
+          gender_elements.first.dataElementCodes.first['system'] == '2.16.840.1.113883.5.1'
+        end
+
         def gender
           gender_elements = @qdmPatient.dataElements.select { |de| de._type == "QDM::PatientCharacteristicSex" }
           return if gender_elements.empty?
