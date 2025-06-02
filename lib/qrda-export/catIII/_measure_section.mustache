@@ -10,8 +10,14 @@
     <!-- In this case the query is using an eMeasure -->
     <!-- QRDA Category III Measure Section template -->
     <templateId extension="2020-12-01" root="2.16.840.1.113883.10.20.27.2.1"/>
-    <!-- QRDA Category III Measure Section - CMS (V4) -->
-    <templateId extension="2022-05-01" root="2.16.840.1.113883.10.20.27.2.3"/>
+    {{#ry2026_submission?}}
+      <!-- QRDA Category III Measure Section - CMS (V6) -->
+      <templateId extension="2025-05-01" root="2.16.840.1.113883.10.20.27.2.3"/>
+    {{/ry2026_submission?}}
+    {{^ry2026_submission?}}
+      <!-- QRDA Category III Measure Section - CMS (V5) -->
+      <templateId extension="2022-05-01" root="2.16.840.1.113883.10.20.27.2.3"/>
+    {{/ry2026_submission?}}
     <code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
     <title>Measure Section</title>
     <text>
@@ -41,7 +47,12 @@
         <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
         <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
         <templateId extension="2020-12-01" root="2.16.840.1.113883.10.20.27.3.1"/>
-        <templateId extension="2022-05-01" root="2.16.840.1.113883.10.20.27.3.17"/>
+        {{#ry2026_submission?}}
+          <templateId extension="2025-05-01" root="2.16.840.1.113883.10.20.27.3.17"/>
+        {{/ry2026_submission?}}
+        {{^ry2026_submission?}}
+          <templateId extension="2022-05-01" root="2.16.840.1.113883.10.20.27.3.17"/>
+        {{/ry2026_submission?}}
         <id extension="{{random_id}}" root="1.3.6.1.4.1.115"/>
         <statusCode code="completed"/>
         <!-- Containing isBranch external references -->
