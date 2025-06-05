@@ -26,8 +26,9 @@ class Qrda1R5 < Mustache
     @authoring_system = options[:authoring_system]
   end
 
+  # use 2026 template ids if 2026 submission is specified as true, or if it unspecified
   def ry2026_submission?
-    @ry2026_submission
+    @ry2026_submission || @ry2026_submission.nil?
   end
 
   def authoring_system
