@@ -1,7 +1,15 @@
+require 'time'
+
 module Qrda
   module Export
     module Helper
       module PatientViewHelper
+        def format_datetime(str)
+          return 'None' unless str
+          Time.parse(str).localtime.strftime('%b %-d, %Y %l:%M %p')
+        end
+
+        
         def provider
           JSON.parse(@provider.to_json) if @provider
         end
@@ -59,13 +67,13 @@ module Qrda
         def birthdate
           birthdate_elements = @qdmPatient.dataElements.select { |de| de._type == "QDM::PatientCharacteristicBirthdate" }
           return "None" if birthdate_elements.empty?
-          birthdate_elements.first['birthDatetime']
+          format_datetime(birthdate_elements.first['birthDatetime'])
         end
 
         def expiration
           expired_elements = @qdmPatient.dataElements.select { |de| de._type == "QDM::PatientCharacteristicExpired" }
           return "None" if expired_elements.empty?
-          expired_elements.first['expiredDatetime']
+          format_datetime(expired_elements.first['expiredDatetime'])
         end
 
         def race
