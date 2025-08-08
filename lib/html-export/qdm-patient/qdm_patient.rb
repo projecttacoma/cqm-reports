@@ -154,7 +154,7 @@ class QdmPatient < Mustache
   end
 
   def format_time
-    str = render('{{.}}').to_s.strip   # current section value
+    str = render('{{.}}').to_s.strip # current section value
     return "" if str.empty? || str == "null"
     convert_iso_timestamp_to_human_readable(str)
   rescue ArgumentError, TypeError => _e
