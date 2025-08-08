@@ -157,7 +157,7 @@ class QdmPatient < Mustache
     str = render('{{.}}').to_s.strip   # current section value
     return "" if str.empty? || str == "null"
     convert_iso_timestamp_to_human_readable(str)
-  rescue => _
+  rescue ArgumentError, TypeError => _e
     str
   end
 
