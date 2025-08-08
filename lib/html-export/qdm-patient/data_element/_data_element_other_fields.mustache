@@ -169,10 +169,10 @@
 {{/recorder}}
 {{#referenceRange}}
 	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Reference Range Start:</span>  {{{low}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Reference Range Start:</span>  {{#low}}{{format_time}}{{/low}}</div>
 	</div>
 	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Reference Range End:</span>  {{{high}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Reference Range End:</span>  {{#high}}{{format_time}}{{/high}}</div>
 	</div>
 {{/referenceRange}}
 {{#refills}}
