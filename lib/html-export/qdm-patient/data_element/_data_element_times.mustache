@@ -2,77 +2,77 @@
 <div class="div-table-body">
 {{#relevantPeriod}}
 	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Relevant Period Start:</span>  {{{low}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Relevant Period Start:</span>  {{#low}}{{format_time}}{{/low}}</div>
 	</div>
 	{{#end_time?}}
 		<div class="div-head-row">
-			<div class="div-table-head--no-border"><span class="criteria-heading">Relevant Period End:</span>  {{{high}}}</div>
+			<div class="div-table-head--no-border"><span class="criteria-heading">Relevant Period End:</span>  {{#high}}{{format_time}}{{/high}}</div>
 		</div>
 	{{/end_time?}}
 {{/relevantPeriod}}
 {{#relevantDatetime}}
 	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Relevant Date/Time:</span>  {{{relevantDatetime}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Relevant Date/Time:</span>  {{#relevantDatetime}}{{format_time}}{{/relevantDatetime}}</div>
 	</div>
 {{/relevantDatetime}}
 {{#prevalencePeriod}}
 	<div class="div-head-row">
-	    <div class="div-table-head--no-border"><span class="criteria-heading">Prevalence Period Start:</span>  {{{low}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Prevalence Period Start:</span>  {{#low}}{{format_time}}{{/low}}</div>
 	</div>
 	{{#end_time?}}
 		<div class="div-head-row">
-		    <div class="div-table-head--no-border"><span class="criteria-heading">Prevalence Period End:</span>  {{{high}}}</div>
+			<div class="div-table-head--no-border"><span class="criteria-heading">Prevalence Period End:</span>  {{#high}}{{format_time}}{{/high}}</div>
 		</div>
 	{{/end_time?}}
 {{/prevalencePeriod}}
 {{#participationPeriod}}
 	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Participation Period Start:</span>  {{{low}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Participation Period Start:</span>  {{#low}}{{format_time}}{{/low}}</div>
 	</div>
 	{{#end_time?}}
 		<div class="div-head-row">
-			<div class="div-table-head--no-border"><span class="criteria-heading">Participation Period End:</span>  {{{high}}}</div>
+			<div class="div-table-head--no-border"><span class="criteria-heading">Participation Period End:</span>  {{#high}}{{format_time}}{{/high}}</div>
 		</div>
 	{{/end_time?}}
 {{/participationPeriod}}
 {{#authorDatetime}}
 	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Author Date/Time:</span>  {{{authorDatetime}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Author Date/Time:</span>  {{#authorDatetime}}{{format_time}}{{/authorDatetime}}</div>
 	</div>
 {{/authorDatetime}}
 {{#resultDatetime}}
 	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Result Date/Time:</span>  {{{resultDatetime}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Result Date/Time:</span>  {{#resultDatetime}}{{format_time}}{{/resultDatetime}}</div>
 	</div>
 {{/resultDatetime}}
 {{#activeDatetime}}
 	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Active Date/Time:</span>  {{{activeDatetime}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Active Date/Time:</span>  {{#activeDatetime}}{{format_time}}{{/activeDatetime}}</div>
 	</div>
 {{/activeDatetime}}
 {{#incisionDatetime}}
 	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Incision Date/Time:</span>  {{{incisionDatetime}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Incision Date/Time:</span>  {{#incisionDatetime}}{{format_time}}{{/incisionDatetime}}</div>
 	</div>
 {{/incisionDatetime}}
 {{#receivedDatetime}}
 	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Received Date/Time:</span>  {{{receivedDatetime}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Received Date/Time:</span>  {{#receivedDatetime}}{{format_time}}{{/receivedDatetime}}</div>
 	</div>
 {{/receivedDatetime}}
 {{#sentDatetime}}
 	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Sent Date/Time:</span>  {{{sentDatetime}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Sent Date/Time:</span>  {{#sentDatetime}}{{format_time}}{{/sentDatetime}}</div>
 	</div>
 {{/sentDatetime}}
 {{#birthDatetime}}
 	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Birth Date/Time:</span>  {{{birthDatetime}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Birth Date/Time:</span>  {{#birthDatetime}}{{format_time}}{{/birthDatetime}}</div>
 	</div>
 {{/birthDatetime}}
 {{#expiredDatetime}}
 	<div class="div-head-row">
-		<div class="div-table-head--no-border"><span class="criteria-heading">Expired Date/Time:</span>  {{{expiredDatetime}}}</div>
+		<div class="div-table-head--no-border"><span class="criteria-heading">Expired Date/Time:</span>  {{#expiredDatetime}}{{format_time}}{{/expiredDatetime}}</div>
 	</div>
 {{/expiredDatetime}}
 </div>

@@ -1,4 +1,5 @@
 require 'mustache'
+require 'time'
 class QdmPatient < Mustache
   include Qrda::Export::Helper::PatientViewHelper
   include HQMF::Util::EntityHelper
@@ -150,5 +151,18 @@ class QdmPatient < Mustache
 
   def end_time?
     self['high'] && DateTime.parse(self['high']).year < 3000
+  end
+
+  def format_time
+    str = render('{{.}}').to_s.strip # current section value
+    return "" if str.empty? || str == "null"
+    convert_iso_timestamp_to_human_readable(str)
+  rescue ArgumentError, TypeError => _e
+    str
+  end
+
+  def convert_iso_timestamp_to_human_readable(iso)
+    t = Time.parse(iso).in_time_zone
+    t.strftime('%B %e, %Y %l:%M%P')
   end
 end

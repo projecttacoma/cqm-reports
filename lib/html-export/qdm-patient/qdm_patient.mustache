@@ -22,9 +22,9 @@
         </div>
         <div class="div-head-row patient_narr_tr panel panel-default patient-details">
           <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Date of birth</span></div>
-          <div class="div-table-head">{{{birthdate}}}</div>
+          <div class="div-table-head">{{#birthdate}}{{format_time}}{{/birthdate}}</div>
           <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Date of expiration</span></div>
-          <div class="div-table-head">{{{expiration}}}</div>
+          <div class="div-table-head">{{#expiration}}{{format_time}}{{/expiration}}</div>
         </div>
         <div class="div-head-row patient_narr_tr panel panel-default patient-details">
           <div class="div-table-head patient_narr_th panel-heading"><span class="td_label">Race</span></div>

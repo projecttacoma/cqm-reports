@@ -66,7 +66,7 @@ module HTML
       attr = dt.send(field)
       if attr.respond_to?(:strftime)
         # timey object
-        formatted_date = attr.localtime.strftime('%FT%T')
+        formatted_date = attr.localtime.strftime('%B %e, %Y %l:%M%P')
         assert html.include?(formatted_date), html_assertion_msg("date/time", formatted_date, field, dt)
       elsif attr.is_a?(Array)
         # components, relatedTo (irrelevant), facilityLocations, diagnoses (all code or nested code)
@@ -85,7 +85,7 @@ module HTML
         # qrdaOid
       elsif key_or_field?(attr, :low)
         # interval (may or may not include high)
-        formatted_date = attr.low.strftime('%FT%T')
+        formatted_date = attr.low.strftime('%B %e, %Y %l:%M%P')
         assert html.include?(formatted_date), html_assertion_msg("low", formatted_date, field, dt)
 
       elsif key_or_field?(attr, :code)
