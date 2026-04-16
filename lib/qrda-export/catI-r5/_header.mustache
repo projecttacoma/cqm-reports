@@ -8,14 +8,20 @@
 <!-- QDM-based QRDA templateId -->
 <templateId root="2.16.840.1.113883.10.20.24.1.2" extension="2021-08-01"/>
 <!-- CMS QRDA templateId -->
-{{#ry2026_submission?}}
-<!-- QRDA Category I Report - CMS (V9) -->
-<templateId root="2.16.840.1.113883.10.20.24.1.3" extension="2025-03-01"/>
-{{/ry2026_submission?}}
-{{^ry2026_submission?}}
-<!-- QRDA Category I Report - CMS (V8) -->
-<templateId root="2.16.840.1.113883.10.20.24.1.3" extension="2022-02-01"/>
-{{/ry2026_submission?}}
+{{#ry2027_submission?}}
+  <!-- QRDA Category I Report - CMS (V10) -->
+  <templateId root="2.16.840.1.113883.10.20.24.1.3" extension="2026-05-01"/>
+{{/ry2027_submission?}}
+{{^ry2027_submission?}}
+  {{#ry2026_submission?}}
+  <!-- QRDA Category I Report - CMS (V9) -->
+  <templateId root="2.16.840.1.113883.10.20.24.1.3" extension="2025-03-01"/>
+  {{/ry2026_submission?}}
+  {{^ry2026_submission?}}
+  <!-- QRDA Category I Report - CMS (V8) -->
+  <templateId root="2.16.840.1.113883.10.20.24.1.3" extension="2022-02-01"/>
+  {{/ry2026_submission?}}
+{{/ry2027_submission?}}
 <!-- This is the globally unique identifier for this QRDA document -->
 <id root="{{random_id}}"/>
 <!-- QRDA document type code -->
