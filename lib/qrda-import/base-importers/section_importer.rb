@@ -173,11 +173,11 @@ module QRDA
       def extract_frequency_in_hours(parent_element, frequency_xpath)
         # Need to go get low, high and institutionspecified
         low = parent_element.at_xpath("#{frequency_xpath}/@value").value.to_i if parent_element.at_xpath("#{frequency_xpath}/@value")
-        low = parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:low/@value").value.to_i if parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:low/@value")
+        low = parent_element.at_xpath("#{frequency_xpath}/cda:low/@value").value.to_i if parent_element.at_xpath("#{frequency_xpath}/cda:low/@value")
         unit = parent_element.at_xpath("#{frequency_xpath}/@unit").value if parent_element.at_xpath("#{frequency_xpath}/@unit")
-        unit = parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:low/@unit").value if parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:low/@unit")
-        high = parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:high/@value").value.to_i if parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:high/@value")
-        institution_specified = parent_element.at_xpath("#{frequency_xpath}/@institutionSpecified") || false
+        unit = parent_element.at_xpath("#{frequency_xpath}/cda:low/@unit").value if parent_element.at_xpath("#{frequency_xpath}/cda:low/@unit")
+        high = parent_element.at_xpath("#{frequency_xpath}/cda:high/@value").value.to_i if parent_element.at_xpath("#{frequency_xpath}/cda:high/@value")
+        institution_specified = parent_element.at_xpath("#{frequency_xpath}").parent.at_xpath('@institutionSpecified')&.value&.to_boolean || false
         # Expected units are H (hours) and D (days)
         if unit && unit.upcase == 'D'
           low = low * 24 if low
