@@ -217,7 +217,7 @@ module QRDA
           qrda_type = @entry_class.to_s.split("::")[1]
           @warnings << ValidationError.new(message: "Value with string type found. When possible, it's best practice to use a coded value or scalar. Located in element with QRDA type: #{qrda_type} #{id_str}",
                                            location: value_element.path)
-          return value_element.text
+          return Regexp.escape(value_element.text)
         end
       end
 

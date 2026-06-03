@@ -72,7 +72,7 @@ module Qrda
                             result_value_as_string(self['result'])
                           elsif self['result'].is_a? String
                             begin
-                              DateTime.parse self['result']
+                              DateTime.iso8601 self['result']
                               "<value xsi:type=\"TS\" #{value_or_null_flavor(self['result'])}/>"
                             rescue StandardError
                               "<value xsi:type=\"ST\">#{self['result']}</value>"

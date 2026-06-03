@@ -131,7 +131,7 @@ class QdmPatient < Mustache
 
     # Checks to see if the result is a DateTime value, String, or Numeric
     begin
-      DateTime.parse(self['result'])
+      DateTime.iso8601(self['result'])
     rescue ArgumentError, TypeError
       # If the value is not numeric, just print out the result
       self['result'].is_a?(Numeric) ? trimed_value(self['result']) : self['result']
