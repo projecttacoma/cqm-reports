@@ -173,11 +173,11 @@ module QRDA
       def extract_frequency_in_hours(parent_element, frequency_xpath)
         # Need to go get low, high and institutionspecified
         low = parent_element.at_xpath("#{frequency_xpath}/@value").value.to_i if parent_element.at_xpath("#{frequency_xpath}/@value")
-        low = parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:low/@value").value.to_i if parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:low/@value")
+        low = parent_element.at_xpath("#{frequency_xpath}/cda:low/@value").value.to_i if parent_element.at_xpath("#{frequency_xpath}/cda:low/@value")
         unit = parent_element.at_xpath("#{frequency_xpath}/@unit").value if parent_element.at_xpath("#{frequency_xpath}/@unit")
-        unit = parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:low/@unit").value if parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:low/@unit")
-        high = parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:high/@value").value.to_i if parent_element.at_xpath("#{frequency_xpath}/cda:period/cda:high/@value")
-        institution_specified = parent_element.at_xpath("#{frequency_xpath}/@institutionSpecified") || false
+        unit = parent_element.at_xpath("#{frequency_xpath}/cda:low/@unit").value if parent_element.at_xpath("#{frequency_xpath}/cda:low/@unit")
+        high = parent_element.at_xpath("#{frequency_xpath}/cda:high/@value").value.to_i if parent_element.at_xpath("#{frequency_xpath}/cda:high/@value")
+        institution_specified = parent_element.at_xpath(frequency_xpath.to_s)&.parent&.at_xpath('@institutionSpecified')&.value == 'true'
         # Expected units are H (hours) and D (days)
         if unit && unit.upcase == 'D'
           low = low * 24 if low
@@ -217,7 +217,7 @@ module QRDA
           qrda_type = @entry_class.to_s.split("::")[1]
           @warnings << ValidationError.new(message: "Value with string type found. When possible, it's best practice to use a coded value or scalar. Located in element with QRDA type: #{qrda_type} #{id_str}",
                                            location: value_element.path)
-          return value_element.text
+          return Regexp.escape(value_element.text)
         end
       end
 
