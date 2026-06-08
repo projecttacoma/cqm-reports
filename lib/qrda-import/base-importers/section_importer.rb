@@ -177,7 +177,7 @@ module QRDA
         unit = parent_element.at_xpath("#{frequency_xpath}/@unit").value if parent_element.at_xpath("#{frequency_xpath}/@unit")
         unit = parent_element.at_xpath("#{frequency_xpath}/cda:low/@unit").value if parent_element.at_xpath("#{frequency_xpath}/cda:low/@unit")
         high = parent_element.at_xpath("#{frequency_xpath}/cda:high/@value").value.to_i if parent_element.at_xpath("#{frequency_xpath}/cda:high/@value")
-        institution_specified = parent_element.at_xpath("#{frequency_xpath}")&.parent&.at_xpath('@institutionSpecified')&.value == 'true'
+        institution_specified = parent_element.at_xpath(frequency_xpath.to_s)&.parent&.at_xpath('@institutionSpecified')&.value == 'true'
         # Expected units are H (hours) and D (days)
         if unit && unit.upcase == 'D'
           low = low * 24 if low
