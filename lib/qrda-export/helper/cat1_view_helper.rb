@@ -2,6 +2,23 @@ module Qrda
   module Export
     module Helper
       module Cat1ViewHelper
+        def mood_for_id
+          related_id = self['relatedTo']&.first
+          # If there isn't a relatedTo id, return a default mood code
+          return 'EVN' if related_id.blank?
+
+          # Find the qdmStatus for the dataElement for the relatedTo id
+          status = @qdmPatient.dataElements.find { |de| de._id.to_s == related_id }&.qdmStatus
+
+          # Find a corresponding mood code for the qdmStatus.  Default to EVN if none found
+          {
+            'active' => 'EVN', 'administered' => 'EVN', 'dispensed' => 'EVN', 'expired' => 'EVN',
+            'intolerance' => 'EVN', 'payer' => 'EVN', 'performed' => 'EVN',
+            'discharge' => 'RQO', 'order' => 'RQO',
+            'recommended' => 'INT'
+          }.fetch(status, 'EVN')
+        end
+
         def negation_ind
           self[:negationRationale].nil? ? "" : "negationInd=\"true\""
         end
