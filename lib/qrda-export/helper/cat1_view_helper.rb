@@ -7,8 +7,8 @@ module Qrda
           # If there isn't a relatedTo id, return a default mood code
           return 'EVN' if related_id.blank?
 
-          # Find the qdmStatus for the dataElement for the relatedTo id
-          status = @qdmPatient.dataElements.find { |de| de._id.to_s == related_id }&.qdmStatus
+          data_element = @qdmPatient.dataElements.find { |de| de._id.to_s == related_id }
+          return 'EVN' unless data_element && data_element.respond_to?(:qdmStatus)
 
           # Find a corresponding mood code for the qdmStatus.  Default to EVN if none found
           {
@@ -16,7 +16,7 @@ module Qrda
             'intolerance' => 'EVN', 'payer' => 'EVN', 'performed' => 'EVN',
             'discharge' => 'RQO', 'order' => 'RQO',
             'recommended' => 'INT'
-          }.fetch(status, 'EVN')
+          }.fetch(data_element.qdmStatus, 'EVN')
         end
 
         def negation_ind
