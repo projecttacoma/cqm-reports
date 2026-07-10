@@ -11,6 +11,16 @@ module QRDA
 
       def create_entry(entry_element, nrh = NarrativeReferenceHandler.new)
         patient_characteristic_payer = super
+        return patient_characteristic_payer unless patient_characteristic_payer.dataElementCodes.blank?
+
+        null_flavor = entry_element.at_xpath(code_xpath)&.[]('nullFlavor')
+
+        if null_flavor
+          patient_characteristic_payer.dataElementCodes = [
+            { code: null_flavor, system: 'NA' }
+          ]
+        end
+
         patient_characteristic_payer
       end
 
