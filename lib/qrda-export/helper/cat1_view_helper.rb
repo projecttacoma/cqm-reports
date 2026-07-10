@@ -8,7 +8,7 @@ module Qrda
           return 'EVN' if related_id.blank?
 
           data_element = @qdmPatient.dataElements.find { |de| de._id.to_s == related_id }
-          return 'EVN' unless data_element&.respond_to?(:qdmStatus)
+          return 'EVN' unless data_element.respond_to?(:qdmStatus)
 
           # Find a corresponding mood code for the qdmStatus.  Default to EVN if none found
           {
