@@ -15,10 +15,6 @@ module Qrda
           self['value']
         end
 
-        def object_id
-          self[:_id]
-        end
-
         def submission_program
           @submission_program
         end
